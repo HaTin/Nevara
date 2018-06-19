@@ -5,11 +5,7 @@ VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nevara", "Nevara\Nevara.csproj", "{C6C361A6-2593-4958-8C9D-DAEEA2342F12}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{9A1C45C5-8735-4293-80FE-1F7E68792BA7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nevara.Infrastructure", "Nevara.Infrastructure\Nevara.Infrastructure.csproj", "{0010C3A4-9C93-43D4-9DDF-17CC4732A966}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationCore", "ApplicationCore", "{A7109275-FB26-4503-A6C8-B141335F23A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nevara.Application", "Nevara.Application\Nevara.Application.csproj", "{56A86D96-6BB6-4E52-BE52-D388545BAB6B}"
 EndProject
@@ -40,11 +36,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{0010C3A4-9C93-43D4-9DDF-17CC4732A966} = {9A1C45C5-8735-4293-80FE-1F7E68792BA7}
-		{56A86D96-6BB6-4E52-BE52-D388545BAB6B} = {A7109275-FB26-4503-A6C8-B141335F23A9}
-		{839A16BD-4B27-4DFB-AA78-D2C1CEBF2D6A} = {A7109275-FB26-4503-A6C8-B141335F23A9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F042FAA-C9BD-496B-BF0D-5C1F0D2961C5}
