@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Nevara.Data\Nevara.Data.csproj" />
+    <ProjectReference Include="..\Nevara.Infrastructure\Nevara.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

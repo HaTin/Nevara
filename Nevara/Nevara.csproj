@@ -17,4 +17,9 @@
     <Folder Include="ViewModels\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Nevara.Application\Nevara.Application.csproj" />
+    <ProjectReference Include="..\Nevara.Data\Nevara.Data.csproj" />
+  </ItemGroup>
+
 </Project>

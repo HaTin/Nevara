@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nevara.Application", "Nevar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nevara.Data", "Nevara.Data\Nevara.Data.csproj", "{839A16BD-4B27-4DFB-AA78-D2C1CEBF2D6A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Presentation", "1-Presentation", "{607B8C96-30BF-4887-B62F-26A032392DBA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Application", "2-Application", "{E6CA04C3-6175-4C1F-A2D9-3B598538C7C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Infrastructure", "3-Infrastructure", "{E217C898-BBF8-4546-872A-0D51B89519B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +42,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C6C361A6-2593-4958-8C9D-DAEEA2342F12} = {607B8C96-30BF-4887-B62F-26A032392DBA}
+		{0010C3A4-9C93-43D4-9DDF-17CC4732A966} = {E217C898-BBF8-4546-872A-0D51B89519B6}
+		{56A86D96-6BB6-4E52-BE52-D388545BAB6B} = {E6CA04C3-6175-4C1F-A2D9-3B598538C7C8}
+		{839A16BD-4B27-4DFB-AA78-D2C1CEBF2D6A} = {E6CA04C3-6175-4C1F-A2D9-3B598538C7C8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F042FAA-C9BD-496B-BF0D-5C1F0D2961C5}

@@ -6,6 +6,6 @@ namespace Nevara.Data.SharedKernel
 {
     public class RemoveEntity
     {
-        public bool isRemoved { get; set; }
+        
     }
 }
