@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Nevara.Data.Enum;
 
 namespace Nevara.Data.Interfaces
 {
-    public interface ISwitchable
+    interface IRemovable
     {
-        Status Status { get; set; }
+        bool? IsRemoved { get; set; }
     }
 }

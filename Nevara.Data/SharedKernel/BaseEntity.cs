@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Nevara.Data.SharedKernel
 {
-    public class BaseEntity<T>
+    public class BaseEntity
     {
-        public T Id { get; set; }
-        // true if domain entity has an entity
-        public bool IsTransient()
-        {
-            return Id.Equals(default(T));
-        }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; }
+        
     }
 }
