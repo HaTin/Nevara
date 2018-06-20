@@ -22,6 +22,7 @@ namespace Nevara.Data.Entities
         public decimal PromotionPrice { get; set; }
         [Required]
         public int CategoryId { get; set; }
+        public int ColorId { get; set; }
         public int? Quantity { get; set; }
         [Required]
         [StringLength(20)]
@@ -31,6 +32,8 @@ namespace Nevara.Data.Entities
         public bool? HotFlag { get; set; }
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
+        [ForeignKey("ColorId")]
+        public virtual Color Color { get; set; }
         public Status Status { get; set; }
         public bool? IsRemoved { get; set; }
 
