@@ -42,7 +42,8 @@ namespace Nevara
                 {
                     UserName = "admin",
                     FullName = "ha tin",
-                    Email = "admin@gmail.com",                                       
+                    Email = "admin@gmail.com",
+                    Avatar = "/admin-client/assets/images/users/1.jpg"
                 },"123456");
                 var user = await _userManager.FindByNameAsync("admin");
                 await _userManager.AddToRoleAsync(user, "Admin");
