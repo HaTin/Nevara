@@ -26,7 +26,7 @@ namespace Nevara
                 }
                 catch (Exception e)
                 {
-                    
+          
                 }
             }
             host.Run();

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Nevara.Migrations
 {
-    public partial class initial : Migration
+    public partial class @new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,7 +58,8 @@ namespace Nevara.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 255, nullable: false),
                     Image = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
@@ -76,7 +77,7 @@ namespace Nevara.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CollectionName = table.Column<string>(maxLength: 255, nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    Image = table.Column<string>(maxLength: 50, nullable: false),
+                    Image = table.Column<string>(maxLength: 50, nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -91,7 +92,7 @@ namespace Nevara.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ColorName = table.Column<string>(maxLength: 50, nullable: false),
-                    Code = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Code = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -282,8 +283,8 @@ namespace Nevara.Migrations
                     MaterialId = table.Column<int>(nullable: false),
                     CollectionId = table.Column<int>(nullable: false),
                     ManufacturerId = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    Unit = table.Column<string>(maxLength: 20, nullable: false),
+                    Quantity = table.Column<int>(nullable: true),
+                    Unit = table.Column<string>(maxLength: 20, nullable: true),
                     HomeFlag = table.Column<bool>(nullable: true),
                     NewFlag = table.Column<bool>(nullable: true),
                     HotFlag = table.Column<bool>(nullable: true),
@@ -363,6 +364,78 @@ namespace Nevara.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Image", "IsDeleted", "Name" },
+                values: new object[,]
+                {
+                    { 1, "/images/Category/cat3.jpg", false, "Beds" },
+                    { 2, "/images/Category/cat1.jpg", false, "Tables" },
+                    { 3, "/images/Category/cat2.jpg", false, "Chair" },
+                    { 4, "/images/Category/cat2.jpg", false, "Kitchen Furniture" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Collections",
+                columns: new[] { "Id", "CollectionName", "Description", "Image", "IsDeleted" },
+                values: new object[,]
+                {
+                    { 1, "Autumn", "This is autumn description", null, false },
+                    { 2, "Fall", "This is autumn description", null, false },
+                    { 3, "Summner", "This is autumn description", null, false },
+                    { 4, "Spring", "This is autumn description", null, false }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Colors",
+                columns: new[] { "Id", "Code", "ColorName", "IsDeleted" },
+                values: new object[,]
+                {
+                    { 4, "#000000", "White", false },
+                    { 3, "#29ab87", "Green", false },
+                    { 1, "#d80000", "Red", false },
+                    { 2, "#0099cc", "Blue", false }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Manufacturers",
+                columns: new[] { "Id", "IsDeleted", "ManufacturerName" },
+                values: new object[,]
+                {
+                    { 1, false, "Yokohama" },
+                    { 2, false, "Samsung" },
+                    { 3, false, "Honda" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Materials",
+                columns: new[] { "Id", "IsDeleted", "MaterialName" },
+                values: new object[,]
+                {
+                    { 2, false, "Plastic" },
+                    { 1, false, "Wood" },
+                    { 3, false, "Wood" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "CategoryId", "CollectionId", "ColorId", "Depth", "Height", "HomeFlag", "HotFlag", "IsDeleted", "ManufacturerId", "MaterialId", "Name", "NewFlag", "Price", "PromotionPrice", "Quantity", "Thumbnail", "Unit", "Width" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, 1, null, null, null, null, false, 1, 1, "Bed 1", null, 2000m, null, null, "/images/Product/pro1.jpg", null, null },
+                    { 4, 2, 1, 1, null, null, null, null, false, 1, 1, "Table 1", null, 2000m, null, null, "/images/Product/pro1.jpg", null, null },
+                    { 7, 3, 1, 1, null, null, null, null, false, 1, 1, "Chair 1", null, 2000m, null, null, "/images/Product/pro1.jpg", null, null },
+                    { 10, 4, 1, 4, null, null, null, null, false, 1, 1, "Kitchen 1 ", null, 2000m, null, null, "/images/Product/pro1.jpg", null, null },
+                    { 2, 1, 1, 1, null, null, null, null, false, 2, 2, "Bed 2", null, 3000m, null, null, "/images/Product/pro2.jpg", null, null },
+                    { 5, 2, 1, 2, null, null, null, null, false, 2, 2, "Table 2", null, 2000m, null, null, "/images/Product/pro2.jpg", null, null },
+                    { 8, 3, 1, 2, null, null, null, null, false, 2, 2, "Chair 2", null, 1000m, null, null, "/images/Product/pro2.jpg", null, null },
+                    { 11, 4, 1, 1, null, null, null, null, false, 2, 2, "Kitchen 2", null, 2000m, null, null, "/images/Product/pro2.jpg", null, null },
+                    { 3, 1, 1, 1, null, null, null, null, false, 2, 3, "Bed 3", null, 2000m, null, null, "/images/Product/pro2.jpg", null, null },
+                    { 6, 2, 1, 3, null, null, null, null, false, 2, 3, "Table 3", null, 1000m, null, null, "/images/Product/pro2.jpg", null, null },
+                    { 9, 3, 1, 3, null, null, null, null, false, 2, 3, "Chair 3", null, 5000m, null, null, "/images/Product/pro2.jpg", null, null },
+                    { 12, 4, 1, 2, null, null, null, null, false, 2, 3, "Kitchen 3", null, 2000m, null, null, "/images/Product/pro2.jpg", null, null }
                 });
 
             migrationBuilder.CreateIndex(

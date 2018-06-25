@@ -11,8 +11,7 @@ namespace Nevara.Models.Entities
     [Table("Categories")]
     public class Category : IHasSoftDelete
     {
-
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
         [StringLength(255)]

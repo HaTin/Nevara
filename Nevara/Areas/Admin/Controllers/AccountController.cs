@@ -35,10 +35,10 @@ namespace Nevara.Areas.Admin.Controllers
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
-            /*if ( _signInManager.IsSignedIn(User))
+            if ( _signInManager.IsSignedIn(User))
             {
                 return RedirectToLocal("/admin/home");
-            }*/
+            }
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }

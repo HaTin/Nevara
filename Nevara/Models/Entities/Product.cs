@@ -9,8 +9,8 @@ namespace Nevara.Models.Entities
     [Table("Products")]
     public class Product : IHasSoftDelete
     {
-        
-            
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
        
@@ -38,9 +38,8 @@ namespace Nevara.Models.Entities
         public int MaterialId { get; set; }
         public int CollectionId { get; set; }
         public int ManufacturerId { get; set; }
-        [Required]      
+
         public int? Quantity { get; set; }
-        [Required]
         [StringLength(20)]      
         public string Unit { get; set; }       
         public bool? HomeFlag { get; set; }      

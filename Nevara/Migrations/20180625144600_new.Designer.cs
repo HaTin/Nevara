@@ -10,8 +10,8 @@ using Nevara;
 namespace Nevara.Migrations
 {
     [DbContext(typeof(NevaraDbContext))]
-    [Migration("20180625071610_initial")]
-    partial class initial
+    [Migration("20180625144600_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -202,7 +202,9 @@ namespace Nevara.Migrations
 
             modelBuilder.Entity("Nevara.Models.Entities.Category", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -218,6 +220,13 @@ namespace Nevara.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new { Id = 1, Image = "/images/Category/cat3.jpg", IsDeleted = false, Name = "Beds" },
+                        new { Id = 2, Image = "/images/Category/cat1.jpg", IsDeleted = false, Name = "Tables" },
+                        new { Id = 3, Image = "/images/Category/cat2.jpg", IsDeleted = false, Name = "Chair" },
+                        new { Id = 4, Image = "/images/Category/cat2.jpg", IsDeleted = false, Name = "Kitchen Furniture" }
+                    );
                 });
 
             modelBuilder.Entity("Nevara.Models.Entities.Collection", b =>
@@ -233,7 +242,6 @@ namespace Nevara.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<bool>("IsDeleted");
@@ -241,6 +249,13 @@ namespace Nevara.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Collections");
+
+                    b.HasData(
+                        new { Id = 1, CollectionName = "Autumn", Description = "This is autumn description", IsDeleted = false },
+                        new { Id = 2, CollectionName = "Fall", Description = "This is autumn description", IsDeleted = false },
+                        new { Id = 3, CollectionName = "Summner", Description = "This is autumn description", IsDeleted = false },
+                        new { Id = 4, CollectionName = "Spring", Description = "This is autumn description", IsDeleted = false }
+                    );
                 });
 
             modelBuilder.Entity("Nevara.Models.Entities.Color", b =>
@@ -250,7 +265,6 @@ namespace Nevara.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
@@ -263,6 +277,13 @@ namespace Nevara.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Colors");
+
+                    b.HasData(
+                        new { Id = 1, Code = "#d80000", ColorName = "Red", IsDeleted = false },
+                        new { Id = 2, Code = "#0099cc", ColorName = "Blue", IsDeleted = false },
+                        new { Id = 3, Code = "#29ab87", ColorName = "Green", IsDeleted = false },
+                        new { Id = 4, Code = "#000000", ColorName = "White", IsDeleted = false }
+                    );
                 });
 
             modelBuilder.Entity("Nevara.Models.Entities.Image", b =>
@@ -297,6 +318,12 @@ namespace Nevara.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Manufacturers");
+
+                    b.HasData(
+                        new { Id = 1, IsDeleted = false, ManufacturerName = "Yokohama" },
+                        new { Id = 2, IsDeleted = false, ManufacturerName = "Samsung" },
+                        new { Id = 3, IsDeleted = false, ManufacturerName = "Honda" }
+                    );
                 });
 
             modelBuilder.Entity("Nevara.Models.Entities.Material", b =>
@@ -314,6 +341,12 @@ namespace Nevara.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Materials");
+
+                    b.HasData(
+                        new { Id = 1, IsDeleted = false, MaterialName = "Wood" },
+                        new { Id = 2, IsDeleted = false, MaterialName = "Plastic" },
+                        new { Id = 3, IsDeleted = false, MaterialName = "Wood" }
+                    );
                 });
 
             modelBuilder.Entity("Nevara.Models.Entities.Order", b =>
@@ -412,8 +445,7 @@ namespace Nevara.Migrations
 
                     b.Property<decimal?>("PromotionPrice");
 
-                    b.Property<int?>("Quantity")
-                        .IsRequired();
+                    b.Property<int?>("Quantity");
 
                     b.Property<string>("Thumbnail")
                         .IsRequired()
@@ -421,7 +453,6 @@ namespace Nevara.Migrations
                         .HasMaxLength(255);
 
                     b.Property<string>("Unit")
-                        .IsRequired()
                         .HasMaxLength(20);
 
                     b.Property<double?>("Width");
@@ -439,6 +470,21 @@ namespace Nevara.Migrations
                     b.HasIndex("MaterialId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new { Id = 1, CategoryId = 1, CollectionId = 1, ColorId = 1, IsDeleted = false, ManufacturerId = 1, MaterialId = 1, Name = "Bed 1", Price = 2000m, Thumbnail = "/images/Product/pro1.jpg" },
+                        new { Id = 2, CategoryId = 1, CollectionId = 1, ColorId = 1, IsDeleted = false, ManufacturerId = 2, MaterialId = 2, Name = "Bed 2", Price = 3000m, Thumbnail = "/images/Product/pro2.jpg" },
+                        new { Id = 3, CategoryId = 1, CollectionId = 1, ColorId = 1, IsDeleted = false, ManufacturerId = 2, MaterialId = 3, Name = "Bed 3", Price = 2000m, Thumbnail = "/images/Product/pro2.jpg" },
+                        new { Id = 4, CategoryId = 2, CollectionId = 1, ColorId = 1, IsDeleted = false, ManufacturerId = 1, MaterialId = 1, Name = "Table 1", Price = 2000m, Thumbnail = "/images/Product/pro1.jpg" },
+                        new { Id = 5, CategoryId = 2, CollectionId = 1, ColorId = 2, IsDeleted = false, ManufacturerId = 2, MaterialId = 2, Name = "Table 2", Price = 2000m, Thumbnail = "/images/Product/pro2.jpg" },
+                        new { Id = 6, CategoryId = 2, CollectionId = 1, ColorId = 3, IsDeleted = false, ManufacturerId = 2, MaterialId = 3, Name = "Table 3", Price = 1000m, Thumbnail = "/images/Product/pro2.jpg" },
+                        new { Id = 7, CategoryId = 3, CollectionId = 1, ColorId = 1, IsDeleted = false, ManufacturerId = 1, MaterialId = 1, Name = "Chair 1", Price = 2000m, Thumbnail = "/images/Product/pro1.jpg" },
+                        new { Id = 8, CategoryId = 3, CollectionId = 1, ColorId = 2, IsDeleted = false, ManufacturerId = 2, MaterialId = 2, Name = "Chair 2", Price = 1000m, Thumbnail = "/images/Product/pro2.jpg" },
+                        new { Id = 9, CategoryId = 3, CollectionId = 1, ColorId = 3, IsDeleted = false, ManufacturerId = 2, MaterialId = 3, Name = "Chair 3", Price = 5000m, Thumbnail = "/images/Product/pro2.jpg" },
+                        new { Id = 10, CategoryId = 4, CollectionId = 1, ColorId = 4, IsDeleted = false, ManufacturerId = 1, MaterialId = 1, Name = "Kitchen 1 ", Price = 2000m, Thumbnail = "/images/Product/pro1.jpg" },
+                        new { Id = 11, CategoryId = 4, CollectionId = 1, ColorId = 1, IsDeleted = false, ManufacturerId = 2, MaterialId = 2, Name = "Kitchen 2", Price = 2000m, Thumbnail = "/images/Product/pro2.jpg" },
+                        new { Id = 12, CategoryId = 4, CollectionId = 1, ColorId = 2, IsDeleted = false, ManufacturerId = 2, MaterialId = 3, Name = "Kitchen 3", Price = 2000m, Thumbnail = "/images/Product/pro2.jpg" }
+                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

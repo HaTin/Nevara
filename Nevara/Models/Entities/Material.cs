@@ -10,9 +10,8 @@ namespace Nevara.Models.Entities
 {
     [Table("Materials")]
     public class Material : IHasSoftDelete
-
-    {
-    
+    {    
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }        
     [Required]
     [StringLength(255)]

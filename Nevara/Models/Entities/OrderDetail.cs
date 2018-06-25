@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Nevara.Models.Entities
 {
+    [Table("OrderDetails")]
     public class OrderDetail
     {
-       
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int OrderId { get; set; }
         public int Quantity { get; set; }
