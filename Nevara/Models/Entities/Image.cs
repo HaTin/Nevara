@@ -10,7 +10,7 @@ namespace Nevara.Models.Entities
     [Table("Images")]
     public class Image
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+   
         public int Id { get; set; }
         [StringLength(255)]
         [Column(TypeName = "varchar(255)")]

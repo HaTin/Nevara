@@ -12,7 +12,7 @@ namespace Nevara.Models.Entities
     [Table("Orders")]
     public class Order : IHasSoftDelete
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+       
         public int Id { get; set; }
         [Required]
         [StringLength(255)]

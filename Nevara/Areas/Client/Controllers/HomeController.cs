@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Nevara.Areas.Admin.Controllers
+namespace Nevara.Areas.Client.Controllers
 {
- 
-    [Authorize]
-    [Area("Admin")]
     public class HomeController : Controller
     {
         public IActionResult Index()
@@ -17,5 +13,4 @@ namespace Nevara.Areas.Admin.Controllers
             return View();
         }
     }
-   
 }

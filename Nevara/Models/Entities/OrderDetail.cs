@@ -8,7 +8,7 @@ namespace Nevara.Models.Entities
 {
     public class OrderDetail
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+       
         public int Id { get; set; }
         public int OrderId { get; set; }
         public int Quantity { get; set; }

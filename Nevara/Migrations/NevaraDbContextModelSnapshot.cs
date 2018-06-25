@@ -220,7 +220,9 @@ namespace Nevara.Migrations
 
             modelBuilder.Entity("Nevara.Models.Entities.Collection", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CollectionName")
                         .IsRequired()
@@ -241,7 +243,9 @@ namespace Nevara.Migrations
 
             modelBuilder.Entity("Nevara.Models.Entities.Color", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -261,7 +265,9 @@ namespace Nevara.Migrations
 
             modelBuilder.Entity("Nevara.Models.Entities.Image", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ImagePath")
                         .HasColumnType("varchar(255)")
@@ -278,7 +284,9 @@ namespace Nevara.Migrations
 
             modelBuilder.Entity("Nevara.Models.Entities.Manufacturer", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("IsDeleted");
 
@@ -291,7 +299,9 @@ namespace Nevara.Migrations
 
             modelBuilder.Entity("Nevara.Models.Entities.Material", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("IsDeleted");
 
@@ -306,7 +316,9 @@ namespace Nevara.Migrations
 
             modelBuilder.Entity("Nevara.Models.Entities.Order", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("BillStatus");
 
@@ -343,7 +355,9 @@ namespace Nevara.Migrations
 
             modelBuilder.Entity("Nevara.Models.Entities.OrderDetail", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("OrderId");
 
@@ -360,7 +374,9 @@ namespace Nevara.Migrations
 
             modelBuilder.Entity("Nevara.Models.Entities.Product", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CategoryId");
 
@@ -396,6 +412,11 @@ namespace Nevara.Migrations
 
                     b.Property<int?>("Quantity")
                         .IsRequired();
+
+                    b.Property<string>("Thumbnail")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)")
+                        .HasMaxLength(255);
 
                     b.Property<string>("Unit")
                         .IsRequired()

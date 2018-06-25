@@ -9,7 +9,7 @@ namespace Nevara.Models.Entities
 {
     public class Manufacturer : IHasSoftDelete
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+       
         public int Id { get; set; }
         public string ManufacturerName { get; set; }
         public bool IsDeleted { get; set; }

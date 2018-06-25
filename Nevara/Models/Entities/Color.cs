@@ -8,7 +8,7 @@ namespace Nevara.Models.Entities
     [Table("Colors")]
     public class Color : IHasSoftDelete
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+  
         public int Id { get; set; }
         [Required]
         [StringLength(50)]

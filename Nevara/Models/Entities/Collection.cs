@@ -10,7 +10,7 @@ namespace Nevara.Models.Entities
 {
     public class Collection : IHasSoftDelete
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        
         public int Id { get; set; }
         [Required]
         [StringLength(255)]

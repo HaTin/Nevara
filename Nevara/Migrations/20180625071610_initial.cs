@@ -1,10 +1,11 @@
 ﻿using System;
+using EfCore.Shaman;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Nevara.Migrations
 {
-    public partial class @new : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -71,7 +72,8 @@ namespace Nevara.Migrations
                 name: "Collections",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CollectionName = table.Column<string>(maxLength: 255, nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Image = table.Column<string>(maxLength: 50, nullable: false),
@@ -86,7 +88,8 @@ namespace Nevara.Migrations
                 name: "Colors",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ColorName = table.Column<string>(maxLength: 50, nullable: false),
                     Code = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
@@ -100,7 +103,8 @@ namespace Nevara.Migrations
                 name: "Manufacturers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ManufacturerName = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
@@ -113,7 +117,8 @@ namespace Nevara.Migrations
                 name: "Materials",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     MaterialName = table.Column<string>(maxLength: 255, nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
@@ -235,7 +240,8 @@ namespace Nevara.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CustomerName = table.Column<string>(maxLength: 255, nullable: false),
                     CustomerMobile = table.Column<string>(maxLength: 20, nullable: false),
                     CustomerAddress = table.Column<string>(maxLength: 255, nullable: false),
@@ -262,10 +268,12 @@ namespace Nevara.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 255, nullable: false),
                     Width = table.Column<double>(nullable: true),
                     Height = table.Column<double>(nullable: true),
+                    Thumbnail = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     Depth = table.Column<double>(nullable: true),
                     Price = table.Column<decimal>(nullable: false, defaultValue: 0m),
                     PromotionPrice = table.Column<decimal>(nullable: true),
@@ -320,7 +328,8 @@ namespace Nevara.Migrations
                 name: "OrderDetails",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     OrderId = table.Column<int>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false)
@@ -340,7 +349,8 @@ namespace Nevara.Migrations
                 name: "Images",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ImagePath = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
                     ProductId = table.Column<int>(nullable: true)
                 },
@@ -423,6 +433,7 @@ namespace Nevara.Migrations
                 name: "IX_Products_MaterialId",
                 table: "Products",
                 column: "MaterialId");
+            migrationBuilder.FixMigrationUp<NevaraDbContext>();
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

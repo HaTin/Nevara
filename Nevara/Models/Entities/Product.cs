@@ -10,7 +10,7 @@ namespace Nevara.Models.Entities
     public class Product : IHasSoftDelete
     {
         
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+            
         public int Id { get; set; }
         [Required]
        
@@ -20,8 +20,10 @@ namespace Nevara.Models.Entities
         public double? Width { get; set; }
    
         public double? Height { get; set; }
-
- 
+        [Column(TypeName = "varchar(255)")]
+        [StringLength(255)]
+        [Required]
+        public string Thumbnail { get; set; }
         public double? Depth { get; set; }
         [Required]
         [DefaultValue(0)]
@@ -45,9 +47,11 @@ namespace Nevara.Models.Entities
         public bool? NewFlag { get; set; }      
         public bool? HotFlag { get; set; }            
         
-        public bool IsDeleted { get; set; }        
+        public bool IsDeleted { get; set; }    
+        
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
+
         [ForeignKey("ColorId")]
         public  Color Color { get; set; }
         [ForeignKey("MaterialId")]
