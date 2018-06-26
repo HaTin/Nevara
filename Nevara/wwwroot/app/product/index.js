@@ -62,7 +62,7 @@
                                 Thumbnail: item.Thumbnail == null
                                     ? '<img src="/admin-side/images/user.png" width=35'
                                     : '<img src="' + item.Thumbnail + '" width=35 />',
-                                CategoryName: item.Category.Name,
+                                CategoryName: item.CategoryName,
                                 Price: common.formatNumber(item.Price, 0),
                                 Quantity : item.Quantity                                        
                             });

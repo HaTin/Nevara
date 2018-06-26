@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Nevara.Areas.Admin.Helpers;
-using Nevara.Areas.Admin.Interfaces;
+using Nevara.Interfaces;
 using Nevara.Models.Entities;
 using Nevara.Services;
 using Newtonsoft.Json.Serialization;
@@ -66,6 +66,7 @@ namespace Nevara
                 // the path to /Account/AccessDenied.
                // options.AccessDeniedPath = "/Admin/AccessDenied";
             });
+            services.AddMiniProfiler().AddEntityFramework();
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipleFactory>();
@@ -90,7 +91,8 @@ namespace Nevara
             }
 
             app.UseStaticFiles();
-            app.UseAuthentication();            
+            app.UseAuthentication();
+            app.UseMiniProfiler();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

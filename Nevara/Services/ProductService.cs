@@ -1,11 +1,12 @@
-﻿using Nevara.Areas.Admin.Interfaces;
-using Nevara.Dtos;
+﻿using Nevara.Dtos;
 using Nevara.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Nevara.Areas.Admin.Models;
+using Nevara.Interfaces;
 
 namespace Nevara.Services
 {
@@ -16,18 +17,9 @@ namespace Nevara.Services
         {
             _context = context;
         }
-        public PageResult<Product> GetProduct(int? categoryId, string keyword, int page, int pageSize)
+        public PageResult<ProductViewModel> GetProduct(int? categoryId, string keyword, int page, int pageSize)
         {
-            var query = _context.Products.Where(p => p.IsDeleted == false).Select(p => new Product()
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Category = p.Category,
-                Price = p.Price,
-                Thumbnail = p.Thumbnail,
-                Quantity = p.Quantity,
-            });
-   
+            var query = _context.Products.AsQueryable();
             if (!string.IsNullOrEmpty(keyword))
             {
                 query = query.Where(x => x.Name.Contains(keyword));
@@ -37,10 +29,19 @@ namespace Nevara.Services
             {
                 query = query.Where(x => x.CategoryId == categoryId);
             }
-            int totalRow = query.Count();
+            int totalRow = query.Count();            
             query = query.OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize);
-            var data = query.ToList();
-            var paginationSet = new PageResult<Product>()
+            var data = query.Select(p => new ProductViewModel()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    CategoryName = p.Category.Name,
+                    Price = p.Price,
+                    Thumbnail = p.Thumbnail,
+                    Quantity = p.Quantity,
+                }).
+                ToList();
+            var paginationSet = new PageResult<ProductViewModel>()
             {
                 Results = data,
                 CurrentPage = page,

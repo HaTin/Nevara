@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Nevara.Areas.Admin.Interfaces;
+using Nevara.Interfaces;
 
 namespace Nevara.Areas.Admin.Controllers
 {

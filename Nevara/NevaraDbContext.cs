@@ -22,7 +22,15 @@ namespace Nevara
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-    
+            /*builder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
+            builder.Entity<Category>().HasQueryFilter(p => !p.IsDeleted);
+            builder.Entity<Manufacturer>().HasQueryFilter(p => !p.IsDeleted);            
+            builder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
+            builder.Entity<Collection>().HasQueryFilter(p => !p.IsDeleted);
+            builder.Entity<AppUser>().HasQueryFilter(p => !p.IsDeleted);
+            builder.Entity<Material>().HasQueryFilter(p => !p.IsDeleted);*/
+
+
             #region seed data
             builder.Entity<Color>().HasData(
                 new Color() {Id = 1, ColorName = "Red", Code = "#d80000", IsDeleted = false },
@@ -128,7 +136,8 @@ namespace Nevara
                     MaterialId = 2,
                     Price = 3000,
                     IsDeleted = false,
-                    CategoryId = 1
+                    CategoryId = 1,
+                    Quantity = 10
                 },
                 new Product()
                 {
@@ -145,6 +154,7 @@ namespace Nevara
                 },
                 new Product()
                 {
+                    Quantity = 10,
                     ColorId = 1,
                     Id = 4,
                     Name = "Table 1",
@@ -158,6 +168,7 @@ namespace Nevara
                 },
                 new Product()
                 {
+                    Quantity = 20,
                     ColorId = 2,
                     Id = 5,
                     Name = "Table 2",
@@ -171,6 +182,7 @@ namespace Nevara
                 },
                 new Product()
                 {
+                    Quantity = 50,
                     ColorId = 3,
                     Id = 6,
                     Name = "Table 3",
@@ -184,6 +196,7 @@ namespace Nevara
                 },
                 new Product()
                 {
+                    Quantity = 25,
                     ColorId = 1,
                     Id = 7,
                     Name = "Chair 1",
@@ -197,6 +210,7 @@ namespace Nevara
                 },
                 new Product()
                 {
+                    Quantity = 30,
                     ColorId = 2,
                     Id = 8,
                     Name = "Chair 2",
@@ -262,9 +276,7 @@ namespace Nevara
                     CategoryId = 4
                 }
                 );
-            #endregion
-
-
+            #endregion            
             builder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims").HasKey(x => x.Id);
             builder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims").HasKey(x => x.Id);
             builder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
