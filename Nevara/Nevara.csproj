@@ -11,13 +11,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="1.0.20" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Models\SharedKernel\" />
     <Folder Include="vendor\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

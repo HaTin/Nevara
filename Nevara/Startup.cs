@@ -13,7 +13,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Nevara.Areas.Admin.Helpers;
+using Nevara.Areas.Admin.Interfaces;
 using Nevara.Models.Entities;
+using Nevara.Services;
+using Newtonsoft.Json.Serialization;
 
 namespace Nevara
 {
@@ -67,8 +70,9 @@ namespace Nevara
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipleFactory>();
             services.AddTransient<DbSeed>();
-            services.AddMvc();
-
+            services.AddMvc().AddJsonOptions(opt => opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            // Services
+            services.AddTransient<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
