@@ -6,6 +6,6 @@ namespace Nevara.Interfaces
 {
     public interface IProductService
     {
-        PageResult<ProductViewModel> GetProduct(int? categoryId, string keyword, int page, int pageSize);
+        PageResult<ProductViewModel> GetProduct(int? categoryId,int? collectionId, string keyword, int page, int pageSize);
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Nevara.Areas.Admin.Models;
 using Nevara.Interfaces;
+using StackExchange.Profiling.Internal;
 
 namespace Nevara.Services
 {
@@ -17,17 +18,21 @@ namespace Nevara.Services
         {
             _context = context;
         }
-        public PageResult<ProductViewModel> GetProduct(int? categoryId, string keyword, int page, int pageSize)
+        public PageResult<ProductViewModel> GetProduct(int? categoryId,int? collectionId, string keyword, int page, int pageSize)
         {
             var query = _context.Products.AsQueryable();
             if (!string.IsNullOrEmpty(keyword))
             {
-                query = query.Where(x => x.Name.Contains(keyword));
+                query = query.Where(x => x.Name.Contains(keyword, StringComparison.CurrentCultureIgnoreCase));
             }
-
+      
             if (categoryId.HasValue)
             {
                 query = query.Where(x => x.CategoryId == categoryId);
+            }
+            if (collectionId.HasValue)
+            {
+                query = query.Where(x => x.CollectionId == collectionId);
             }
             int totalRow = query.Count();            
             query = query.OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize);

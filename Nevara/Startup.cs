@@ -74,6 +74,8 @@ namespace Nevara
             services.AddMvc().AddJsonOptions(opt => opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
             // Services
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ICollectionService, CollectionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

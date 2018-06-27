@@ -12,18 +12,38 @@ namespace Nevara.Areas.Admin.Controllers
     [Area("Admin")]
     public class ProductController : Controller
     {
+        private readonly ICategoryService _categoryService;
+        private readonly ICollectionService _collectionService;
         private readonly IProductService _productService;
-        public ProductController(IProductService productService)
+
+        public ProductController(ICategoryService categoryService, ICollectionService collectionService, IProductService productService)
         {
+            _categoryService = categoryService;
+            _collectionService = collectionService;
             _productService = productService;
         }
+
         public IActionResult Index()
         {
             return View();
         }
-        public IActionResult GetProduct(int? categoryId, string keyword, int page, int pageSize)
+        [HttpGet]
+        public IActionResult GetProduct(int? categoryId,int? collectionId, string keyword, int page, int pageSize)
         {
-            var model = _productService.GetProduct(categoryId, keyword, page, pageSize);
+            var model = _productService.GetProduct(categoryId,collectionId, keyword, page, pageSize);
+            return new OkObjectResult(model);
+        }
+
+        [HttpGet]
+        public IActionResult GetCategories()
+        {
+            var model = _categoryService.GetCategories();
+            return new OkObjectResult(model);
+        }
+        [HttpGet]
+        public IActionResult GetCollections()
+        {
+            var model = _collectionService.GetCollections();
             return new OkObjectResult(model);
         }
     }
