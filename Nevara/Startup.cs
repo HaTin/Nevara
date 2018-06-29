@@ -73,6 +73,7 @@ namespace Nevara
             services.AddTransient<DbSeed>();
             services.AddMvc().AddJsonOptions(opt => opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
             // Services
+            
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ICollectionService, CollectionService>();

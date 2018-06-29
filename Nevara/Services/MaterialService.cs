@@ -8,19 +8,19 @@ using Nevara.Interfaces;
 
 namespace Nevara.Services
 {
-    public class CollectionService : ICollectionService
+    public class MaterialService : IMaterialService
     {
         private readonly NevaraDbContext _context;
-        public CollectionService(NevaraDbContext context)
+        public MaterialService(NevaraDbContext context)
         {
             _context = context;
         }
-        public async Task<List<CollectionViewModel>> GetCollections()
+        public async Task<List<MaterialViewModel>> GetMaterials()
         {
-            return await _context.Collections.Select(p => new CollectionViewModel()
+            return await _context.Materials.Select(p => new MaterialViewModel()
             {
                 Id = p.Id,
-                CollectionName = p.CollectionName
+                MaterialName = p.MaterialName
             }).ToListAsync();
         }
     }

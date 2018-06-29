@@ -6,8 +6,8 @@ using Nevara.Areas.Admin.Models;
 
 namespace Nevara.Interfaces
 {
-    public interface ICollectionService
+    public interface IMaterialService
     {
-       Task<List<CollectionViewModel>> GetCollections();
+        Task<List<MaterialViewModel>> GetMaterials();
     }
 }

@@ -27,6 +27,9 @@ namespace Nevara.Models.Entities
         public double? Depth { get; set; }
         [Required]
         [DefaultValue(0)]
+        public decimal OriginalPrice { get; set; }
+        [Required]
+        [DefaultValue(0)]
         public decimal Price { get; set; }
         
         public decimal? PromotionPrice { get; set; }

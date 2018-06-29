@@ -28,22 +28,28 @@ namespace Nevara.Areas.Admin.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult GetProduct(int? categoryId,int? collectionId, string keyword, int page, int pageSize)
+        public async Task<IActionResult> GetProduct(int? categoryId,int? collectionId, string keyword, int page, int pageSize)
         {
-            var model = _productService.GetProduct(categoryId,collectionId, keyword, page, pageSize);
+            var model = await _productService.GetProduct(categoryId,collectionId, keyword, page, pageSize);
             return new OkObjectResult(model);
         }
 
         [HttpGet]
-        public IActionResult GetCategories()
+        public async Task<IActionResult> GetCategories()
         {
-            var model = _categoryService.GetCategories();
+            var model = await _categoryService.GetCategories();
             return new OkObjectResult(model);
         }
         [HttpGet]
-        public IActionResult GetCollections()
+        public async Task<IActionResult> GetCollections()
         {
-            var model = _collectionService.GetCollections();
+            var model = await _collectionService.GetCollections();
+            return new OkObjectResult(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Find(int ? id)
+        {
+            var model = await _productService.Find(id);
             return new OkObjectResult(model);
         }
     }

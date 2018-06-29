@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Nevara.Areas.Admin.Models;
+using Nevara.Helpers;
 using Nevara.Interfaces;
 using StackExchange.Profiling.Internal;
 
@@ -18,14 +19,17 @@ namespace Nevara.Services
         {
             _context = context;
         }
-        public PageResult<ProductViewModel> GetProduct(int? categoryId,int? collectionId, string keyword, int page, int pageSize)
+        public async Task<PageResult<ProductViewModel>> GetProduct(int? categoryId,int? collectionId, string keyword, int page, int pageSize)
         {
             var query = _context.Products.AsQueryable();
             if (!string.IsNullOrEmpty(keyword))
             {
-                query = query.Where(x => x.Name.Contains(keyword, StringComparison.CurrentCultureIgnoreCase));
+               
+                    query = query.Where(x =>
+                        Util.ConvertToUnSign(x.Name).Contains(Util.ConvertToUnSign(keyword), StringComparison.CurrentCultureIgnoreCase));
+                
             }
-      
+
             if (categoryId.HasValue)
             {
                 query = query.Where(x => x.CategoryId == categoryId);
@@ -34,9 +38,9 @@ namespace Nevara.Services
             {
                 query = query.Where(x => x.CollectionId == collectionId);
             }
-            int totalRow = query.Count();            
+            int totalRow = await query.CountAsync();            
             query = query.OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize);
-            var data = query.Select(p => new ProductViewModel()
+            var data = await query.Select(p => new ProductViewModel()
                 {
                     Id = p.Id,
                     Name = p.Name,
@@ -45,7 +49,7 @@ namespace Nevara.Services
                     Thumbnail = p.Thumbnail,
                     Quantity = p.Quantity,
                 }).
-                ToList();
+                ToListAsync();
             var paginationSet = new PageResult<ProductViewModel>()
             {
                 Results = data,
@@ -54,6 +58,31 @@ namespace Nevara.Services
                 PageSize = pageSize
             };
             return paginationSet;
+        }
+
+        public async Task<ProductViewModel> Find(int? id)
+        {
+            var model = await _context.Products.FindAsync(id);        
+            var viewModel = new ProductViewModel()
+            {
+                Id = model.Id,
+                CategoryId = model.CategoryId,
+                Name = model.Name,
+                Quantity = model.Quantity,
+                Width = model.Width,
+                Height = model.Height,
+                Depth = model.Depth,
+                Price = model.Price,
+                HomeFlag = model.HomeFlag,
+                CollectionId = model.CollectionId,
+                ColorId = model.CollectionId,
+                HotFlag = model.HotFlag,
+                PromotionPrice = model.PromotionPrice,
+                ManufacturerId = model.ManufacturerId,
+                MaterialId = model.MaterialId,
+                NewFlag = model.NewFlag
+            };
+            return viewModel;
         }
     }
 }

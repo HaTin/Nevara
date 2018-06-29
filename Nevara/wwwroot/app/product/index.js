@@ -10,7 +10,7 @@
         if ($('#paginationUL a').length === 0 || changePageSize === true) {
             $('#paginationUL').empty();
             $('#paginationUL').removeData("twbs-pagination");
-            $('#paginationUL').unbind("page");
+            //$('#paginationUL').unbind("page");
         }
         if (recordCount > 0) {
             const totalSize = Math.ceil(recordCount / common.configs.pageSize);
@@ -33,11 +33,13 @@
     registeredEvent() {
         var self = this;
         $('#btn-search').on('click',
-            function() {
+            function () {
+                common.configs.pageIndex = 1;
                 self.loadData(true);
             });
         $('#search-value').on('keypress',
-            function(e) {
+            function (e) {
+                common.configs.pageIndex = 1;
                 if (e.which === 13) {
                     self.loadData(true);
                 }
