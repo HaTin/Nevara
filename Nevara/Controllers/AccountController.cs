@@ -46,6 +46,7 @@ namespace Nevara.Controllers
                 FullName = model.FullName,
                 PhoneNumber = model.PhoneNumber,      
                 Avatar = string.Empty
+                
             };
             var result = await _userManager.CreateAsync(user, model.Password);
            
@@ -54,6 +55,7 @@ namespace Nevara.Controllers
                 await _userManager.SetPhoneNumberAsync(user, user.PhoneNumber);
                 await _userManager.AddToRoleAsync(user, "Customer");
                 return RedirectToLocal(returnUrl);
+                // add a
             }
             AddErrors(result);
             // a
