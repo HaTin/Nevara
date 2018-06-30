@@ -1,42 +1,42 @@
-﻿
+﻿@model Nevara.Areas.Admin.Models.RegisterViewModel
+@{
+    Layout = null;
+}
 <!doctype html>
 <html class="no-js" lang="en-US">
-
-
 <!-- Mirrored from d29u17ylf1ylz9.cloudfront.net/nevara/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 25 Jun 2018 13:02:31 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Nevara-Furniture & Interior Ecommerce HTML Template</title>
+    <title>Register</title>
     <meta name="description" content="Default Description">
     <meta name="keywords" content="E-commerce" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- place favicon.ico in the root directory -->
     <link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.png">
     <!-- mobile menu css -->
-    <link rel="stylesheet" href="css/meanmenu.min.css">
+    <link rel="stylesheet" href="/css/meanmenu.min.css">
     <!-- animate css -->
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="/css/animate.css">
     <!-- nivo slider css -->
     <!-- owl carousel css -->
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
     <!-- price slider css -->
-    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css">
     <!-- fontawesome css -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
     <!-- icon font pack css -->
-    <link rel="stylesheet" href="css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="/css/pe-icon-7-stroke.css">
     <!-- bootstrap css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <!-- default css  -->
-    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="/css/default.css">
     <!-- style css -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- responsive css -->
-    <link rel="stylesheet" href="css/responsive.css">
-    @RenderSection("Css",required:false)
+    <link rel="stylesheet" href="/css/responsive.css">
     <!-- modernizr js -->
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
@@ -351,7 +351,97 @@
                 </div>
             </div>
         </header>
-        @RenderBody()
+        <div class="main-breadcrumb mb-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="breadcrumb-content text-center ptb-70">
+                            <ul class="breadcrumb-list breadcrumb">
+                                <li><a href="#">home</a></li>
+                                <li><a href="#">account</a></li>
+                                <li><a href="#">register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Row End -->
+            </div>
+            <!-- Container End -->
+        </div>
+        <!-- Page Breadcrumb End -->
+        <!-- Register Account Start -->
+        <div class="register-account">
+            <div class="container">
+                <div class="row">
+                    <div class="register-title">
+                        <h3 class="mb-10">REGISTER ACCOUNT</h3>
+                        <p class="mb-10">If you already have an account with us, please login at the login page.</p>
+                    </div>
+                </div>
+                <!-- Row End -->
+                <div class="row">
+                    <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal pb-100">
+                        <fieldset>
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <legend>Your Personal Details</legend>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="f-name">Full Name</label>
+                                <div class="col-sm-5">
+                                    <input name="fullName" asp-for="FullName" type="text" class="form-control" id="f-name" placeholder="Full Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="l-name">Email</label>
+                                <div class="col-sm-5">
+                                    <input name="email" type="text" asp-for="Email" class="form-control" id="l-name" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="l-name">Address</label>
+                                <div class="col-sm-5">
+                                    <input name="address" type="text" asp-for="Address" class="form-control" id="l-name" placeholder="Address">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="email">Phone</label>
+                                <div class="col-sm-5">
+                                    <input name="PhoneNumber" type="text" asp-for="PhoneNumber" class="form-control" placeholder="Phone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="number">BirthDay</label>
+                                <div class="col-sm-5">
+                                    <input name="BirthDate" type="date" asp-for="BirthDate" class="form-control" id="number" placeholder="date">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Your Password</legend>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="pwd">Password:</label>
+                                <div class="col-sm-5">
+                                    <input name="password" asp-for="Password" type="password" class="form-control" id="pwd" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="pwd-confirm">Confirm Password</label>
+                                <div class="col-sm-5">
+                                    <input name="Confirm" asp-for="Confirm" type="password" class="form-control" id="pwd-confirm" placeholder="Confirm password">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="buttons newsletter-input">
+                            <div class="pull-right">
+                                <input type="submit" value="Register" class="newsletter-btn">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Row End -->
+            </div>
+            <!-- Container End -->
+        </div>
         <footer>
             <!-- Footer Top Start -->
             <div class="footer-top ptb-50">
@@ -512,27 +602,27 @@
     </div>
     <!-- Wrapper End -->
     <!-- jquery 3.12.4 -->
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- mobile menu js  -->
-    <script src="js/jquery.meanmenu.min.js"></script>
+    <script src="/js/jquery.meanmenu.min.js"></script>
     <!-- scroll-up js -->
-    <script src="js/jquery.scrollUp.js"></script>
+    <script src="/js/jquery.scrollUp.js"></script>
     <!-- owl-carousel js -->
-    <script src="js/owl.carousel.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
     <!-- wow js -->
-    <script src="js/wow.min.js"></script>
+    <script src="/js/wow.min.js"></script>
     <!-- price slider js -->
-    <script src="js/jquery-ui.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
     <!-- elevateZoom js -->
-    <script src="js/jquery.elevateZoom-3.0.8.min.js"></script>
+    <script src="/js/jquery.elevateZoom-3.0.8.min.js"></script>
     <!-- nivo slider js -->
-    <script src="js/jquery.nivo.slider.js"></script>
+    <script src="/js/jquery.nivo.slider.js"></script>
     <!-- bootstrap -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <!-- plugins -->
-    <script src="js/plugins.js"></script>
+    <script src="/js/plugins.js"></script>
     <!-- main js -->
-    <script src="js/main.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 
 
