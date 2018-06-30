@@ -419,6 +419,8 @@ namespace Nevara.Migrations
 
                     b.Property<double?>("Depth");
 
+                    b.Property<string>("Description");
+
                     b.Property<double?>("Height");
 
                     b.Property<bool?>("HomeFlag");
@@ -437,6 +439,10 @@ namespace Nevara.Migrations
 
                     b.Property<bool?>("NewFlag");
 
+                    b.Property<decimal>("OriginalPrice")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(0m);
+
                     b.Property<decimal>("Price")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(0m);
@@ -449,9 +455,6 @@ namespace Nevara.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)")
                         .HasMaxLength(255);
-
-                    b.Property<string>("Unit")
-                        .HasMaxLength(20);
 
                     b.Property<double?>("Width");
 
@@ -470,18 +473,18 @@ namespace Nevara.Migrations
                     b.ToTable("Products");
 
                     b.HasData(
-                        new { Id = 1, CategoryId = 1, CollectionId = 1, ColorId = 1, IsDeleted = false, ManufacturerId = 1, MaterialId = 1, Name = "Bed 1", Price = 2000m, Thumbnail = "/images/Product/pro1.jpg" },
-                        new { Id = 2, CategoryId = 1, CollectionId = 1, ColorId = 1, IsDeleted = false, ManufacturerId = 2, MaterialId = 2, Name = "Bed 2", Price = 3000m, Quantity = 10, Thumbnail = "/images/Product/pro2.jpg" },
-                        new { Id = 3, CategoryId = 1, CollectionId = 2, ColorId = 1, IsDeleted = false, ManufacturerId = 2, MaterialId = 3, Name = "Bed 3", Price = 2000m, Thumbnail = "/images/Product/pro2.jpg" },
-                        new { Id = 4, CategoryId = 2, CollectionId = 2, ColorId = 1, IsDeleted = false, ManufacturerId = 1, MaterialId = 1, Name = "Table 1", Price = 2000m, Quantity = 10, Thumbnail = "/images/Product/pro1.jpg" },
-                        new { Id = 5, CategoryId = 2, CollectionId = 3, ColorId = 2, IsDeleted = false, ManufacturerId = 2, MaterialId = 2, Name = "Table 2", Price = 2000m, Quantity = 20, Thumbnail = "/images/Product/pro2.jpg" },
-                        new { Id = 6, CategoryId = 2, CollectionId = 4, ColorId = 3, IsDeleted = false, ManufacturerId = 2, MaterialId = 3, Name = "Table 3", Price = 1000m, Quantity = 50, Thumbnail = "/images/Product/pro2.jpg" },
-                        new { Id = 7, CategoryId = 3, CollectionId = 4, ColorId = 1, IsDeleted = false, ManufacturerId = 1, MaterialId = 1, Name = "Chair 1", Price = 2000m, Quantity = 25, Thumbnail = "/images/Product/pro1.jpg" },
-                        new { Id = 8, CategoryId = 3, CollectionId = 4, ColorId = 2, IsDeleted = false, ManufacturerId = 2, MaterialId = 2, Name = "Chair 2", Price = 1000m, Quantity = 30, Thumbnail = "/images/Product/pro2.jpg" },
-                        new { Id = 9, CategoryId = 3, CollectionId = 2, ColorId = 3, IsDeleted = false, ManufacturerId = 2, MaterialId = 3, Name = "Chair 3", Price = 5000m, Thumbnail = "/images/Product/pro2.jpg" },
-                        new { Id = 10, CategoryId = 4, CollectionId = 3, ColorId = 4, IsDeleted = false, ManufacturerId = 1, MaterialId = 1, Name = "Kitchen 1 ", Price = 2000m, Thumbnail = "/images/Product/pro1.jpg" },
-                        new { Id = 11, CategoryId = 4, CollectionId = 4, ColorId = 1, IsDeleted = false, ManufacturerId = 2, MaterialId = 2, Name = "Kitchen 2", Price = 2000m, Thumbnail = "/images/Product/pro2.jpg" },
-                        new { Id = 12, CategoryId = 4, CollectionId = 1, ColorId = 2, IsDeleted = false, ManufacturerId = 2, MaterialId = 3, Name = "Kitchen 3", Price = 2000m, Thumbnail = "/images/Product/pro2.jpg" }
+                        new { Id = 1, CategoryId = 1, CollectionId = 1, ColorId = 1, IsDeleted = false, ManufacturerId = 1, MaterialId = 1, Name = "Bed 1", OriginalPrice = 0m, Price = 2000m, Thumbnail = "/images/Product/pro1.jpg" },
+                        new { Id = 2, CategoryId = 1, CollectionId = 1, ColorId = 1, IsDeleted = false, ManufacturerId = 2, MaterialId = 2, Name = "Bed 2", OriginalPrice = 0m, Price = 3000m, Quantity = 10, Thumbnail = "/images/Product/pro2.jpg" },
+                        new { Id = 3, CategoryId = 1, CollectionId = 2, ColorId = 1, IsDeleted = false, ManufacturerId = 2, MaterialId = 3, Name = "Bed 3", OriginalPrice = 0m, Price = 2000m, Thumbnail = "/images/Product/pro2.jpg" },
+                        new { Id = 4, CategoryId = 2, CollectionId = 2, ColorId = 1, IsDeleted = false, ManufacturerId = 1, MaterialId = 1, Name = "Table 1", OriginalPrice = 0m, Price = 2000m, Quantity = 10, Thumbnail = "/images/Product/pro1.jpg" },
+                        new { Id = 5, CategoryId = 2, CollectionId = 3, ColorId = 2, IsDeleted = false, ManufacturerId = 2, MaterialId = 2, Name = "Table 2", OriginalPrice = 0m, Price = 2000m, Quantity = 20, Thumbnail = "/images/Product/pro2.jpg" },
+                        new { Id = 6, CategoryId = 2, CollectionId = 4, ColorId = 3, IsDeleted = false, ManufacturerId = 2, MaterialId = 3, Name = "Table 3", OriginalPrice = 0m, Price = 1000m, Quantity = 50, Thumbnail = "/images/Product/pro2.jpg" },
+                        new { Id = 7, CategoryId = 3, CollectionId = 4, ColorId = 1, IsDeleted = false, ManufacturerId = 1, MaterialId = 1, Name = "Chair 1", OriginalPrice = 0m, Price = 2000m, Quantity = 25, Thumbnail = "/images/Product/pro1.jpg" },
+                        new { Id = 8, CategoryId = 3, CollectionId = 4, ColorId = 2, IsDeleted = false, ManufacturerId = 2, MaterialId = 2, Name = "Chair 2", OriginalPrice = 0m, Price = 1000m, Quantity = 30, Thumbnail = "/images/Product/pro2.jpg" },
+                        new { Id = 9, CategoryId = 3, CollectionId = 2, ColorId = 3, IsDeleted = false, ManufacturerId = 2, MaterialId = 3, Name = "Chair 3", OriginalPrice = 0m, Price = 5000m, Thumbnail = "/images/Product/pro2.jpg" },
+                        new { Id = 10, CategoryId = 4, CollectionId = 3, ColorId = 4, IsDeleted = false, ManufacturerId = 1, MaterialId = 1, Name = "Kitchen 1 ", OriginalPrice = 0m, Price = 2000m, Thumbnail = "/images/Product/pro1.jpg" },
+                        new { Id = 11, CategoryId = 4, CollectionId = 4, ColorId = 1, IsDeleted = false, ManufacturerId = 2, MaterialId = 2, Name = "Kitchen 2", OriginalPrice = 0m, Price = 2000m, Thumbnail = "/images/Product/pro2.jpg" },
+                        new { Id = 12, CategoryId = 4, CollectionId = 1, ColorId = 2, IsDeleted = false, ManufacturerId = 2, MaterialId = 3, Name = "Kitchen 3", OriginalPrice = 0m, Price = 2000m, Thumbnail = "/images/Product/pro2.jpg" }
                     );
                 });
 

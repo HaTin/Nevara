@@ -12,8 +12,7 @@ namespace Nevara.Models.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int OrderId { get; set; }
-        public int Quantity { get; set; }
-        
+        public int Quantity { get; set; }        
         public decimal Price { set; get; }
         [ForeignKey("OrderId")]
         public Order Order { get; set; }

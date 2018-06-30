@@ -1,5 +1,4 @@
 ﻿using System;
-using EfCore.Shaman;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
@@ -276,6 +275,7 @@ namespace Nevara.Migrations
                     Height = table.Column<double>(nullable: true),
                     Thumbnail = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     Depth = table.Column<double>(nullable: true),
+                    OriginalPrice = table.Column<decimal>(nullable: false, defaultValue: 0m),
                     Price = table.Column<decimal>(nullable: false, defaultValue: 0m),
                     PromotionPrice = table.Column<decimal>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false),
@@ -283,8 +283,8 @@ namespace Nevara.Migrations
                     MaterialId = table.Column<int>(nullable: false),
                     CollectionId = table.Column<int>(nullable: false),
                     ManufacturerId = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
                     Quantity = table.Column<int>(nullable: true),
-                    Unit = table.Column<string>(maxLength: 20, nullable: true),
                     HomeFlag = table.Column<bool>(nullable: true),
                     NewFlag = table.Column<bool>(nullable: true),
                     HotFlag = table.Column<bool>(nullable: true),
@@ -421,21 +421,21 @@ namespace Nevara.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "CategoryId", "CollectionId", "ColorId", "Depth", "Height", "HomeFlag", "HotFlag", "IsDeleted", "ManufacturerId", "MaterialId", "Name", "NewFlag", "Price", "PromotionPrice", "Quantity", "Thumbnail", "Unit", "Width" },
+                columns: new[] { "Id", "CategoryId", "CollectionId", "ColorId", "Depth", "Description", "Height", "HomeFlag", "HotFlag", "IsDeleted", "ManufacturerId", "MaterialId", "Name", "NewFlag", "OriginalPrice", "Price", "PromotionPrice", "Quantity", "Thumbnail", "Width" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 1, null, null, null, null, false, 1, 1, "Bed 1", null, 2000m, null, null, "/images/Product/pro1.jpg", null, null },
-                    { 4, 2, 1, 1, null, null, null, null, false, 1, 1, "Table 1", null, 2000m, null, null, "/images/Product/pro1.jpg", null, null },
-                    { 7, 3, 1, 1, null, null, null, null, false, 1, 1, "Chair 1", null, 2000m, null, null, "/images/Product/pro1.jpg", null, null },
-                    { 10, 4, 1, 4, null, null, null, null, false, 1, 1, "Kitchen 1 ", null, 2000m, null, null, "/images/Product/pro1.jpg", null, null },
-                    { 2, 1, 1, 1, null, null, null, null, false, 2, 2, "Bed 2", null, 3000m, null, null, "/images/Product/pro2.jpg", null, null },
-                    { 5, 2, 1, 2, null, null, null, null, false, 2, 2, "Table 2", null, 2000m, null, null, "/images/Product/pro2.jpg", null, null },
-                    { 8, 3, 1, 2, null, null, null, null, false, 2, 2, "Chair 2", null, 1000m, null, null, "/images/Product/pro2.jpg", null, null },
-                    { 11, 4, 1, 1, null, null, null, null, false, 2, 2, "Kitchen 2", null, 2000m, null, null, "/images/Product/pro2.jpg", null, null },
-                    { 3, 1, 1, 1, null, null, null, null, false, 2, 3, "Bed 3", null, 2000m, null, null, "/images/Product/pro2.jpg", null, null },
-                    { 6, 2, 1, 3, null, null, null, null, false, 2, 3, "Table 3", null, 1000m, null, null, "/images/Product/pro2.jpg", null, null },
-                    { 9, 3, 1, 3, null, null, null, null, false, 2, 3, "Chair 3", null, 5000m, null, null, "/images/Product/pro2.jpg", null, null },
-                    { 12, 4, 1, 2, null, null, null, null, false, 2, 3, "Kitchen 3", null, 2000m, null, null, "/images/Product/pro2.jpg", null, null }
+                    { 1, 1, 1, 1, null, null, null, null, null, false, 1, 1, "Bed 1", null, 0m, 2000m, null, null, "/images/Product/pro1.jpg", null },
+                    { 4, 2, 2, 1, null, null, null, null, null, false, 1, 1, "Table 1", null, 0m, 2000m, null, 10, "/images/Product/pro1.jpg", null },
+                    { 7, 3, 4, 1, null, null, null, null, null, false, 1, 1, "Chair 1", null, 0m, 2000m, null, 25, "/images/Product/pro1.jpg", null },
+                    { 10, 4, 3, 4, null, null, null, null, null, false, 1, 1, "Kitchen 1 ", null, 0m, 2000m, null, null, "/images/Product/pro1.jpg", null },
+                    { 2, 1, 1, 1, null, null, null, null, null, false, 2, 2, "Bed 2", null, 0m, 3000m, null, 10, "/images/Product/pro2.jpg", null },
+                    { 5, 2, 3, 2, null, null, null, null, null, false, 2, 2, "Table 2", null, 0m, 2000m, null, 20, "/images/Product/pro2.jpg", null },
+                    { 8, 3, 4, 2, null, null, null, null, null, false, 2, 2, "Chair 2", null, 0m, 1000m, null, 30, "/images/Product/pro2.jpg", null },
+                    { 11, 4, 4, 1, null, null, null, null, null, false, 2, 2, "Kitchen 2", null, 0m, 2000m, null, null, "/images/Product/pro2.jpg", null },
+                    { 3, 1, 2, 1, null, null, null, null, null, false, 2, 3, "Bed 3", null, 0m, 2000m, null, null, "/images/Product/pro2.jpg", null },
+                    { 6, 2, 4, 3, null, null, null, null, null, false, 2, 3, "Table 3", null, 0m, 1000m, null, 50, "/images/Product/pro2.jpg", null },
+                    { 9, 3, 2, 3, null, null, null, null, null, false, 2, 3, "Chair 3", null, 0m, 5000m, null, null, "/images/Product/pro2.jpg", null },
+                    { 12, 4, 1, 2, null, null, null, null, null, false, 2, 3, "Kitchen 3", null, 0m, 2000m, null, null, "/images/Product/pro2.jpg", null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -506,7 +506,6 @@ namespace Nevara.Migrations
                 name: "IX_Products_MaterialId",
                 table: "Products",
                 column: "MaterialId");
-            migrationBuilder.FixMigrationUp<NevaraDbContext>();
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -21,12 +21,13 @@ namespace Nevara.Services
         }
         public async Task<PageResult<ProductViewModel>> GetProduct(int? categoryId,int? collectionId, string keyword, int page, int pageSize)
         {
-            var query = _context.Products.AsQueryable();
+           
+            var query = _context.Products.AsQueryable();            
             if (!string.IsNullOrEmpty(keyword))
             {
                
-                    query = query.Where(x =>
-                        Util.ConvertToUnSign(x.Name).Contains(Util.ConvertToUnSign(keyword), StringComparison.CurrentCultureIgnoreCase));
+            query = query.Where(x =>
+                        Util.ConvertToUnsign(x.Name).Contains(Util.ConvertToUnsign(keyword), StringComparison.CurrentCultureIgnoreCase));
                 
             }
 

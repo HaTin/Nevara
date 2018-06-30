@@ -72,11 +72,13 @@ namespace Nevara
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipleFactory>();
             services.AddTransient<DbSeed>();
             services.AddMvc().AddJsonOptions(opt => opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
-            // Services
-            
+            // Services           
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ICollectionService, CollectionService>();
+            services.AddTransient<IMaterialService, MaterialService>();
+            services.AddTransient<IColorService, ColorService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -26,7 +26,6 @@ namespace Nevara.Areas.Admin.Models
         public int CollectionId { get; set; }
         public int ManufacturerId { get; set; }
         public int? Quantity { get; set; } 
-        public string Unit { get; set; }
         public bool? HomeFlag { get; set; }
         public bool? NewFlag { get; set; }
         public bool? HotFlag { get; set; }

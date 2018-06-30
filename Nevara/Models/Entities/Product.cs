@@ -41,10 +41,8 @@ namespace Nevara.Models.Entities
         public int MaterialId { get; set; }
         public int CollectionId { get; set; }
         public int ManufacturerId { get; set; }
-
-        public int? Quantity { get; set; }
-        [StringLength(20)]      
-        public string Unit { get; set; }       
+        public string Description { get; set; }
+        public int? Quantity { get; set; }    
         public bool? HomeFlag { get; set; }      
         public bool? NewFlag { get; set; }      
         public bool? HotFlag { get; set; }            

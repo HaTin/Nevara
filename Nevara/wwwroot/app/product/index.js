@@ -1,4 +1,7 @@
-﻿class ProductController {
+﻿let categoryList = '';
+let collectionList = '';
+let materialList = '';
+class ProductController {  
     init() {
         this.loadCategories();
         this.loadCollections();
@@ -43,6 +46,13 @@
                 if (e.which === 13) {
                     self.loadData(true);
                 }
+            });
+        $('body').on('click',
+            '.edit',
+            function (e) {
+                var id = $(this).data('id');
+                e.preventDefault();
+                $('#modal').modal('show');           
             });
     }
     loadData(isPageChanged = false) {
@@ -103,6 +113,7 @@
                     function (i, item) {
                         render += `<option value=${item.Id}>${item.Name}</option>`;
                     });
+                categoryList += render;
                 $('#category-select').html(render);
             },
             error: function (status) {
@@ -123,7 +134,28 @@
                     function (i, item) {
                         render += `<option value=${item.Id}>${item.CollectionName}</option>`;
                     });
+                
                 $('#collection-select').html(render);
+                collectionList += render;
+            },
+            error: function (status) {
+                console.log(status);
+            
+            }
+        });
+    }
+    getMaterials() {
+        var render = "<option>Select material</option>";
+        $.ajax({
+            type: "GET",
+            url: "/admin/product/GetMaterials",
+            dataType: 'json',
+            success: function (respone) {
+                console.log(respone);                
+                $.each(respone,
+                    function (i, item) {
+                        render += `<option value=${item.Id}>${item.MaterialName}</option>`;
+                    });
             },
             error: function (status) {
                 console.log(status);
