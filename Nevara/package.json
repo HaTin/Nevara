@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "mustache": "2.3.0",
+    "twbs-pagination": "1.4.1"
+    
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "4.5.1",
+    "webpack": "~4.12.1"
+  }
+}
