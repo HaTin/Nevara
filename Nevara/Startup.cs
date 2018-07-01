@@ -1,22 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Nevara.Areas.Admin.Helpers;
 using Nevara.Interfaces;
 using Nevara.Models.Entities;
 using Nevara.Services;
 using Newtonsoft.Json.Serialization;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
 namespace Nevara
 {
@@ -50,7 +45,7 @@ namespace Nevara
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 // user settings
                 options.User.RequireUniqueEmail = true;
-              
+
 
             });
             services.ConfigureApplicationCookie(options =>
@@ -58,13 +53,13 @@ namespace Nevara
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                
+
                 // If the LoginPath isn't set, ASP.NET Core defaults 
                 // the path to /Account/Login.
                 options.LoginPath = "/Admin/Account/Login";
                 // If the AccessDeniedPath isn't set, ASP.NET Core defaults 
                 // the path to /Account/AccessDenied.
-               // options.AccessDeniedPath = "/Admin/AccessDenied";
+                // options.AccessDeniedPath = "/Admin/AccessDenied";
             });
             services.AddMiniProfiler().AddEntityFramework();
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
@@ -78,6 +73,23 @@ namespace Nevara
             services.AddTransient<ICollectionService, CollectionService>();
             services.AddTransient<IMaterialService, MaterialService>();
             services.AddTransient<IColorService, ColorService>();
+            services.AddAuthentication()
+                .AddFacebook(facebookOpts =>
+                {
+                    facebookOpts.AppId = Configuration["Authentication:Facebook:AppId"];
+                    facebookOpts.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                })
+                .AddGoogle(googleOpts =>
+                {
+                    googleOpts.ClientId = Configuration["Authentication:Google:ClientId"];
+                    googleOpts.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                });
+            services.AddRecaptcha(new RecaptchaOptions()
+            {
+                SiteKey = "6LeNpmEUAAAAAJUz0tsxPRGOyEwDWiXxpDZZvCxb",
+                SecretKey = "6LeNpmEUAAAAALHsrYoYiMbUVrL1NpBzI10A47vf",
+                ValidationMessage = "Are you a robot?"
+            });
 
         }
 
@@ -98,6 +110,7 @@ namespace Nevara
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMiniProfiler();
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
