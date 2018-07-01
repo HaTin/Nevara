@@ -78,6 +78,7 @@ namespace Nevara
             services.AddTransient<ICollectionService, CollectionService>();
             services.AddTransient<IMaterialService, MaterialService>();
             services.AddTransient<IColorService, ColorService>();
+            services.AddTransient<IManufacturerService, ManufacturerService>();
 
         }
 

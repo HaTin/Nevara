@@ -25,13 +25,11 @@ namespace Nevara.Models.Entities
         [Required]
         public string Thumbnail { get; set; }
         public double? Depth { get; set; }
-        [Required]
-        [DefaultValue(0)]
+        [Required]        
         public decimal OriginalPrice { get; set; }
         [Required]
         [DefaultValue(0)]
-        public decimal Price { get; set; }
-        
+        public decimal Price { get; set; }        
         public decimal? PromotionPrice { get; set; }
         [Required]       
         public int CategoryId { get; set; }

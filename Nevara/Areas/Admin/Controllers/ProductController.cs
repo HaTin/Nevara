@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Nevara.Areas.Admin.Models;
 using Nevara.Interfaces;
 using Nevara.Services;
 
@@ -17,14 +19,19 @@ namespace Nevara.Areas.Admin.Controllers
         private readonly ICollectionService _collectionService;
         private readonly IProductService _productService;
         private readonly IMaterialService _materialService;
+        private readonly IColorService _colorService;
+        private readonly IManufacturerService _manufacturerService;
         public ProductController(ICategoryService categoryService,
             ICollectionService collectionService, IProductService productService,
-            IMaterialService materialService)
+            IMaterialService materialService,IColorService colorService,
+            IManufacturerService manufacturerService)
         {
             _categoryService = categoryService;
             _collectionService = collectionService;
             _productService = productService;
             _materialService = materialService;
+            _colorService = colorService;
+            _manufacturerService = manufacturerService;
         }
 
         public IActionResult Index()
@@ -50,9 +57,16 @@ namespace Nevara.Areas.Admin.Controllers
             var model = await _collectionService.GetCollections();
             return new OkObjectResult(model);
         }
+        [HttpGet]
         public async Task<IActionResult> GetMaterials()
         {
             var model = await _materialService.GetMaterials();
+            return new OkObjectResult(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetColors()
+        {
+            var model = await _colorService.GetColors();
             return new OkObjectResult(model);
         }
         [HttpGet]
@@ -60,6 +74,36 @@ namespace Nevara.Areas.Admin.Controllers
         {
             var model = await _productService.Find(id);
             return new OkObjectResult(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetManufacturers()
+        {
+            var model = await _manufacturerService.GetManufacturers();
+           return new OkObjectResult(model);            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveEntity(ProductViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                return new BadRequestObjectResult(allErrors);
+            }
+           else
+            {
+                if (viewModel.Id == 0)
+                {
+                    await _productService.Add(viewModel);
+                }
+                else
+                {
+                   await _productService.Update(viewModel);
+                }
+                return new OkObjectResult(viewModel);
+            }
+         
         }
     }
 }

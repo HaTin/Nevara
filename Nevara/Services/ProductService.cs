@@ -20,8 +20,7 @@ namespace Nevara.Services
             _context = context;
         }
         public async Task<PageResult<ProductViewModel>> GetProduct(int? categoryId,int? collectionId, string keyword, int page, int pageSize)
-        {
-           
+        {           
             var query = _context.Products.AsQueryable();            
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -63,27 +62,105 @@ namespace Nevara.Services
 
         public async Task<ProductViewModel> Find(int? id)
         {
-            var model = await _context.Products.FindAsync(id);        
-            var viewModel = new ProductViewModel()
+          
+                var model = await _context.Products.FindAsync(id);
+                var viewModel = new ProductViewModel()
+                {
+                    Id = model.Id,
+                    CategoryId = model.CategoryId,
+                    Name = model.Name,
+                    Quantity = model.Quantity,
+                    Width = model.Width,    
+                    Height = model.Height,
+                    Depth = model.Depth,
+                    Price = model.Price,
+                    HomeFlag = model.HomeFlag,
+                    CollectionId = model.CollectionId,
+                    ColorId = model.CollectionId,
+                    HotFlag = model.HotFlag,
+                    PromotionPrice = model.PromotionPrice,
+                    ManufacturerId = model.ManufacturerId,
+                    MaterialId = model.MaterialId,
+                    NewFlag = model.NewFlag,
+                    OriginalPrice = model.OriginalPrice ,                    
+                   
+                };
+                return viewModel;
+        }
+
+      
+        public async Task Add(ProductViewModel pro)
+        {
+            var product = new Product()
             {
-                Id = model.Id,
-                CategoryId = model.CategoryId,
-                Name = model.Name,
-                Quantity = model.Quantity,
-                Width = model.Width,
-                Height = model.Height,
-                Depth = model.Depth,
-                Price = model.Price,
-                HomeFlag = model.HomeFlag,
-                CollectionId = model.CollectionId,
-                ColorId = model.CollectionId,
-                HotFlag = model.HotFlag,
-                PromotionPrice = model.PromotionPrice,
-                ManufacturerId = model.ManufacturerId,
-                MaterialId = model.MaterialId,
-                NewFlag = model.NewFlag
+                Name = pro.Name,
+                CategoryId = pro.CategoryId,
+                CollectionId = pro.CollectionId,
+                ColorId = pro.ColorId,
+                MaterialId = pro.MaterialId,
+                Depth = pro.Depth,
+                Height = pro.Height,
+                Width = pro.Width,
+                HomeFlag = pro.HomeFlag,
+                HotFlag = pro.HotFlag,
+                OriginalPrice = pro.OriginalPrice,
+                PromotionPrice = pro.PromotionPrice,
+                Price = pro.Price,
+                NewFlag = pro.NewFlag,
+                ManufacturerId = pro.ManufacturerId,               
+                IsDeleted = false
             };
-            return viewModel;
+            _context.Add(product);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Update(ProductViewModel pro)
+        {
+            /*var product = new Product()
+            {
+                Id =pro.Id,
+                Name = pro.Name,
+                CategoryId = pro.CategoryId,
+                CollectionId = pro.CollectionId,
+                ColorId = pro.ColorId,
+                MaterialId = pro.MaterialId,
+                Depth = pro.Depth,
+                Height = pro.Height,
+                Width = pro.Width,
+                HomeFlag = pro.HomeFlag,
+                HotFlag = pro.HotFlag,
+                OriginalPrice = pro.OriginalPrice,
+                PromotionPrice = pro.PromotionPrice,
+                Price = pro.Price,
+                NewFlag = pro.NewFlag,
+                ManufacturerId = pro.ManufacturerId               
+            };*/
+            var prod = await _context.Products.FindAsync(pro.Id);
+            prod.Name = pro.Name;
+            prod.CategoryId = pro.CategoryId;
+            prod.CollectionId = pro.CollectionId;
+            prod.ColorId = pro.ColorId;
+            prod.MaterialId = pro.MaterialId;
+            prod.Depth = pro.Depth;
+            prod.Height = pro.Height;
+            prod.Width = pro.Width;
+            prod.HomeFlag = pro.HomeFlag;
+            prod.HotFlag = pro.HotFlag;
+            prod.OriginalPrice = pro.OriginalPrice;
+            prod.PromotionPrice = pro.PromotionPrice;
+            prod.Price = pro.Price;
+            prod.NewFlag = pro.NewFlag;
+            prod.ManufacturerId = pro.ManufacturerId;
+            prod.Quantity = pro.Quantity;            
+           await _context.SaveChangesAsync();
+        }
+
+        public async Task Remove(int? id)
+        {
+            Product pro = await _context.Products.FindAsync(id);
+            pro.IsDeleted = true;
+            await _context.SaveChangesAsync();
+
         }
     }
 }

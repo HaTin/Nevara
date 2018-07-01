@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace Nevara.Areas.Admin.Models
         public double? Height { get; set; }
         public string Thumbnail { get; set; }
         public double? Depth { get; set; }
-        public decimal OriginalPrice { get; set; }
+        public decimal OriginalPrice { get; set; } 
         public decimal Price { get; set; }        
         public decimal? PromotionPrice { get; set; }
         public int CategoryId { get; set; }
