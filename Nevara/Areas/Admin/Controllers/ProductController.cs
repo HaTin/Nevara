@@ -91,8 +91,7 @@ namespace Nevara.Areas.Admin.Controllers
                 IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
                 return new BadRequestObjectResult(allErrors);
             }
-           else
-            {
+        
                 if (viewModel.Id == 0)
                 {
                     await _productService.Add(viewModel);
@@ -102,8 +101,18 @@ namespace Nevara.Areas.Admin.Controllers
                    await _productService.Update(viewModel);
                 }
                 return new OkObjectResult(viewModel);
-            }
+            
          
+        }
+
+        public async Task<IActionResult> Remove(int? id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            await _productService.Remove(id);
+            return new OkObjectResult(id);
         }
     }
 }
