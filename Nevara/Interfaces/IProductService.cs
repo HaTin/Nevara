@@ -9,5 +9,8 @@ namespace Nevara.Interfaces
     {
        Task<PageResult<ProductViewModel>> GetProduct(int? categoryId,int? collectionId, string keyword, int page, int pageSize);
        Task<ProductViewModel> Find(int? id);
+        Task Add(ProductViewModel productViewModel);
+        Task Update(ProductViewModel productViewModel);
+        Task Remove(int? id);
     }
 }

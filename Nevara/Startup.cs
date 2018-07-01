@@ -90,6 +90,7 @@ namespace Nevara
                 SecretKey = "6LeNpmEUAAAAALHsrYoYiMbUVrL1NpBzI10A47vf",
                 ValidationMessage = "Are you a robot?"
             });
+            services.AddTransient<IManufacturerService, ManufacturerService>();
 
         }
 

@@ -1,16 +1,27 @@
-﻿
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+
 @{
     ViewData["Title"] = "Product";
 }
+@section Css{ 
+
+    <link href="~/admin-client/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+    <link href="~/admin-client/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet"/>
+}
 @section Scripts{
+    <script src="~/admin-client/assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="~/admin-client/assets/plugins/sweetalert/jquery.sweet-alert.custom.js"></script>
+    <script src="~/admin-client/assets/plugins/toast-master/js/jquery.toast.js"></script>
     <script src="~/npm/jquery.twbsPagination.min.js"></script>
+    <script src="~/npm/jquery.validate.js"></script>
+    <script src="~/npm/additional-methods.js"></script>
     <script src="~/npm/mustache.min.js"></script>
     <script src="~/app/product/index.js"></script>
     <script>
-        $(function() {
+        $(function () {
             const product = new ProductController();
             product.init();
-        });    
+        });
     </script>
 }
 <div class="container-fluid">
@@ -32,32 +43,30 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-3">                              
-                            <select id="category-select" class="form-control">                                           
-                            </select>                               
+                        <div class="col-md-3">
+                            <select id="category-select" class="form-control"></select>
                         </div>
-                        <div class="col-md-3">                                 
-                            <select id="collection-select" class="form-control">                           
-                            </select>                              
+                        <div class="col-md-3">
+                            <select id="collection-select" class="form-control"></select>
                         </div>
-                        <div class="col-md-3"> 
+                        <div class="col-md-3">
                             <div class="input-group">
-                                <input id="search-value" type="text" class="form-control" placeholder="Search name"/>
+                                <input id="search-value" type="text" class="form-control" placeholder="Search name" />
                                 <div class="input-group-append">
                                     <button type="button" id="btn-search" class="btn waves-effect waves-light btn-info">Search</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
-                    <div class="table-responsive">
-                        <div class="form-group">
+                <div class="table-responsive">
+                    <div class="form-group">
 
 
-                        </div>
-                        <table class="table table-striped">
-                            <thead>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Category</th>
@@ -66,27 +75,27 @@
                                 <th>In Stock</th>
                                 <th class="text-nowrap">Action</th>
                             </tr>
-                            </thead>
-                            <tbody id="tbl-content"></tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="2">
-                                        <button type="button" class="btn btn-info btn-rounded" data-toggle="modal" data-target="#add-contact">Add New Contact</button>
-                                    </td>                                 
-                                    @await Html.PartialAsync("_AddEditModal.cshtml")
-                                    <td colspan="7">
-                                        <div class="text-right">
-                                            <ul id="paginationUL"></ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
+                        </thead>
+                        <tbody id="tbl-content"></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">
+                                    <button type="button" class="btn btn-info btn-rounded" id="btn-add" data-toggle="modal" >Add New Product</button>
+                                </td>
+                                @await Html.PartialAsync("_AddEditModal.cshtml")
+                                <td colspan="7">
+                                    <div class="text-right">
+                                        <ul id="paginationUL"></ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 <script id="table-template" type="x-tmpl-mustache">
     <tr>

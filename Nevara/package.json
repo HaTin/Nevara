@@ -4,8 +4,9 @@
   "private": true,
   "dependencies": {
     "mustache": "2.3.0",
-    "twbs-pagination": "1.4.1"
-    
+    "twbs-pagination": "1.4.1",
+    "jquery-validation": "1.14.0",
+    "jquery-validation-unobtrusive": "3.2.6"
   },
   "devDependencies": {
     "copy-webpack-plugin": "4.5.1",

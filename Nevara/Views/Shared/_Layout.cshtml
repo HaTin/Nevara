@@ -1,42 +1,41 @@
-﻿
-<!doctype html>
-<html class="no-js" lang="en-US">
-
-
-<!-- Mirrored from d29u17ylf1ylz9.cloudfront.net/nevara/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 25 Jun 2018 13:02:31 GMT -->
+﻿<!DOCTYPE html>
+<html lang="en-US">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Nevara-Furniture & Interior Ecommerce HTML Template</title>
+    <title>@ViewData["Title"] | Nevara</title>
     <meta name="description" content="Default Description">
     <meta name="keywords" content="E-commerce" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- place favicon.ico in the root directory -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.png">
-    <!-- mobile menu css -->
-    <link rel="stylesheet" href="css/meanmenu.min.css">
-    <!-- animate css -->
-    <link rel="stylesheet" href="css/animate.css">
-    <!-- nivo slider css -->
-    <!-- owl carousel css -->
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <!-- price slider css -->
-    <link rel="stylesheet" href="css/jquery-ui.min.css">
-    <!-- fontawesome css -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <!-- icon font pack css -->
-    <link rel="stylesheet" href="css/pe-icon-7-stroke.css">
-    <!-- bootstrap css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <!-- default css  -->
-    <link rel="stylesheet" href="css/default.css">
-    <!-- style css -->
-    <link rel="stylesheet" href="/css/style.css">
-    <!-- responsive css -->
-    <link rel="stylesheet" href="css/responsive.css">
-    @RenderSection("Css",required:false)
-    <!-- modernizr js -->
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <environment include="Development">
+        <!-- place favicon.ico in the root directory -->
+        <link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.png">
+        <!-- mobile menu css -->
+        <link rel="stylesheet" href="css/meanmenu.min.css">
+        <!-- animate css -->
+        <link rel="stylesheet" href="css/animate.css">
+        <!-- nivo slider css -->
+        <link rel="stylesheet" href="css/nivo-slider.css">
+        <!-- owl carousel css -->
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+        <!-- price slider css -->
+        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <!-- fontawesome css -->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <!-- icon font pack css -->
+        <link rel="stylesheet" href="css/pe-icon-7-stroke.css">
+        <!-- bootstrap css -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <!-- default css  -->
+        <link rel="stylesheet" href="css/default.css">
+        <!-- style css -->
+        <link rel="stylesheet" href="css/style.css">
+        <!-- responsive css -->
+        <link rel="stylesheet" href="css/responsive.css">
+
+        <!-- modernizr js -->
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    </environment>
 </head>
 
 <body>
@@ -44,7 +43,7 @@
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <!-- Wrapper Start -->
-    <div class="wrapper">
+    <div class="wrapper home-3">
         <!-- Preloader Start -->
         <div class="preloader">
             <div class="loading-center">
@@ -55,6 +54,8 @@
                 </div>
             </div>
         </div>
+        <!-- Preloader End -->
+        <!-- Header Area Start -->
         <header>
             <div class="container-fluid header-top-area header-sticky">
                 <div class="row">
@@ -81,10 +82,18 @@
                             <nav>
                                 <ul class="primary-menu-list text-center">
                                     <li>
-                                        <a href="index.html">home</a>
+                                        <a asp-controller="Home">home@*<i class="pe-7s-angle-down"></i>*@</a>
+                                        <!-- Home Version Dropdown Start -->
+                                        @*<ul class="ht-dropdown">
+                                            <li><a href="index.html">Home Version 1</a></li>
+                                            <li><a href="home-2.html">Home Version 2</a></li>
+                                            <li><a href="home-3.html">Home Version 3</a></li>
+                                            <li><a href="home-4.html">Home Version 4</a></li>
+                                        </ul>*@
+                                        <!-- Home Version Dropdown End -->
                                     </li>
                                     <li>
-                                        <a href="#">furniture<i class="pe-7s-angle-down"></i></a>
+                                        <a asp-area="Home">furniture<i class="pe-7s-angle-down"></i></a>
                                         <!-- Mega Menu Start -->
                                         <ul class="ht-dropdown mega-menu">
                                             <!-- Single Mega Sub Menu Start -->
@@ -247,7 +256,21 @@
                                 <li>
                                     <i class="pe-7s-config"></i>
                                     <ul class="ht-dropdown currrency">
-
+                                        <li>
+                                            <h3>currency</h3>
+                                            <ul class="mb-15">
+                                                <li>€ euro</li>
+                                                <li>£ pound sterling</li>
+                                                <li>$ us dollar</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <h3>language</h3>
+                                            <ul class="mb-15">
+                                                <li><img src="img/menu/2.png" alt="menu-icon">english</li>
+                                                <li><img src="img/menu/1.png" alt="menu-icon">french</li>
+                                            </ul>
+                                        </li>
                                         <li>
                                             <h3>my account</h3>
                                             <ul>
@@ -268,14 +291,14 @@
                         <nav>
                             <ul>
                                 <li>
-                                    <a href="#">Home</a>
+                                    <a asp-area="Home">Home</a>
                                     <!-- Mobile Menu Dropdown Start -->
-                                    <ul>
+                                    @*<ul>
                                         <li><a href="index.html">Home Version 1</a></li>
                                         <li><a href="home-2.html">Home Version 2</a></li>
                                         <li><a href="home-3.html">Home Version 3</a></li>
                                         <li><a href="home-4.html">Home Version 4</a></li>
-                                    </ul>
+                                    </ul>*@
                                     <!-- Mobile Menu Dropdown End -->
                                 </li>
                                 <li>
@@ -322,7 +345,39 @@
                                             </ul>
                                             <!-- Mobile Menu Sub-Dropdown End -->
                                         </li>
-
+                                        <li>
+                                            <a href="#">lighting</a>
+                                            <!-- Mobile Menu Sub-Dropdown Start -->
+                                            <ul>
+                                                <li><a href="categorie-page.html">commodo nunc</a></li>
+                                                <li><a href="categorie-page.html">elementum dolor</a></li>
+                                                <li><a href="categorie-page.html">ligula velvenen</a></li>
+                                                <li><a href="categorie-page.html">Vestibulum tempor</a></li>
+                                            </ul>
+                                            <!-- Mobile Menu Sub-Dropdown End -->
+                                        </li>
+                                        <li>
+                                            <a href="#">rugs</a>
+                                            <!-- Mobile Menu Sub-Dropdown Start -->
+                                            <ul>
+                                                <li><a href="categorie-page.html">blandit vehicula</a></li>
+                                                <li><a href="categorie-page.html">Praesent molestie</a></li>
+                                                <li><a href="categorie-page.html">sagittis ipsum</a></li>
+                                                <li><a href="categorie-page.html">venenatis innunc</a></li>
+                                            </ul>
+                                            <!-- Mobile Menu Sub-Dropdown End -->
+                                        </li>
+                                        <li>
+                                            <a href="#">throw pillows</a>
+                                            <!-- Mobile Menu Sub-Dropdown Start -->
+                                            <ul>
+                                                <li><a href="categorie-page.html">Fire Pits</a></li>
+                                                <li><a href="categorie-page.html">Garden Accents</a></li>
+                                                <li><a href="categorie-page.html">Outdoor Fountains</a></li>
+                                                <li><a href="categorie-page.html">Patio Heaters</a></li>
+                                            </ul>
+                                            <!-- Mobile Menu Sub-Dropdown End -->
+                                        </li>
                                     </ul>
                                     <!-- Mobile Menu Dropdown End -->
                                 </li>
@@ -351,57 +406,11 @@
                 </div>
             </div>
         </header>
+        <!-- Header Area End -->
         @RenderBody()
+
+        <!-- Footer Start -->
         <footer>
-            <!-- Footer Top Start -->
-            <div class="footer-top ptb-50">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="banner-slider owl-carousel">
-                                <!-- Single Banner Start -->
-                                <div class="single-banner">
-                                    <a href="#"><img src="img/banner-slider/1.png" alt="banner-image"></a>
-                                </div>
-                                <!-- Single Banner End -->
-                                <!-- Single Banner Start -->
-                                <div class="single-banner">
-                                    <a href="#"><img src="img/banner-slider/2.png" alt="banner-image"></a>
-                                </div>
-                                <!-- Single Banner End -->
-                                <!-- Single Banner Start -->
-                                <div class="single-banner">
-                                    <a href="#"><img src="img/banner-slider/3.png" alt="banner-image"></a>
-                                </div>
-                                <!-- Single Banner End -->
-                                <!-- Single Banner Start -->
-                                <div class="single-banner">
-                                    <a href="#"><img src="img/banner-slider/4.png" alt="banner-image"></a>
-                                </div>
-                                <!-- Single Banner End -->
-                                <!-- Single Banner Start -->
-                                <div class="single-banner">
-                                    <a href="#"><img src="img/banner-slider/5.png" alt="banner-image"></a>
-                                </div>
-                                <!-- Single Banner End -->
-                                <!-- Single Banner Start -->
-                                <div class="single-banner">
-                                    <a href="#"><img src="img/banner-slider/6.png" alt="banner-image"></a>
-                                </div>
-                                <!-- Single Banner End -->
-                                <!-- Single Banner Start -->
-                                <div class="single-banner">
-                                    <a href="#"><img src="img/banner-slider/3.png" alt="banner-image"></a>
-                                </div>
-                                <!-- Single Banner End -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Row End -->
-                </div>
-                <!-- Container End -->
-            </div>
-            <!-- Footer Top End -->
             <!-- Footer Middle Start -->
             <div class="footer-middle">
                 <div class="container">
@@ -508,33 +517,168 @@
         </footer>
         <!-- Footer End -->
         <!-- Quick View Content Start -->
+        <div class="modal modal-box fade" id="myModal" role="dialog">
+            <!-- Modal Dialog Box Start -->
+            <div class="modal-dialog max-width">
+                <!-- Modal content Start -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal Body Start -->
+                    <div class="modal-body">
+                        <div class="quiick-view-details">
+                            <!-- Product Thumbnail Start -->
+                            <div class="main-product-thumbnail">
+                                <div class="container">
+                                    <div class="row">
+                                        <!-- Main Thumbnail Image Start -->
+                                        <div class="col-md-5 col-sm-6">
+                                            <!-- Thumbnail Large Image start -->
+                                            <div class="tab-content">
+                                                <div id="thumb1" class="tab-pane fade in active">
+                                                    <img src="img/new-products/1_1.jpg" alt="product-thumbnail" />
+                                                </div>
+                                                <div id="thumb2" class="tab-pane fade">
+                                                    <img src="img/new-products/1_2.jpg" alt="product-thumbnail" />
+                                                </div>
+                                                <div id="thumb3" class="tab-pane fade">
+                                                    <img src="img/new-products/2_1.jpg" alt="product-thumbnail" />
+                                                </div>
+                                                <div id="thumb4" class="tab-pane fade">
+                                                    <img src="img/new-products/2_2.jpg" alt="product-thumbnail" />
+                                                </div>
+                                                <div id="thumb5" class="tab-pane fade">
+                                                    <img src="img/new-products/3_1.jpg" alt="product-thumbnail" />
+                                                </div>
+                                                <div id="thumb6" class="tab-pane fade">
+                                                    <img src="img/new-products/3_2.jpg" alt="product-thumbnail" />
+                                                </div>
+                                            </div>
+                                            <!-- Thumbnail Large Image End -->
+                                            <!-- Thumbnail Image End -->
+                                            <div class="product-thumbnail mt-15 mb-20">
+                                                <div class="thumb-menu owl-carousel">
+                                                    <div class="active">
+                                                        <a data-toggle="tab" href="#thumb1"> <img src="img/new-products/1_1.jpg" alt="product-thumbnail"></a>
+                                                    </div>
+                                                    <div>
+                                                        <a data-toggle="tab" href="#thumb2"> <img src="img/new-products/1_2.jpg" alt="product-thumbnail"></a>
+                                                    </div>
+                                                    <div>
+                                                        <a data-toggle="tab" href="#thumb3"> <img src="img/new-products/2_1.jpg" alt="product-thumbnail"></a>
+                                                    </div>
+                                                    <div>
+                                                        <a data-toggle="tab" href="#thumb4"> <img src="img/new-products/2_2.jpg" alt="product-thumbnail"></a>
+                                                    </div>
+                                                    <div>
+                                                        <a data-toggle="tab" href="#thumb5"> <img src="img/new-products/3_1.jpg" alt="product-thumbnail"></a>
+                                                    </div>
+                                                    <div>
+                                                        <a data-toggle="tab" href="#thumb6"> <img src="img/new-products/3_2.jpg" alt="product-thumbnail"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Thumbnail image end -->
+                                        </div>
+                                        <!-- Main Thumbnail Image End -->
+                                        <!-- Thumbnail Description Start -->
+                                        <div class="col-md-7 col-sm-6">
+                                            <div class="thubnail-desc fix">
+                                                <h2 class="product-header">Sheepskin Pillow2</h2>
+                                                <!-- Product Rating Start -->
+                                                <div class="rating-summary fix mtb-25">
+                                                    <div class="rating f-left mr-10">
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </div>
+                                                    <div class="rating-feedback f-left">
+                                                        <a href="#">0 reviews</a> /
+                                                        <a href="#">Write a review</a>
+                                                    </div>
+                                                </div>
+                                                <!-- Product Rating End -->
+                                                <!-- Product Price Start -->
+                                                <div class="pro-price mb-15">
+                                                    <ul class="pro-price-list">
+                                                        <li class="price">$241.99</li>
+                                                        <li class="tax">Ex Tax: $199.99</li>
+                                                    </ul>
+                                                </div>
+                                                <!-- Product Price End -->
+                                                <!-- Product Price Description Start -->
+                                                <div class="product-price-desc mb-10">
+                                                    <ul class="pro-desc-list">
+                                                        <li>Product Code: <span>SAMI</span></li>
+                                                        <li>Reward Points: <span>1000</span></li>
+                                                        <li>Availability: <span>in Stock</span></li>
+                                                    </ul>
+                                                </div>
+                                                <!-- Product Price Description End -->
+                                                <!-- Product Box Quantity Start -->
+                                                <div class="box-quantity mb-30">
+                                                    <div class="quantity-item">
+                                                        <label>Qty: </label>
+                                                        <div class="cart-plus-minus">
+                                                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="0">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Product Box Quantity End -->
+                                                <!-- Product Button Actions Start -->
+                                                <div class="product-button-actions">
+                                                    <button class="add-to-cart">add to cart</button>
+                                                    <button data-toggle="tooltip" title="Add to Wishlist" class="same-btn mr-15"><i class="pe-7s-like"></i></button>
+                                                    <button data-toggle="tooltip" title="Compare this Product" class="same-btn"><i class="pe-7s-repeat"></i></button>
+                                                </div>
+                                                <!-- Product Button Actions End -->
+                                            </div>
+                                        </div>
+                                        <!-- Thumbnail Description End -->
+                                    </div>
+                                    <!-- Row End -->
+                                </div>
+                                <!-- Container End -->
+                            </div>
+                            <!-- Product Thumbnail End -->
+                        </div>
+                        <!-- Quick View Details End -->
+                    </div>
+                    <!-- Modal Body End -->
+                </div>
+                <!-- Modal Content End -->
+            </div>
+            <!-- Modal Dialog Box End -->
+        </div>
         <!-- Quick View Content End -->
     </div>
     <!-- Wrapper End -->
-    <!-- jquery 3.12.4 -->
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
-    <!-- mobile menu js  -->
-    <script src="js/jquery.meanmenu.min.js"></script>
-    <!-- scroll-up js -->
-    <script src="js/jquery.scrollUp.js"></script>
-    <!-- owl-carousel js -->
-    <script src="js/owl.carousel.min.js"></script>
-    <!-- wow js -->
-    <script src="js/wow.min.js"></script>
-    <!-- price slider js -->
-    <script src="js/jquery-ui.min.js"></script>
-    <!-- elevateZoom js -->
-    <script src="js/jquery.elevateZoom-3.0.8.min.js"></script>
-    <!-- nivo slider js -->
-    <script src="js/jquery.nivo.slider.js"></script>
-    <!-- bootstrap -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- plugins -->
-    <script src="js/plugins.js"></script>
-    <!-- main js -->
-    <script src="js/main.js"></script>
+    <environment include="Development">
+        <!-- jquery 3.12.4 -->
+        <script src="js/vendor/jquery-1.12.4.min.js"></script>
+        <!-- mobile menu js  -->
+        <script src="js/jquery.meanmenu.min.js"></script>
+        <!-- scroll-up js -->
+        <script src="js/jquery.scrollUp.js"></script>
+        <!-- owl-carousel js -->
+        <script src="js/owl.carousel.min.js"></script>
+        <!-- wow js -->
+        <script src="js/wow.min.js"></script>
+        <!-- price slider js -->
+        <script src="js/jquery-ui.min.js"></script>
+        <!-- elevateZoom js -->
+        <script src="js/jquery.elevateZoom-3.0.8.min.js"></script>
+        <!-- nivo slider js -->
+        <script src="js/jquery.nivo.slider.js"></script>
+        <!-- bootstrap -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- plugins -->
+        <script src="js/plugins.js"></script>
+        <!-- main js -->
+        <script src="js/main.js"></script>
+    </environment>
 </body>
 
-
-<!-- Mirrored from d29u17ylf1ylz9.cloudfront.net/nevara/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 25 Jun 2018 13:03:18 GMT -->
 </html>
