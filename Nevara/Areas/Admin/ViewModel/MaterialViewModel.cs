@@ -8,6 +8,6 @@ namespace Nevara.Areas.Admin.Models
     public class MaterialViewModel
     {
         public int Id { get; set; }
-        public string MaterialName { get; set; }
+        public string MaterialName { get; set; }    
     }
 }
