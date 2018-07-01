@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Nevara.Areas.Admin.Models;
 using Nevara.Models.Entities;
+using Microsoft.Extensions.Logging;
+using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
 namespace Nevara.Controllers
 {
@@ -12,6 +14,10 @@ namespace Nevara.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly ILogger _logger;
+
+        [TempData]
+        public string ErrorMessage { get; set; }
 
         public AccountController(
             UserManager<AppUser> userManager,
@@ -30,6 +36,7 @@ namespace Nevara.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [ValidateRecaptcha]
         [Route("register.html")]
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
@@ -62,6 +69,7 @@ namespace Nevara.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        
         #region Helpers
 
         private void AddErrors(IdentityResult result)

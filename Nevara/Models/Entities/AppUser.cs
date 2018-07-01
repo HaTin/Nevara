@@ -10,7 +10,6 @@ namespace Nevara.Models.Entities
     public class AppUser : IdentityUser<Guid>,IHasSoftDelete
     {
         [Required]
-        
         [StringLength(255)]
         public string FullName { get; set; }
         public DateTime? BirthDate { get; set; }    
