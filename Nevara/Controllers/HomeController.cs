@@ -24,7 +24,10 @@ namespace Nevara.Controllers
             return View(proList);
         }
 
-        
+        public IActionResult ProductDetails()
+        {
+            return View();
+        }
 
     }
 }
