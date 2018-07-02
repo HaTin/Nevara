@@ -1,7 +1,8 @@
-﻿using System.Threading.Tasks;
-using Nevara.Areas.Admin.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Nevara.Dtos;
 using Nevara.Models.Entities;
+using Nevara.ViewModel;
 
 namespace Nevara.Interfaces
 {
@@ -12,5 +13,6 @@ namespace Nevara.Interfaces
         Task Add(ProductViewModel productViewModel);
         Task Update(ProductViewModel productViewModel);
         Task Remove(int? id);
+        Task<List<ProductViewModel>> GetProductList();
     }
 }

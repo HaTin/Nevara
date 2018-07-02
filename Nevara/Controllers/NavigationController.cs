@@ -7,24 +7,17 @@ using Nevara.Interfaces;
 
 namespace Nevara.Controllers
 {
-    public class HomeController : Controller
+    public class NavigationController : Controller
     {
-        private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
-
-        public HomeController(IProductService productService, ICategoryService categoryService)
+        public NavigationController(ICategoryService categoryService)
         {
-            _productService = productService;
             _categoryService = categoryService;
         }
-
         public async Task<IActionResult> Index()
         {
-            var proList = await _productService.GetProductList();
-            return View(proList);
+            var cate = await _categoryService.GetCategories();
+            return View(cate);
         }
-
-        
-
     }
 }

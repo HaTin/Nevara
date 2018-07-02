@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Nevara.Models.Entities;
 
-namespace Nevara.Areas.Admin.Models
+namespace Nevara.ViewModel
 {
     public class ProductViewModel
     {

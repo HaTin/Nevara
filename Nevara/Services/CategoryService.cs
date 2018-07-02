@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Nevara.Areas.Admin.Models;
 using Nevara.Interfaces;
+using Nevara.ViewModel;
 using Nevara.Models.Entities;
 
 namespace Nevara.Services

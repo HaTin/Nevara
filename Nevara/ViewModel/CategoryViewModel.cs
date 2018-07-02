@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Nevara.Areas.Admin.Models
+namespace Nevara.ViewModel
 {
     public class CategoryViewModel
     {

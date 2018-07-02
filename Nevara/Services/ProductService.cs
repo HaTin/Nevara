@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Nevara.Areas.Admin.Models;
 using Nevara.Helpers;
+using Nevara.ViewModel;
 using Nevara.Interfaces;
 using StackExchange.Profiling.Internal;
 
@@ -58,6 +58,18 @@ namespace Nevara.Services
                 PageSize = pageSize
             };
             return paginationSet;
+        }
+
+        public async Task<List<ProductViewModel>> GetProductList()
+        {
+            var model = await _context.Products.Where(p => p.HomeFlag == true).Where(p => !p.IsDeleted).Take(10).Select(p => new ProductViewModel()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Thumbnail = p.Thumbnail
+                }).ToListAsync();
+            return model;
         }
 
         public async Task<ProductViewModel> Find(int? id)
@@ -162,5 +174,18 @@ namespace Nevara.Services
             await _context.SaveChangesAsync();
 
         }
+
+       
+
+       
+
+       
+
+     
+
+
+     
+
+       
     }
 }
