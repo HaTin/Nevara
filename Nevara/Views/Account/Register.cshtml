@@ -37,11 +37,12 @@
     <link rel="stylesheet" href="/css/responsive.css">
     <!-- modernizr js -->
     <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body>
     <!--[if lt IE 8]>
-    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <!-- Wrapper Start -->
     <div class="wrapper">
@@ -430,7 +431,14 @@
                                 </div>
                             </div>
                         </fieldset>
-
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <recaptcha/>
+                                    <span class="text-danger" id="recaptchaErrorMessage"></span>
+                                </div>
+                            </div>
+                        </fieldset>
                         <div class="buttons newsletter-input">
                             <div class="pull-right">
                                 <input type="submit" value="Register" class="newsletter-btn">
@@ -628,3 +636,7 @@
 
 <!-- Mirrored from d29u17ylf1ylz9.cloudfront.net/nevara/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 25 Jun 2018 13:03:18 GMT -->
 </html>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <recaptcha-script validation-message-element-id="recaptchaErrorMessage" />
+}

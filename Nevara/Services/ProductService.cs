@@ -21,7 +21,7 @@ namespace Nevara.Services
         }
         public async Task<PageResult<ProductViewModel>> GetProduct(int? categoryId,int? collectionId, string keyword, int page, int pageSize)
         {           
-            var query = _context.Products.AsQueryable();            
+            var query = _context.Products.Where(p => !p.IsDeleted).AsQueryable();            
             if (!string.IsNullOrEmpty(keyword))
             {
                
@@ -94,8 +94,7 @@ namespace Nevara.Services
                     ManufacturerId = model.ManufacturerId,
                     MaterialId = model.MaterialId,
                     NewFlag = model.NewFlag,
-                    OriginalPrice = model.OriginalPrice ,                    
-                   
+                    OriginalPrice = model.OriginalPrice ,                                       
                 };
                 return viewModel;
         }
@@ -105,6 +104,7 @@ namespace Nevara.Services
         {
             var product = new Product()
             {
+                Id = pro.Id,
                 Name = pro.Name,
                 CategoryId = pro.CategoryId,
                 CollectionId = pro.CollectionId,
@@ -119,10 +119,14 @@ namespace Nevara.Services
                 PromotionPrice = pro.PromotionPrice,
                 Price = pro.Price,
                 NewFlag = pro.NewFlag,
-                ManufacturerId = pro.ManufacturerId,               
-                IsDeleted = false
+                ManufacturerId = pro.ManufacturerId,
+                Quantity = pro.Quantity,                
+                IsDeleted = false,
+                Description = "No Description",
+                Thumbnail = "/images/1.png",                
             };
-            _context.Add(product);
+      
+                _context.Add(product);                     
             await _context.SaveChangesAsync();
         }
 

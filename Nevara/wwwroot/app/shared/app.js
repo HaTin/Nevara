@@ -2,27 +2,18 @@
     configs: {
         pageSize: 10,
         pageIndex: 1
-    }, 
+    },
     confirm: (message, okCallBack) => {
-        bootbox.confirm({
-            message: message,
-            buttons: {
-                confirm: {
-                    label: 'Yes',
-                    className: 'btn-success'
-                },
-                cancel: {
-                    label: 'No',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function(result) {
-                if (result) {
-                    okCallBack();
-                }
-            }
+        swal({
+            title: "Are you sure?",
+            text: "",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((isConfirm) => {
+            if (!isConfirm) return;
+            okCallBack();
         });
-
     },
     dateFormatJson: (datetime) => {
         if (datetime == null || datetime === '')
@@ -65,14 +56,14 @@
             ss = `0${ss}`;
         return `${day}/${month}/${year} ${hh}:${mm}:${ss}`;
     },
- formatNumber: (number, precision) => {
+    formatNumber: (number, precision) => {
         if (!isFinite(number)) {
             return number.toString();
         }
         var a = number.toFixed(precision).split('.');
         a[0] = a[0].replace(/\d(?=(\d{3})+$)/g, '$&,');
         return a.join('.');
-    }      
+    }
 };
 $(document).ajaxSend(function(e, xhr, options) {
     if (options.type.toUpperCase() === 'POST' || options.type.toUpperCase() === 'PUT') {

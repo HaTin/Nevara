@@ -34,9 +34,32 @@
                 });
             }
         }
-
+        resetForm() {
+            $('#hiddenId').val(0);
+            $('#txtName').val('');
+            $('#collection-select-2').val('default');
+            $('#category-select-2').val('default');
+            $('#color-select').val('default');
+            $('#manufacturer-select').val('default');
+            $('#material-select').val('default');
+            $('#txtWidth').val('');
+            $('#txtHeight').val('');
+            $('#txtDepth').val('');
+            $('#txtOrginalPrice').val('');
+            $('#txtPrice').val('');
+            $('#txtPromotionPrice').val('');
+            $('#home-flag').prop('checked', false);
+            $('#new-flag').prop('checked', false);
+            $('#hot-flag').prop('checked', false);
+            $('#txtQuantity').val('');
+        }
         registeredEvent() {
             var self = this;
+            $('#btn-add').on('click',
+                function() {
+                    self.resetForm();
+                    $('#modal').modal('show');
+                });
             $('#formProduct').validate({                
                 rules: {
                     Name: { required: true },
@@ -120,6 +143,48 @@
                     e.preventDefault();
                     $('#modal').modal('show');
                 });
+            $('body').on('click', '.remove', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                    swal({
+                        text: 'Are you sure ?',
+                        type: "warning",
+                        title : '',
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it!"                        
+                },
+                    function(isConfirm) {
+                        if (!isConfirm) return;
+                        $.ajax({
+                            type: "POST",
+                            url: "/Admin/Product/Remove",
+                            data: { id: id },
+                            dataType: "json",
+                            success: function (response) {
+                                self.loadData(true);                       
+                                $.toast({
+                                    bgColor: '#20c997',
+                                    heading: 'Delete Successful',
+                                    text: '',
+                                    position: 'top-right',
+                                    loaderBg: '#dc3545',
+                                    icon: 'success',
+                                    hideAfter: 3500,
+                                    stack: 6
+                                });
+                            },
+                            error: function (status) {
+                                console.log(status);                            
+                                $.toastr('Delete Failed');
+                            }
+                        });
+                    }); 
+                 
+                });
+                 
+           
+
             $('#btn-save').on('click',
                 function(e) {
                     if ($('#formProduct').valid()) {
@@ -149,7 +214,17 @@
                             success: function (response) {
                                 console.log(response);
                                 $('#modal').modal('hide');
-                                self.loadData(true);
+                                self.loadData(true);                            
+                                $.toast({
+                                        bgColor:'#20c997',
+                                        heading: 'Save Successful',
+                                        text: '',
+                                        position: 'top-right',
+                                        loaderBg: '#dc3545',
+                                        icon: 'success',
+                                        hideAfter: 3500,
+                                        stack: 6                                   
+                                });
                             },
                             error: function(err) {
                                 console.log(err);
@@ -209,7 +284,7 @@
         }
 
         loadCategories() {
-            var render = "<option>Select Category</option>";
+            var render = "<option value='default'>Select Category</option>";
             $.ajax({
                 type: "GET",
                 url: "/admin/product/GetCategories",
@@ -230,7 +305,7 @@
         }
 
         loadCollections() {
-            var render = "<option>Select collection</option>";
+            var render = "<option value='default'>Select collection</option>";
             $.ajax({
                 type: "GET",
                 url: "/admin/product/GetCollections",
@@ -255,7 +330,7 @@
         }
 
         getMaterials() {
-            var render = "<option>Select material</option>";
+            var render = "<option value='default'>Select material</option>";
             $.ajax({
                 type: "GET",
                 url: "/admin/product/GetMaterials",
@@ -276,7 +351,7 @@
         }
 
         getManufacturers() {
-            var render = "<option>Select Manufacturer</option>";
+            var render = "<option value='default'>Select Manufacturer</option>";
             $.ajax({
                 type: "GET",
                 url: "/admin/product/GetManufacturers",
@@ -297,7 +372,7 @@
         }
 
         getColors() {
-            var render = "<option>Select Color</option>";
+            var render = "<option value='default'>Select Color</option>";
             $.ajax({
                 type: "GET",
                 url: "/admin/product/GetColors",
