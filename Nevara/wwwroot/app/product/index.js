@@ -1,13 +1,14 @@
 ﻿
     class ProductController {
-        init() {
+        init() {            
             this.loadCategories();
             this.loadCollections();
-            this.loadData();
-            this.registeredEvent();
+          
+            this.loadData();            
             this.getColors();
             this.getManufacturers();
             this.getMaterials();
+            this.registeredEvent();
         }
 
         wrapPaging(recordCount, callback, changePageSize) {
@@ -42,7 +43,7 @@
             $('#color-select').val('default');
             $('#manufacturer-select').val('default');
             $('#material-select').val('default');
-            $('#txtWidth').val('');
+            $('#txtLength').val('');
             $('#txtHeight').val('');
             $('#txtDepth').val('');
             $('#txtOrginalPrice').val('');
@@ -54,15 +55,17 @@
             $('#txtQuantity').val('');
         }
         registeredEvent() {
-            var self = this;
+            var self = this; 
             $('#btn-add').on('click',
-                function() {
+                function () {
                     self.resetForm();
+                    $('.parsley-errors-list').html('');
                     $('#modal').modal('show');
-                });
-            $('#formProduct').validate({                
+                });                  
+            /*$('#formProduct').validate({
+                
                 rules: {
-                    Name: { required: true },
+                    name: { required: true },
                     price: {
                         required: true,
                         number: true
@@ -97,8 +100,10 @@
                     colorSelect: { valueNotEquals: "default" },
                     manufacturerSelect: { valueNotEquals: "default" }
                 }
+            });*/
+            $('#formProduct').parsley({ 
             });
-         
+
             $('#btn-search').on('click',
                 function() {
                     common.configs.pageIndex = 1;
@@ -113,14 +118,16 @@
                 });
             $('body').on('click',
                 '.edit',
-                function(e) {
+                function (e) {
+                    $('.parsley-errors-list').html('');
                     var id = $(this).data('id');
                     $.ajax({
                         type: "GET",
                         url: "/admin/product/find",
                         data: { id: id },
                         dataType: "json",
-                        success: function(response) {
+                        success: function (response) {
+                            self.resetForm();
                             $('#hiddenId').val(response.Id);
                             $('#txtName').val(response.Name);
                             $('#collection-select-2').val(response.CollectionId);
@@ -128,7 +135,7 @@
                             $('#color-select').val(response.ColorId);
                             $('#manufacturer-select').val(response.ManufacturerId);
                             $('#material-select').val(response.MaterialId);
-                            $('#txtWidth').val(response.Width);
+                            $('#txtLength').val(response.Length);
                             $('#txtHeight').val(response.Height);
                             $('#txtDepth').val(response.Depth);
                             $('#txtOrginalPrice').val(response.OriginalPrice);
@@ -141,6 +148,7 @@
                         }
                     });
                     e.preventDefault();
+
                     $('#modal').modal('show');
                 });
             $('body').on('click', '.remove', function (e) {
@@ -176,7 +184,7 @@
                             },
                             error: function (status) {
                                 console.log(status);                            
-                                $.toastr('Delete Failed');
+                                
                             }
                         });
                     }); 
@@ -186,8 +194,8 @@
            
 
             $('#btn-save').on('click',
-                function(e) {
-                    if ($('#formProduct').valid()) {
+                function (e) {                  
+                    if ($('#formProduct').parsley().isValid()) {
                         e.preventDefault();
                         $.ajax({
                             type: "POST",
@@ -195,7 +203,7 @@
                             data: {
                                 Id: $('#hiddenId').val(),
                                 Name: $('#txtName').val(),
-                                Width: $('#txtWidth').val(),
+                                Length: $('#txtLength').val(),
                                 Height: $('#txtHeight').val(),
                                 Depth: $('#txtDepth').val(),
                                 Quantity: $('#txtQuantity').val(),
@@ -225,9 +233,20 @@
                                         hideAfter: 3500,
                                         stack: 6                                   
                                 });
+
                             },
                             error: function(err) {
                                 console.log(err);
+                                $.toast({
+                                    bgColor: '#20c997',
+                                    heading: 'Save failed',
+                                    text: '',
+                                    position: 'top-right',
+                                    loaderBg: 'red',
+                                    icon: 'success',
+                                    hideAfter: 3500,
+                                    stack: 6
+                                });
                             }
                         });
                     }
@@ -284,7 +303,7 @@
         }
 
         loadCategories() {
-            var render = "<option value='default'>Select Category</option>";
+            var render = '<option value="">Select Category</option>';
             $.ajax({
                 type: "GET",
                 url: "/admin/product/GetCategories",
@@ -305,7 +324,7 @@
         }
 
         loadCollections() {
-            var render = "<option value='default'>Select collection</option>";
+            var render = "<option value=''>Select collection</option>";
             $.ajax({
                 type: "GET",
                 url: "/admin/product/GetCollections",
@@ -330,7 +349,7 @@
         }
 
         getMaterials() {
-            var render = "<option value='default'>Select material</option>";
+            var render = "<option value=''>Select material</option>";
             $.ajax({
                 type: "GET",
                 url: "/admin/product/GetMaterials",
@@ -351,7 +370,7 @@
         }
 
         getManufacturers() {
-            var render = "<option value='default'>Select Manufacturer</option>";
+            var render = "<option value=''>Select Manufacturer</option>";
             $.ajax({
                 type: "GET",
                 url: "/admin/product/GetManufacturers",
@@ -372,7 +391,7 @@
         }
 
         getColors() {
-            var render = "<option value='default'>Select Color</option>";
+            var render = "<option value=''>Select Color</option>";
             $.ajax({
                 type: "GET",
                 url: "/admin/product/GetColors",

@@ -6,10 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Nevara.Areas.Admin.Models;
 using Nevara.Interfaces;
 using Nevara.Models.Entities;
+using Nevara.ViewModel;
 
 namespace Nevara.Services
 {
     public class CategoryService : ICategoryService
+
     {
         private readonly NevaraDbContext _context;
         public CategoryService(NevaraDbContext context)
@@ -18,12 +20,48 @@ namespace Nevara.Services
         }
         public async Task<List<CategoryViewModel>> GetCategories()
         {
-            return await _context.Categories.Select(p => new CategoryViewModel()
+            return await _context.Categories.Where(p=> !p.IsDeleted).Select(p => new CategoryViewModel()
             {
                 Id = p.Id,
                 Name = p.Name
             }).ToListAsync();
         }
-        
+
+        public async Task<CategoryViewModel> Find(int? id)
+        {
+
+            var model = await _context.Categories.FindAsync(id);
+            var viewModel = new CategoryViewModel()
+            {
+                Id = model.Id,
+                Name = model.Name,
+            };
+            return viewModel;
+        }
+
+        public async Task Add(CategoryViewModel categoryViewModel)
+        {
+            var category = new Category()
+            {
+                Id = categoryViewModel.Id,
+                Name = categoryViewModel.Name
+            };
+            _context.Categories.Add(category);
+            await _context.SaveChangesAsync();
+        }
+
+        public  async Task Update(CategoryViewModel categoryViewModel)
+        {
+            var category = await _context.Categories.FindAsync(categoryViewModel.Id);
+            category.Name = categoryViewModel.Name;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Remove(int? id)
+        {
+            var category = await _context.Categories.FindAsync(id);
+            category.IsDeleted = true;
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -83,30 +83,26 @@ namespace Nevara
                 new Category()
                 {
                     Id = 1,
-                    Name = "Beds",
-                    Image = "/images/Category/cat3.jpg",
+                    Name = "Beds",                    
                     IsDeleted = false,
                     
                 },
                 new Category()
                 {
                     Id = 2,
-                    Name = "Tables",
-                    Image = "/images/Category/cat1.jpg",
+                    Name = "Tables",                    
                     IsDeleted = false,
                 },
                 new Category()
                 {
                     Id = 3,
-                    Name = "Chair",
-                    Image = "/images/Category/cat2.jpg",
+                    Name = "Chair",                   
                     IsDeleted = false,
                 },
                 new Category()
                 {
                     Id = 4,
-                    Name = "Kitchen Furniture",
-                    Image = "/images/Category/cat2.jpg",
+                    Name = "Kitchen Furniture",                    
                     IsDeleted = false,
                  }
             );

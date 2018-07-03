@@ -2,6 +2,7 @@
 using Nevara.Areas.Admin.Models;
 using Nevara.Dtos;
 using Nevara.Models.Entities;
+using Nevara.ViewModel;
 
 namespace Nevara.Interfaces
 {

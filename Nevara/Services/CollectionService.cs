@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Nevara.Areas.Admin.Models;
 using Nevara.Interfaces;
+using Nevara.ViewModel;
 
 namespace Nevara.Services
 {
@@ -22,6 +23,26 @@ namespace Nevara.Services
                 Id = p.Id,
                 CollectionName = p.CollectionName
             }).ToListAsync();
+        }
+
+        public Task<CollectionViewModel> Find(int? id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Add(CollectionViewModel viewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Update(CollectionViewModel viewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Remove(int? id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

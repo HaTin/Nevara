@@ -54,7 +54,7 @@
                     if (warningsFound) {
                         if (settings.options.preventSubmit) {
                             e.preventDefault();
-                            e.stopImmediatePropagation();
+                            e.stopImmediatePropagatiohn();
                         }
                         $form.addClass("error");
                         if ($.isFunction(settings.options.submitError)) {
