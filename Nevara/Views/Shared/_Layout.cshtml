@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Nevara.Extensions
+<!DOCTYPE html>
 <html lang="en-US">
 <head>
     <meta charset="utf-8">
@@ -7,35 +8,35 @@
     <meta name="description" content="Default Description">
     <meta name="keywords" content="E-commerce" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <environment include="Development">
-        <!-- place favicon.ico in the root directory -->
-        <link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.png">
-        <!-- mobile menu css -->
-        <link rel="stylesheet" href="css/meanmenu.min.css">
-        <!-- animate css -->
-        <link rel="stylesheet" href="css/animate.css">
-        <!-- nivo slider css -->
-        <link rel="stylesheet" href="css/nivo-slider.css">
-        <!-- owl carousel css -->
-        <link rel="stylesheet" href="css/owl.carousel.min.css">
-        <!-- price slider css -->
-        <link rel="stylesheet" href="css/jquery-ui.min.css">
-        <!-- fontawesome css -->
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <!-- icon font pack css -->
-        <link rel="stylesheet" href="css/pe-icon-7-stroke.css">
-        <!-- bootstrap css -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <!-- default css  -->
-        <link rel="stylesheet" href="css/default.css">
-        <!-- style css -->
-        <link rel="stylesheet" href="css/style.css">
-        <!-- responsive css -->
-        <link rel="stylesheet" href="css/responsive.css">
 
-        <!-- modernizr js -->
-        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-    </environment>
+    <!-- place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.png">
+    <!-- mobile menu css -->
+    <link rel="stylesheet" href="~/css/meanmenu.min.css">
+    <!-- animate css -->
+    <link rel="stylesheet" href="~/css/animate.css">
+    <!-- nivo slider css -->
+    <link rel="stylesheet" href="~/css/nivo-slider.css">
+    <!-- owl carousel css -->
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <!-- price slider css -->
+    <link rel="stylesheet" href="~/css/jquery-ui.min.css">
+    <!-- fontawesome css -->
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <!-- icon font pack css -->
+    <link rel="stylesheet" href="~/css/pe-icon-7-stroke.css">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <!-- default css  -->
+    <link rel="stylesheet" href="~/css/default.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="~/css/style.css">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="~/css/responsive.css">
+
+    <!-- modernizr js -->
+    <script src="~/js/vendor/modernizr-2.8.3.min.js"></script>
+    @RenderSection("css", false)
 </head>
 
 <body>
@@ -62,7 +63,7 @@
                     <!-- Logo Start -->
                     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-5 full-col pl-0">
                         <div class="logo">
-                            <a href="index.html"><img src="img/logo/logo.png" alt="brand-image"></a>
+                            <a asp-controller="Home"><img src="~/img/logo/logo.png" alt="brand-image"></a>
                         </div>
                     </div>
                     <!-- Logo End -->
@@ -85,11 +86,11 @@
                                         <a asp-controller="Home">home@*<i class="pe-7s-angle-down"></i>*@</a>
                                         <!-- Home Version Dropdown Start -->
                                         @*<ul class="ht-dropdown">
-                                            <li><a href="index.html">Home Version 1</a></li>
-                                            <li><a href="home-2.html">Home Version 2</a></li>
-                                            <li><a href="home-3.html">Home Version 3</a></li>
-                                            <li><a href="home-4.html">Home Version 4</a></li>
-                                        </ul>*@
+                                                <li><a href="index.html">Home Version 1</a></li>
+                                                <li><a href="home-2.html">Home Version 2</a></li>
+                                                <li><a href="home-3.html">Home Version 3</a></li>
+                                                <li><a href="home-4.html">Home Version 4</a></li>
+                                            </ul>*@
                                         <!-- Home Version Dropdown End -->
                                     </li>
                                     <li>
@@ -212,7 +213,13 @@
                                     </ul>
                                 </li>
                                 <!-- Search Box End -->
-                                <li><a href="wish-list.html"><i class="pe-7s-like"></i><span>2</span></a></li>
+
+                                <li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <a href="/Account/Profile">@User.GetClaim("FullName")</a>
+                                    }
+                                </li>
                                 <li>
                                     <i class="pe-7s-shopbag"></i><span>2</span>
                                     <ul class="ht-dropdown main-cart-box">
@@ -256,27 +263,29 @@
                                 <li>
                                     <i class="pe-7s-config"></i>
                                     <ul class="ht-dropdown currrency">
-                                        <li>
-                                            <h3>currency</h3>
-                                            <ul class="mb-15">
-                                                <li>€ euro</li>
-                                                <li>£ pound sterling</li>
-                                                <li>$ us dollar</li>
-                                            </ul>
-                                        </li>
+
                                         <li>
                                             <h3>language</h3>
                                             <ul class="mb-15">
-                                                <li><img src="img/menu/2.png" alt="menu-icon">english</li>
-                                                <li><img src="img/menu/1.png" alt="menu-icon">french</li>
+                                                <li><img src="~/img/menu/2.png" alt="menu-icon">english</li>
+                                                <li><img src="~/img/menu/1.png" alt="menu-icon">french</li>
                                             </ul>
                                         </li>
                                         <li>
                                             <h3>my account</h3>
                                             <ul>
-                                                <li><a href="register.html">register</a></li>
-                                                <li><a href="account.html">My Account</a></li>
-                                                <li><a href="log-in.html">log in</a></li>
+
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    <li><a href="account.html">My Account</a></li>
+                                                    <li><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li><a href="/Account/Register">register</a></li>
+                                                    <li><a href="/Account/Login">log in</a></li>
+                                                }
+
                                             </ul>
                                         </li>
                                     </ul>
@@ -294,11 +303,11 @@
                                     <a asp-area="Home">Home</a>
                                     <!-- Mobile Menu Dropdown Start -->
                                     @*<ul>
-                                        <li><a href="index.html">Home Version 1</a></li>
-                                        <li><a href="home-2.html">Home Version 2</a></li>
-                                        <li><a href="home-3.html">Home Version 3</a></li>
-                                        <li><a href="home-4.html">Home Version 4</a></li>
-                                    </ul>*@
+                                            <li><a href="index.html">Home Version 1</a></li>
+                                            <li><a href="home-2.html">Home Version 2</a></li>
+                                            <li><a href="home-3.html">Home Version 3</a></li>
+                                            <li><a href="home-4.html">Home Version 4</a></li>
+                                        </ul>*@
                                     <!-- Mobile Menu Dropdown End -->
                                 </li>
                                 <li>
@@ -419,7 +428,7 @@
                             <!-- Single Footer Start -->
                             <div class="single-footer col-md-3 col-sm-6">
                                 <div class="footer-logo">
-                                    <a href="#"><img class="img" src="img/logo/logo.png" alt="logo-img"></a>
+                                    <a href="#"><img class="img" src="~/img/logo/logo.png" alt="logo-img"></a>
                                 </div>
                                 <div class="footer-content">
                                     <p>We are a team of designers and developers that create high quality HTML, Magento, Prestashop, Opencart.</p>
@@ -537,22 +546,22 @@
                                             <!-- Thumbnail Large Image start -->
                                             <div class="tab-content">
                                                 <div id="thumb1" class="tab-pane fade in active">
-                                                    <img src="img/new-products/1_1.jpg" alt="product-thumbnail" />
+                                                    <img src="~/img/new-products/1_1.jpg" alt="product-thumbnail" />
                                                 </div>
                                                 <div id="thumb2" class="tab-pane fade">
-                                                    <img src="img/new-products/1_2.jpg" alt="product-thumbnail" />
+                                                    <img src="~/img/new-products/1_2.jpg" alt="product-thumbnail" />
                                                 </div>
                                                 <div id="thumb3" class="tab-pane fade">
-                                                    <img src="img/new-products/2_1.jpg" alt="product-thumbnail" />
+                                                    <img src="~/img/new-products/2_1.jpg" alt="product-thumbnail" />
                                                 </div>
                                                 <div id="thumb4" class="tab-pane fade">
-                                                    <img src="img/new-products/2_2.jpg" alt="product-thumbnail" />
+                                                    <img src="~/img/new-products/2_2.jpg" alt="product-thumbnail" />
                                                 </div>
                                                 <div id="thumb5" class="tab-pane fade">
-                                                    <img src="img/new-products/3_1.jpg" alt="product-thumbnail" />
+                                                    <img src="~/img/new-products/3_1.jpg" alt="product-thumbnail" />
                                                 </div>
                                                 <div id="thumb6" class="tab-pane fade">
-                                                    <img src="img/new-products/3_2.jpg" alt="product-thumbnail" />
+                                                    <img src="~/img/new-products/3_2.jpg" alt="product-thumbnail" />
                                                 </div>
                                             </div>
                                             <!-- Thumbnail Large Image End -->
@@ -655,30 +664,29 @@
         <!-- Quick View Content End -->
     </div>
     <!-- Wrapper End -->
-    <environment include="Development">
-        <!-- jquery 3.12.4 -->
-        <script src="js/vendor/jquery-1.12.4.min.js"></script>
-        <!-- mobile menu js  -->
-        <script src="js/jquery.meanmenu.min.js"></script>
-        <!-- scroll-up js -->
-        <script src="js/jquery.scrollUp.js"></script>
-        <!-- owl-carousel js -->
-        <script src="js/owl.carousel.min.js"></script>
-        <!-- wow js -->
-        <script src="js/wow.min.js"></script>
-        <!-- price slider js -->
-        <script src="js/jquery-ui.min.js"></script>
-        <!-- elevateZoom js -->
-        <script src="js/jquery.elevateZoom-3.0.8.min.js"></script>
-        <!-- nivo slider js -->
-        <script src="js/jquery.nivo.slider.js"></script>
-        <!-- bootstrap -->
-        <script src="js/bootstrap.min.js"></script>
-        <!-- plugins -->
-        <script src="js/plugins.js"></script>
-        <!-- main js -->
-        <script src="js/main.js"></script>
-    </environment>
+    <!-- jquery 3.12.4 -->
+    <script src="~/js/vendor/jquery-1.12.4.min.js"></script>
+    <!-- mobile menu js  -->
+    <script src="~/js/jquery.meanmenu.min.js"></script>
+    <!-- scroll-up js -->
+    <script src="~/js/jquery.scrollUp.js"></script>
+    <!-- owl-carousel js -->
+    <script src="~/js/owl.carousel.min.js"></script>
+    <!-- wow js -->
+    <script src="~/js/wow.min.js"></script>
+    <!-- price slider js -->
+    <script src="~/js/jquery-ui.min.js"></script>
+    <!-- elevateZoom js -->
+    <script src="~/js/jquery.elevateZoom-3.0.8.min.js"></script>
+    <!-- nivo slider js -->
+    <script src="~/js/jquery.nivo.slider.js"></script>
+    <!-- bootstrap -->
+    <script src="~/js/bootstrap.min.js"></script>
+    <!-- plugins -->
+    <script src="~/js/plugins.js"></script>
+    <!-- main js -->
+    <script src="~/js/main.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 
 </html>
