@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-using Nevara.Models.Entities;
-
-namespace Nevara.Areas.Admin.Models
+﻿namespace Nevara.ViewModel
 {
     public class ProductViewModel
     {
@@ -14,7 +6,7 @@ namespace Nevara.Areas.Admin.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string CategoryName { get; set; }
-        public double? Width { get; set; }
+        public double? Length { get; set; }
         public double? Height { get; set; }
         public string Thumbnail { get; set; }
         public double? Depth { get; set; }

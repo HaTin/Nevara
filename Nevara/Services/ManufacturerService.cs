@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Nevara.Areas.Admin.Models;
 using Nevara.Interfaces;
+using Nevara.ViewModel;
 
 namespace Nevara.Services
 {
@@ -22,6 +23,26 @@ namespace Nevara.Services
                 Id = p.Id,
                 ManufacturerName = p.ManufacturerName
             }).ToListAsync();
+        }
+
+        public Task<ManufacturerViewModel> Find(int? id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Add(ManufacturerViewModel viewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Update(ManufacturerViewModel viewModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Remove(int? id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

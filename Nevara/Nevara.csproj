@@ -20,7 +20,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Models\SharedKernel\" />
-    <Folder Include="vendor\" />
   </ItemGroup>
 
   <ItemGroup>
