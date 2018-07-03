@@ -10,5 +10,9 @@ namespace Nevara.Interfaces
     public interface ICategoryService
     {
       Task<List<CategoryViewModel>> GetCategories();
+        Task<CategoryViewModel> Find(int? id);
+        Task Add(CategoryViewModel categoryViewModel);
+        Task Update(CategoryViewModel categoryViewModel);
+        Task Remove(int? id);
     }
 }

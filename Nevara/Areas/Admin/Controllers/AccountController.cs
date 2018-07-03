@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Nevara.Areas.Admin.Models;
 using Nevara.Models.Entities;
+using Nevara.ViewModel;
 
 namespace Nevara.Areas.Admin.Controllers
 {

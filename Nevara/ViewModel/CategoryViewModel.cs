@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Nevara.Models.Entities;
 
 namespace Nevara.ViewModel
 {
@@ -11,6 +9,7 @@ namespace Nevara.ViewModel
 
         public string Name { get; set; }
 
-        public string Image { get; set; }
+        public ICollection<Product> Products { set; get; }
+
     }
 }

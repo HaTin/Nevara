@@ -3,26 +3,31 @@
 @{
     ViewData["Title"] = "Product";
 }
-@section Css{ 
+@section Css{
 
-    <link href="~/admin-client/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
-    <link href="~/admin-client/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet"/>
+    <link href="~/admin-client/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="~/admin-client/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet" />
 }
 @section Scripts{
     <script src="~/admin-client/assets/plugins/sweetalert/sweetalert.min.js"></script>
     <script src="~/admin-client/assets/plugins/sweetalert/jquery.sweet-alert.custom.js"></script>
     <script src="~/admin-client/assets/plugins/toast-master/js/jquery.toast.js"></script>
-    <script src="~/npm/jquery.twbsPagination.min.js"></script>
-    <script src="~/npm/jquery.validate.js"></script>
-    <script src="~/npm/additional-methods.js"></script>
+    <script src="~/npm/jquery.twbsPagination.min.js"></script>    
+    
     <script src="~/npm/mustache.min.js"></script>
+    <script src="~/npm/parsley.min.js"></script>
     <script src="~/app/product/index.js"></script>
+    <script src="/admin-client/js/validation.js"></script> 
     <script>
         $(function () {
             const product = new ProductController();
             product.init();
+            /*$("input,select,textarea").not("[type=submit]").jqBootstrapValidation({
+                autoAdd: { helpBlocks: true },                
+            });*/
         });
     </script>
+
 }
 <div class="container-fluid">
     <div class="row page-titles">
@@ -58,12 +63,9 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="table-responsive">
                     <div class="form-group">
-
-
                     </div>
                     <table class="table table-striped">
                         <thead>
@@ -80,9 +82,9 @@
                         <tfoot>
                             <tr>
                                 <td colspan="2">
-                                    <button type="button" class="btn btn-info btn-rounded" id="btn-add" data-toggle="modal" >Add New Product</button>
+                                    <button type="button" class="btn btn-info btn-rounded" id="btn-add" data-toggle="modal">Add New Product</button>
                                 </td>
-                                @await Html.PartialAsync("_AddEditModal.cshtml")
+
                                 <td colspan="7">
                                     <div class="text-right">
                                         <ul id="paginationUL"></ul>
@@ -91,6 +93,7 @@
                             </tr>
                         </tfoot>
                     </table>
+                    @await Html.PartialAsync("_AddEditModal.cshtml")
                 </div>
             </div>
         </div>

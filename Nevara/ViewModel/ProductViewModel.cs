@@ -14,7 +14,7 @@ namespace Nevara.ViewModel
         public int Id { get; set; }
         public string Name { get; set; }
         public string CategoryName { get; set; }
-        public double? Width { get; set; }
+        public double? Length { get; set; }
         public double? Height { get; set; }
         public string Thumbnail { get; set; }
         public double? Depth { get; set; }

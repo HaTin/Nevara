@@ -1,0 +1,192 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Category";
+}
+@section Css{
+
+    <link href="~/admin-client/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="~/admin-client/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet" />
+}
+@section Scripts{
+    <script src="~/admin-client/assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="~/admin-client/assets/plugins/sweetalert/jquery.sweet-alert.custom.js"></script>
+    <script src="~/admin-client/assets/plugins/toast-master/js/jquery.toast.js"></script>
+    <script src="~/npm/jquery.twbsPagination.min.js"></script>
+
+    <script src="~/npm/mustache.min.js"></script>
+    <script src="~/npm/mustache.min.js"></script>
+    <script src="~/npm/parsley.min.js"></script>
+    <script src="~/app/product/index.js"></script>
+    <script src="/admin-client/js/validation.js"></script>
+    <script>
+        $(function () {
+            const product = new ProductController();
+            product.init();      
+        });
+    </script>
+
+}
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor">Category</h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
+                <li class="breadcrumb-item active">Category</li>
+            </ol>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card">                
+                <div class="table-responsive">
+                    <div class="form-group">
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>                          
+                                <th class="text-nowrap">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbl-content"></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">
+                                    <button type="button" class="btn btn-info btn-rounded" id="btn-add" data-toggle="modal">Add New Category</button>
+                                </td>
+
+                                <td colspan="7">
+                                    <div class="text-right">
+                                        <ul id="paginationUL"></ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div id="modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Add New Product</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <form id="form-add-edit" method="POST" role="form" novalidate="">
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <input type="hidden" id="hiddenId" value="0" />
+                                            <label class="col-md-2 col-form-label">Name</label>
+                                            <div class="controls col-md-10 p-r-20">
+                                                <input type="text" id="txtName" name="name" class="form-control" required data-parsley-error-message="Name is required">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label">Category</label>
+                                            <div class="controls col-md-9  p-r-20">
+                                                <select id="category-select-2" name="categorySelect" class="form-control" required data-parsley-error-message="Please select category"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="controls col-md-3 col-form-label">Collection</label>
+                                            <div class="col-md-9  p-r-20">
+                                                <select id="collection-select-2" required name="collectionSelect" class="form-control" data-parsley-error-message="Please select collection"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label">Material</label>
+                                            <div class="controls col-md-9  p-r-20">
+                                                <select id="material-select" name="materialSelect" class="form-control" required data-parsley-error-message="Please select material"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-4 col-form-label">Manufacturer</label>
+                                            <div class="controls col-md-8  p-r-20">
+                                                <select id="manufacturer-select" name="manufacturerSelect" class="form-control" required data-parsley-error-message="Please select manufacturer"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label">Color</label>
+                                            <div class="controls col-md-9  p-r-20">
+                                                <select id="color-select" name="colorSelect" class="form-control" required data-parsley-error-message="Please select color"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label p-r-0">Width</label>
+                                            <div class="controls col-md-9">
+                                                <input type="text" name="width" id="txtWidth" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label p-r-0">Height</label>
+                                            <div class="controls col-sm-9">
+                                                <input type="text" name="height" id="txtHeight" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label p-r-0">Depth</label>
+                                            <div class="controls col-md-9">
+                                                <input type="text" name="depth" id="txtDepth" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label">Quantity</label>
+                                            <div class="col-md-9  p-r-20">
+                                                <input type="text" name="quantity" id="txtQuantity" class="form-control" data-parsley-type="integer" required data-parsley-error-message="Input valid quantity">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label no-padding">Original Price</label>
+                                            <div class="controls col-md-9 p-r-20">
+                                                <input type="text" name="originalPrice" id="txtOrginalPrice" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label no-padding">Sell Price</label>
+                                            <div class="controls col-md-9 p-r-20">
+                                                <input type="text" name="price" id="txtPrice" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label no-padding">Promotion Price</label>
+                                            <div class="controls col-md-9 p-r-20">
+                                                <input type="text" name="promotionPrice" id="txtPromotionPrice" class="form-control" data-parsley-type="number" data-parsley-error-message="Please input valid number">
+                                            </div>
+                                        </div>
+
+                                        <input type="checkbox" id="home-flag" class="chk-col-light-blue" />
+                                        <label for="home-flag">Home Flag</label>
+                                        <input type="checkbox" id="new-flag" class="chk-col-light-blue" />
+                                        <label for="new-flag">New Flag</label>
+                                        <input type="checkbox" id="hot-flag" class="chk-col-light-blue" />
+                                        <label for="hot-flag">Hot Flag</label>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="btn-save" class="btn btn-info waves-effect">Save</button>
+                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="table-template" type="x-tmpl-mustache">
+    <tr>
+        <td>{{Name}}</td>  
+        <td class="text-nowrap">
+            <a href="#" class="edit" data-toggle="tooltip" data-id="{{Id}}" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+            <a href="#" class="remove" data-toggle="tooltip" data-id="{{Id}}" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+        </td>
+    </tr>
+</script>

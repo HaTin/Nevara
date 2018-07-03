@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Nevara.Areas.Admin.Models;
 using Nevara.Models.Entities;
 using Microsoft.Extensions.Logging;
+using Nevara.ViewModel;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
 namespace Nevara.Controllers
@@ -14,8 +15,6 @@ namespace Nevara.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly ILogger _logger;
-
         [TempData]
         public string ErrorMessage { get; set; }
 
