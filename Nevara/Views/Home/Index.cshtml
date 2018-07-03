@@ -1,12 +1,15 @@
-﻿@model IEnumerable<Nevara.ViewModel.ProductViewModel>
+﻿@{
+    ViewData["Title"] = "Home";
+}
+@model IEnumerable<Nevara.ViewModel.ProductViewModel>
 <!-- Slider Area Start -->
 <div class="slider-area pb-100">
     <!-- Main Slider Area Start -->
     <div class="slider-wrapper theme-default">
         <!-- Slider Background  Image Start-->
         <div id="slider" class="nivoSlider">
-            <img src="img/slider/5.jpg" data-thumb="img/slider/5.jpg" alt="" title="#htmlcaption" />
-            <img src="img/slider/6.jpg" data-thumb="img/slider/6.jpg" alt="" title="#htmlcaption2" />
+            <img src="~/img/slider/5.jpg" data-thumb="~/img/slider/5.jpg" alt="" title="#htmlcaption" />
+            <img src="~/img/slider/6.jpg" data-thumb="~/img/slider/6.jpg" alt="" title="#htmlcaption2" />
         </div>
         <!-- Slider Background  Image Start-->
         <!-- Slider htmlcaption Start-->
@@ -60,7 +63,7 @@
                             <div class="single-product">
                                 <!-- Product Image Start -->
                                 <div class="pro-img">
-                                    <a href="product-page.html">
+                                    <a asp-controller="Home" asp-action="ProductDetails" asp-route-id="@product.Id">
                                         <img class="primary-img" src="@product.Thumbnail" alt="single-product">
                                     </a>
                                     <div class="quick-view">
@@ -98,7 +101,7 @@
             <!-- Single Banner Start -->
             <div class="col-sm-6">
                 <div class="single-banner">
-                    <a href="#"><img src="img/products-banner/10.jpg" alt="product-banner"></a>
+                    <a href="#"><img src="~/img/products-banner/10.jpg" alt="product-banner"></a>
                 </div>
             </div>
             <!-- Single Banner End -->
@@ -130,7 +133,7 @@
             <!-- Single Banner Start -->
             <div class="col-sm-6">
                 <div class="single-banner">
-                    <a href="#"><img src="img/products-banner/11.jpg" alt="product-banner"></a>
+                    <a href="#"><img src="~/img/products-banner/11.jpg" alt="product-banner"></a>
                 </div>
             </div>
             <!-- Single Banner End -->

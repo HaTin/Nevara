@@ -14,5 +14,6 @@ namespace Nevara.Interfaces
         Task Update(ProductViewModel productViewModel);
         Task Remove(int? id);
         Task<List<ProductViewModel>> GetProductList();
+        Task<ProductViewModel> GetProducDetail(int? productID);
     }
 }

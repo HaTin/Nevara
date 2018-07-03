@@ -24,7 +24,11 @@ namespace Nevara.Controllers
             return View(proList);
         }
 
-        
+        public async Task<IActionResult> ProductDetails(int? id)
+        {
+            var model = await _productService.GetProducDetail(id);
+            return View(model);
+        }
 
     }
 }

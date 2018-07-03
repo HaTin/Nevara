@@ -72,6 +72,26 @@ namespace Nevara.Services
             return model;
         }
 
+        public async Task<ProductViewModel> GetProducDetail(int? productID)
+        {
+            var model = await _context.Products.FirstOrDefaultAsync(p => p.Id == productID);
+            var viewMdodel = new ProductViewModel()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Price = model.Price,
+                Description = model.Description,
+                Quantity = model.Quantity,
+                PromotionPrice = model.PromotionPrice,                
+                Images = await _context.Images.Where(p => p.ProductId == productID).Select(p => new Image()
+                {
+                    ImagePath = p.ImagePath
+                }).ToListAsync()
+            };
+            
+            return viewMdodel;
+        }
+
         public async Task<ProductViewModel> Find(int? id)
         {
           

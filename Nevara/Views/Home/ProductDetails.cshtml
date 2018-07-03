@@ -1,0 +1,228 @@
+﻿
+@{
+    ViewData["Title"] = "Product Details";
+}
+@model ProductViewModel
+<!-- Page Breadcrumb Start -->
+<div class="main-breadcrumb mb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="breadcrumb-content text-center ptb-70">
+                    <h1>DETAIL PRODUCT</h1>
+                    <ul class="breadcrumb-list breadcrumb">
+                        <li><a href="#">home</a></li>
+                        <li><a href="#">product details</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Breadcrumb End -->
+<!-- Product Thumbnail Start -->
+<div class="main-product-thumbnail pb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5">
+                <img id="big-img" src="@Model.Images.FirstOrDefault().ImagePath" data-zoom-image="@Model.Images.FirstOrDefault().ImagePath" alt="product-image" />
+
+                <div id="small-img" class="mt-20">
+
+                    <div class="thumb-menu owl-carousel">
+                        @foreach (var img in Model.Images)
+                        {
+                            <a href="#" data-image="@img.ImagePath" data-zoom-image="@img.ImagePath">
+                                <img src="@img.ImagePath" alt="product-image" />
+                            </a>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <!-- Thumbnail Description Start -->
+            <div class="col-sm-7">
+                <div class="thubnail-desc fix">
+                    <h2 class="product-header">@Model.Name</h2>
+                    <!-- Product Rating Start -->
+                    <div class="rating-summary fix mtb-20">
+                        <div class="rating f-left mr-10">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                            <i class="fa fa-star-o"></i>
+                        </div>
+                    </div>
+                    <!-- Product Rating End -->
+                    <!-- Product Price Start -->
+                    <div class="pro-price mb-20">
+                        <ul class="pro-price-list">
+                            @if (Model.PromotionPrice == null)
+                            {
+                                <li class="price">$@Model.Price</li>
+
+                            }
+                            @if (Model.PromotionPrice != null)
+                            {
+                                <li class="tax">Was: <span style="text-decoration: line-through;">$@Model.Price</span></li>
+                                <li class="price">$@Model.PromotionPrice</li>
+                            }
+                        </ul>
+                    </div>
+                    <!-- Product Price End -->
+                    <!-- Product Price Description Start -->
+                    <div class="product-price-desc">
+                        <ul class="pro-desc-list">
+                            @if (Model.Quantity == 0 || Model.Quantity == null)
+                            {
+                                <li>Availability: <span>Out of Stock</span></li>
+                            }
+                            @if (Model.Quantity > 0 && Model.Quantity < 15)
+                            {
+                                <li>Remaining: <span style="color: red;">@Model.Quantity</span> in Stock</li>
+                            }
+                            @if (Model.Quantity > 15)
+                            {
+                                <li>Availability: <span>In Stock</span></li>
+                            }
+                        </ul>
+                    </div>
+                    <!-- Product Price Description End -->
+                    <!-- Product Box Quantity Start -->
+                    <div class="box-quantity mtb-20">
+                        <div class="quantity-item">
+                            <label>Qty: </label>
+                            <div class="cart-plus-minus">
+                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Box Quantity End -->
+                    <!-- Product Button Actions Start -->
+                    <div class="product-button-actions">
+                        <button class="add-to-cart">add to cart</button>
+                        <a href="wish-list.html" data-toggle="tooltip" title="Add to Wishlist" class="same-btn mr-15"><i class="pe-7s-like"></i></a>
+                        <button data-toggle="tooltip" title="Compare this Product" class="same-btn"><i class="pe-7s-repeat"></i></button>
+                    </div>
+                    <!-- Product Button Actions End -->
+                    <!-- Product Social Link Share Start -->
+                    <div class="social-shared">
+                        <ul>
+                            <li class="f-book">
+                                <a href="#">
+                                    <span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>
+                                    <span>like</span>
+                                    <span>1</span>
+                                </a>
+                            </li>
+                            <li class="twitter">
+                                <a href="#">
+                                    <span><i class="fa fa-twitter" aria-hidden="true"></i></span>
+                                    <span>tweet</span>
+                                </a>
+                            </li>
+                            <li class="pinterest">
+                                <a href="#">
+                                    <span><i class="fa fa-google" aria-hidden="true"></i></span>
+                                    <span>plus</span>
+                                </a>
+                            </li>
+                            <!-- Product Social Link Share Dropdown Start -->
+                            <li class="share-post">
+                                <a href="#">
+                                    <span><i class="fa fa-plus-square" aria-hidden="true"></i></span>
+                                    <span>share</span>
+                                </a>
+                                <ul class="sharable-dropdown">
+                                    <li><a href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i>facebook</a></li>
+                                    <li><a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i>twitter</a></li>
+                                    <li><a href="#"><i class="fa fa-print" aria-hidden="true"></i>print</a></li>
+                                    <li><a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i>email</a></li>
+                                    <li><a href="#"><i class="fa fa-pinterest-square" aria-hidden="true"></i>pinterest</a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus-square" aria-hidden="true"></i>google+</a></li>
+                                    <li><a href="#"><i class="fa fa-plus-square" aria-hidden="true"></i>more(99)</a></li>
+                                </ul>
+                            </li>
+                            <!-- Product Social Link Share Dropdown End -->
+                        </ul>
+                    </div>
+                    <!-- Product Social Link Share End -->
+                </div>
+            </div>
+            <!-- Thumbnail Description End -->
+        </div>
+        <!-- Row End -->
+    </div>
+    <!-- Container End -->
+</div>
+<!-- Product Thumbnail End -->
+<!-- Product Thumbnail Description Start -->
+<div class="thumnail-desc pb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="main-thumb-desc text-center list-inline">
+                    <li class="active"><a data-toggle="tab" href="#detail">Details</a></li>
+
+                </ul>
+                <!-- Product Thumbnail Tab Content Start -->
+                <div class="tab-content thumb-content">
+                    <div id="detail" class="tab-pane fade in active pb-40">
+                        <div class="table-content">
+
+                            <table class="table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td class="product-name">Product name</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-name">Manufature name</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-name">Length</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-name">Width</td>
+                                        <td>21</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-name">Depth</td>
+                                        <td>21</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-name">Color</td>
+                                        <td>red</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-name">Material</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-name">Collecion</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-name">Availability</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-name">Description</td>
+                                        <td>@Model.Description</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="mb-10">@Model.Description</p>
+                    </div>
+                </div>
+                <!-- Product Thumbnail Tab Content End -->
+            </div>
+        </div>
+        <!-- Row End -->
+    </div>
+    <!-- Container End -->
+</div>
+<!-- Product Thumbnail Description End -->
