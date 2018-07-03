@@ -204,12 +204,11 @@ namespace Nevara.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Image")
+                    b.Property<string>("IsDeleted")
                         .IsRequired()
+                        .HasConversion(new ValueConverter<string, string>(v => default(string), v => default(string), new ConverterMappingHints(size: 1)))
                         .HasColumnType("varchar(255)")
                         .HasMaxLength(255);
-
-                    b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -220,10 +219,10 @@ namespace Nevara.Migrations
                     b.ToTable("Categories");
 
                     b.HasData(
-                        new { Id = 1, Image = "/images/Category/cat3.jpg", IsDeleted = false, Name = "Beds" },
-                        new { Id = 2, Image = "/images/Category/cat1.jpg", IsDeleted = false, Name = "Tables" },
-                        new { Id = 3, Image = "/images/Category/cat2.jpg", IsDeleted = false, Name = "Chair" },
-                        new { Id = 4, Image = "/images/Category/cat2.jpg", IsDeleted = false, Name = "Kitchen Furniture" }
+                        new { Id = 1, IsDeleted = "0", Name = "Beds" },
+                        new { Id = 2, IsDeleted = "0", Name = "Tables" },
+                        new { Id = 3, IsDeleted = "0", Name = "Chair" },
+                        new { Id = 4, IsDeleted = "0", Name = "Kitchen Furniture" }
                     );
                 });
 
@@ -429,6 +428,8 @@ namespace Nevara.Migrations
 
                     b.Property<bool>("IsDeleted");
 
+                    b.Property<double?>("Length");
+
                     b.Property<int>("ManufacturerId");
 
                     b.Property<int>("MaterialId");
@@ -439,9 +440,7 @@ namespace Nevara.Migrations
 
                     b.Property<bool?>("NewFlag");
 
-                    b.Property<decimal>("OriginalPrice")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(0m);
+                    b.Property<decimal>("OriginalPrice");
 
                     b.Property<decimal>("Price")
                         .ValueGeneratedOnAdd()
@@ -452,11 +451,8 @@ namespace Nevara.Migrations
                     b.Property<int?>("Quantity");
 
                     b.Property<string>("Thumbnail")
-                        .IsRequired()
                         .HasColumnType("varchar(255)")
                         .HasMaxLength(255);
-
-                    b.Property<double?>("Width");
 
                     b.HasKey("Id");
 

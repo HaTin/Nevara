@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Nevara.Areas.Admin.Models
+namespace Nevara.ViewModel
 {
     public class RegisterViewModel
     {

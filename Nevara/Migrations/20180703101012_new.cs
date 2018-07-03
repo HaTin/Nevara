@@ -60,8 +60,7 @@ namespace Nevara.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 255, nullable: false),
-                    Image = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false)
+                    IsDeleted = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -271,11 +270,11 @@ namespace Nevara.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 255, nullable: false),
-                    Width = table.Column<double>(nullable: true),
-                    Height = table.Column<double>(nullable: true),
-                    Thumbnail = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    Length = table.Column<double>(nullable: true),
                     Depth = table.Column<double>(nullable: true),
-                    OriginalPrice = table.Column<decimal>(nullable: false, defaultValue: 0m),
+                    Height = table.Column<double>(nullable: true),
+                    Thumbnail = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true),
+                    OriginalPrice = table.Column<decimal>(nullable: false),
                     Price = table.Column<decimal>(nullable: false, defaultValue: 0m),
                     PromotionPrice = table.Column<decimal>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false),
@@ -368,13 +367,13 @@ namespace Nevara.Migrations
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "Image", "IsDeleted", "Name" },
+                columns: new[] { "Id", "IsDeleted", "Name" },
                 values: new object[,]
                 {
-                    { 1, "/images/Category/cat3.jpg", false, "Beds" },
-                    { 2, "/images/Category/cat1.jpg", false, "Tables" },
-                    { 3, "/images/Category/cat2.jpg", false, "Chair" },
-                    { 4, "/images/Category/cat2.jpg", false, "Kitchen Furniture" }
+                    { 1, "0", "Beds" },
+                    { 2, "0", "Tables" },
+                    { 3, "0", "Chair" },
+                    { 4, "0", "Kitchen Furniture" }
                 });
 
             migrationBuilder.InsertData(
@@ -421,21 +420,21 @@ namespace Nevara.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "CategoryId", "CollectionId", "ColorId", "Depth", "Description", "Height", "HomeFlag", "HotFlag", "IsDeleted", "ManufacturerId", "MaterialId", "Name", "NewFlag", "OriginalPrice", "Price", "PromotionPrice", "Quantity", "Thumbnail", "Width" },
+                columns: new[] { "Id", "CategoryId", "CollectionId", "ColorId", "Depth", "Description", "Height", "HomeFlag", "HotFlag", "IsDeleted", "Length", "ManufacturerId", "MaterialId", "Name", "NewFlag", "OriginalPrice", "Price", "PromotionPrice", "Quantity", "Thumbnail" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 1, null, null, null, null, null, false, 1, 1, "Bed 1", null, 0m, 2000m, null, null, "/images/Product/pro1.jpg", null },
-                    { 4, 2, 2, 1, null, null, null, null, null, false, 1, 1, "Table 1", null, 0m, 2000m, null, 10, "/images/Product/pro1.jpg", null },
-                    { 7, 3, 4, 1, null, null, null, null, null, false, 1, 1, "Chair 1", null, 0m, 2000m, null, 25, "/images/Product/pro1.jpg", null },
-                    { 10, 4, 3, 4, null, null, null, null, null, false, 1, 1, "Kitchen 1 ", null, 0m, 2000m, null, null, "/images/Product/pro1.jpg", null },
-                    { 2, 1, 1, 1, null, null, null, null, null, false, 2, 2, "Bed 2", null, 0m, 3000m, null, 10, "/images/Product/pro2.jpg", null },
-                    { 5, 2, 3, 2, null, null, null, null, null, false, 2, 2, "Table 2", null, 0m, 2000m, null, 20, "/images/Product/pro2.jpg", null },
-                    { 8, 3, 4, 2, null, null, null, null, null, false, 2, 2, "Chair 2", null, 0m, 1000m, null, 30, "/images/Product/pro2.jpg", null },
-                    { 11, 4, 4, 1, null, null, null, null, null, false, 2, 2, "Kitchen 2", null, 0m, 2000m, null, null, "/images/Product/pro2.jpg", null },
-                    { 3, 1, 2, 1, null, null, null, null, null, false, 2, 3, "Bed 3", null, 0m, 2000m, null, null, "/images/Product/pro2.jpg", null },
-                    { 6, 2, 4, 3, null, null, null, null, null, false, 2, 3, "Table 3", null, 0m, 1000m, null, 50, "/images/Product/pro2.jpg", null },
-                    { 9, 3, 2, 3, null, null, null, null, null, false, 2, 3, "Chair 3", null, 0m, 5000m, null, null, "/images/Product/pro2.jpg", null },
-                    { 12, 4, 1, 2, null, null, null, null, null, false, 2, 3, "Kitchen 3", null, 0m, 2000m, null, null, "/images/Product/pro2.jpg", null }
+                    { 1, 1, 1, 1, null, null, null, null, null, false, null, 1, 1, "Bed 1", null, 0m, 2000m, null, null, "/images/Product/pro1.jpg" },
+                    { 4, 2, 2, 1, null, null, null, null, null, false, null, 1, 1, "Table 1", null, 0m, 2000m, null, 10, "/images/Product/pro1.jpg" },
+                    { 7, 3, 4, 1, null, null, null, null, null, false, null, 1, 1, "Chair 1", null, 0m, 2000m, null, 25, "/images/Product/pro1.jpg" },
+                    { 10, 4, 3, 4, null, null, null, null, null, false, null, 1, 1, "Kitchen 1 ", null, 0m, 2000m, null, null, "/images/Product/pro1.jpg" },
+                    { 2, 1, 1, 1, null, null, null, null, null, false, null, 2, 2, "Bed 2", null, 0m, 3000m, null, 10, "/images/Product/pro2.jpg" },
+                    { 5, 2, 3, 2, null, null, null, null, null, false, null, 2, 2, "Table 2", null, 0m, 2000m, null, 20, "/images/Product/pro2.jpg" },
+                    { 8, 3, 4, 2, null, null, null, null, null, false, null, 2, 2, "Chair 2", null, 0m, 1000m, null, 30, "/images/Product/pro2.jpg" },
+                    { 11, 4, 4, 1, null, null, null, null, null, false, null, 2, 2, "Kitchen 2", null, 0m, 2000m, null, null, "/images/Product/pro2.jpg" },
+                    { 3, 1, 2, 1, null, null, null, null, null, false, null, 2, 3, "Bed 3", null, 0m, 2000m, null, null, "/images/Product/pro2.jpg" },
+                    { 6, 2, 4, 3, null, null, null, null, null, false, null, 2, 3, "Table 3", null, 0m, 1000m, null, 50, "/images/Product/pro2.jpg" },
+                    { 9, 3, 2, 3, null, null, null, null, null, false, null, 2, 3, "Chair 3", null, 0m, 5000m, null, null, "/images/Product/pro2.jpg" },
+                    { 12, 4, 1, 2, null, null, null, null, null, false, null, 2, 3, "Kitchen 3", null, 0m, 2000m, null, null, "/images/Product/pro2.jpg" }
                 });
 
             migrationBuilder.CreateIndex(

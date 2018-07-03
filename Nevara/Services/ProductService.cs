@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Nevara.Helpers;
 using Nevara.ViewModel;
 using Nevara.Interfaces;
+using Nevara.ViewModel;
 using StackExchange.Profiling.Internal;
 
 namespace Nevara.Services
@@ -82,7 +83,7 @@ namespace Nevara.Services
                     CategoryId = model.CategoryId,
                     Name = model.Name,
                     Quantity = model.Quantity,
-                    Width = model.Width,    
+                    Length = model.Length,    
                     Height = model.Height,
                     Depth = model.Depth,
                     Price = model.Price,
@@ -112,7 +113,7 @@ namespace Nevara.Services
                 MaterialId = pro.MaterialId,
                 Depth = pro.Depth,
                 Height = pro.Height,
-                Width = pro.Width,
+                Length = pro.Length,
                 HomeFlag = pro.HomeFlag,
                 HotFlag = pro.HotFlag,
                 OriginalPrice = pro.OriginalPrice,
@@ -132,25 +133,6 @@ namespace Nevara.Services
 
         public async Task Update(ProductViewModel pro)
         {
-            /*var product = new Product()
-            {
-                Id =pro.Id,
-                Name = pro.Name,
-                CategoryId = pro.CategoryId,
-                CollectionId = pro.CollectionId,
-                ColorId = pro.ColorId,
-                MaterialId = pro.MaterialId,
-                Depth = pro.Depth,
-                Height = pro.Height,
-                Width = pro.Width,
-                HomeFlag = pro.HomeFlag,
-                HotFlag = pro.HotFlag,
-                OriginalPrice = pro.OriginalPrice,
-                PromotionPrice = pro.PromotionPrice,
-                Price = pro.Price,
-                NewFlag = pro.NewFlag,
-                ManufacturerId = pro.ManufacturerId               
-            };*/
             var prod = await _context.Products.FindAsync(pro.Id);
             prod.Name = pro.Name;
             prod.CategoryId = pro.CategoryId;
@@ -159,7 +141,7 @@ namespace Nevara.Services
             prod.MaterialId = pro.MaterialId;
             prod.Depth = pro.Depth;
             prod.Height = pro.Height;
-            prod.Width = pro.Width;
+            prod.Length = pro.Length;
             prod.HomeFlag = pro.HomeFlag;
             prod.HotFlag = pro.HotFlag;
             prod.OriginalPrice = pro.OriginalPrice;

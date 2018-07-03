@@ -20,7 +20,6 @@ namespace Nevara.Models.Entities
         [Required]
         [StringLength(255)]
         [Column(TypeName = "varchar(255)")]
-        public string Image { get; set; }   
         public bool IsDeleted { get; set; }
         public ICollection<Product> Products { set; get; }
     }
