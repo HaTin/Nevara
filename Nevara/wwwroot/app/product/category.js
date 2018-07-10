@@ -2,6 +2,7 @@
     class CategoryController {
         init() {            
             this.registeredEvent();
+            this.loadData();
         }        
         resetForm() {
             $('#hiddenId').val(0);
@@ -49,28 +50,40 @@
                         confirmButtonText: "Yes, delete it!"                        
                 },
                     function(isConfirm) {
-                        if (!isConfirm) return;
+                        if (!isConfirm) return;                   
                         $.ajax({
                             type: "POST",
-                            url: "/Admin/Product/Remove",
+                            url: "/Admin/Category/Remove",
                             data: { id: id },
                             dataType: "json",
-                            success: function (response) {
-                                self.loadData(true);                       
-                                $.toast({
-                                    bgColor: '#20c997',
-                                    heading: 'Delete Successful',
-                                    text: '',
-                                    position: 'top-right',
-                                    loaderBg: '#dc3545',
-                                    icon: 'success',
-                                    hideAfter: 3500,
-                                    stack: 6
-                                });
+                            success: function(response) {                                                              
+                                if (response.Success === false) {                                   
+                                    $.toast({
+                                        bgColor: '#dc3545',
+                                        heading: response.Message,
+                                        text: '',
+                                        position: 'top-right',
+                                        loaderBg: '#dc3545',
+                                        icon: 'warning',
+                                        hideAfter: 1500,
+                                        stack: 1
+                                    });                                  
+                                } else {
+                                    self.loadData(true);
+                                    $.toast({
+                                        bgColor: '#20c997',
+                                        heading: 'Delete Successful',
+                                        text: '',
+                                        position: 'top-right',
+                                        loaderBg: '#20c997',
+                                        icon: 'success',
+                                        hideAfter: 1500,
+                                        stack: 2
+                                    });
+                                }
                             },
                             error: function (status) {
-                                console.log(status);                            
-                                
+                                console.log(status);                                                            
                             }
                         });
                     }); 
@@ -96,12 +109,11 @@
                                         heading: 'Save Successful',
                                         text: '',
                                         position: 'top-right',
-                                        loaderBg: '#dc3545',
+                                        loaderBg: '#20c997',
                                         icon: 'success',
-                                        hideAfter: 3500,
+                                        hideAfter: 1500,
                                         stack: 6                                   
-                                });
-
+                                });                                
                             },
                             error: function(err) {
                                 console.log(err);
@@ -112,7 +124,7 @@
                                     position: 'top-right',
                                     loaderBg: 'red',
                                     icon: 'success',
-                                    hideAfter: 3500,
+                                    hideAfter: 1500,
                                     stack: 6
                                 });
                             }
@@ -121,8 +133,7 @@
                 });
         }
 
-        loadData() {
-            var self = this;
+        loadData() {            
             const template = $('#table-template').html();
             var render = "";
             $.ajax({

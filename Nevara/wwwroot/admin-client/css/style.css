@@ -2,7 +2,13 @@
 
 .parsley-errors-list {
     list-style-type: none;
-    color: #ef5350
+    color: #ef5350;
+    margin: 0;
+    padding-left: 0;
 }
-
-
+.modal-dialog {
+    width: 700px;
+}
+.modal {
+    overflow: auto !important;
+}

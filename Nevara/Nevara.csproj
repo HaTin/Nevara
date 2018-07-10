@@ -20,6 +20,7 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Models\SharedKernel\" />
+    <Folder Include="wwwroot\lib\fileman\tmp\" />
   </ItemGroup>
 
   <ItemGroup>

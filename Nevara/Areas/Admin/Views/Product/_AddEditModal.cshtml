@@ -1,5 +1,5 @@
 ﻿<div id="modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Add New Product</h4>
@@ -9,15 +9,15 @@
                 <div class="modal-body">
                     <div class="form-group row">
                         <input type="hidden" id="hiddenId" value="0" />
-                        <label class="col-md-2 col-form-label">Name</label>
-                        <div class="controls col-md-10 p-r-20">
-                            <input type="text" id="txtName" name="name" class="form-control" required data-parsley-error-message="Name is required">                           
+                        <label class="col-md-3 col-form-label">Name</label>
+                        <div class="controls col-md-9 p-r-20">
+                            <input type="text" id="txtName" name="name" class="form-control" required data-parsley-error-message="Name is required">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Category</label>
                         <div class="controls col-md-9  p-r-20">
-                            <select id="category-select-2"  name="categorySelect"  class="form-control" required data-parsley-error-message="Please select category"></select>
+                            <select id="category-select-2" name="categorySelect" class="form-control" required data-parsley-error-message="Please select category"></select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -29,12 +29,12 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Material</label>
                         <div class="controls col-md-9  p-r-20">
-                            <select id="material-select" name="materialSelect" class="form-control" required  data-parsley-error-message="Please select material"></select>
+                            <select id="material-select" name="materialSelect" class="form-control" required data-parsley-error-message="Please select material"></select>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-4 col-form-label">Manufacturer</label>
-                        <div class="controls col-md-8  p-r-20">
+                        <label class="col-md-3 col-form-label">Manufacturer</label>
+                        <div class="controls col-md-9  p-r-20">
                             <select id="manufacturer-select" name="manufacturerSelect" class="form-control" required data-parsley-error-message="Please select manufacturer"></select>
                         </div>
                     </div>
@@ -42,21 +42,21 @@
                         <label class="col-md-3 col-form-label">Color</label>
                         <div class="controls col-md-9  p-r-20">
                             <select id="color-select" name="colorSelect" class="form-control" required data-parsley-error-message="Please select color"></select>
-                        </div>  
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label p-r-0">Length</label>
                         <div class="controls col-md-9">
-                            <input type="text" name="lenght" id="txtLength" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number"/>
+                            <input type="text" name="lenght" id="txtLength" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number" />
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label p-r-0">Height</label>
                         <div class="controls col-sm-9">
-                            <input type="text" name="height" id="txtHeight" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number"/>
+                            <input type="text" name="height" id="txtHeight" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number" />
                         </div>
                     </div>
-                        <div class="form-group row">
+                    <div class="form-group row">
                         <label class="col-sm-3 col-form-label p-r-0">Depth</label>
                         <div class="controls col-md-9">
                             <input type="text" name="depth" id="txtDepth" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number" />
@@ -93,14 +93,29 @@
                     <label for="new-flag">New Flag</label>
                     <input type="checkbox" id="hot-flag" class="chk-col-light-blue" />
                     <label for="hot-flag">Hot Flag</label>
+                    <div class="form-group row" id="product-image">  
+                        <span id=""><img/></span>
+                        <button type="button" id="btnAddImage" class="btn waves-effect waves-light btn-info">Add Image</button>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button id="btn-save" class="btn btn-info waves-effect">Save</button>
                     <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
                 </div>
-                </form>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
+ 
+</div>
+@*<div id="fileman" class="modal fade in" role="dialog" tabindex="-1" aria-labelledby-="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <iframe style="width:100%; height:450px; border:1px solid silver" src="~/lib/fileman/index.html?integration=custom&noselect=true">This feature requires IFRAME support</iframe>
+        </div>
+    </div>
+</div>*@
+<div id="roxyCustomPanel" style="display: none;">
+    <iframe src="~/lib/fileman/index.html?integration=custom" style="width:100%;height:450px"></iframe>
 </div>

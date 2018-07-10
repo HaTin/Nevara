@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Nevara.Areas.Admin.Models;
 using Nevara.Interfaces;
+using Nevara.Models.Entities;
 using Nevara.ViewModel;
 
 namespace Nevara.Services
@@ -25,24 +26,44 @@ namespace Nevara.Services
             }).ToListAsync();
         }
 
-        public Task<CollectionViewModel> Find(int? id)
+        public async Task<CollectionViewModel> Find(int? id)
         {
-            throw new NotImplementedException();
+            var model = await _context.Collections.FindAsync(id);
+            var viewModel = new CollectionViewModel(){
+                Id = model.Id,
+                CollectionName = model.CollectionName,
+                Description =  model.Description,
+                Image = model.Image
+            };
+            return viewModel;
         }
 
-        public Task Add(CollectionViewModel viewModel)
+        public async Task Add(CollectionViewModel viewModel)
         {
-            throw new NotImplementedException();
+            var model = new Collection
+            {
+                CollectionName = viewModel.CollectionName,
+                Description = viewModel.Description,
+                Image = viewModel.Image ?? "/images/1.png"
+            };
+            _context.Collections.Add(model);
+            await _context.SaveChangesAsync();
         }
 
-        public Task Update(CollectionViewModel viewModel)
+        public async Task Update(CollectionViewModel viewModel)
         {
-            throw new NotImplementedException();
+            var model = await _context.Collections.FindAsync(viewModel.Id);
+            model.CollectionName = viewModel.CollectionName;
+            model.Description = viewModel.Description;
+            model.Image = viewModel.Image;
+            await _context.SaveChangesAsync();
         }
 
-        public Task Remove(int? id)
+        public async Task Remove(int? id)
         {
-            throw new NotImplementedException();
+            var model = await _context.Collections.FindAsync(id);
+            model.IsDeleted = true;
+            await _context.SaveChangesAsync();
         }
     }
 }
