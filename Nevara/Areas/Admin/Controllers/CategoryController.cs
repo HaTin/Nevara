@@ -4,7 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Nevara.Dtos;
 using Nevara.Interfaces;
+using Nevara.ViewModel;
 
 namespace Nevara.Areas.Admin.Controllers
 {
@@ -13,10 +16,12 @@ namespace Nevara.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
+        private readonly IProductService _productService;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryService, IProductService productService)
         {
             _categoryService = categoryService;
+            _productService = productService;
         }
 
         public IActionResult Index()
@@ -35,6 +40,41 @@ namespace Nevara.Areas.Admin.Controllers
         {
             var model = await _categoryService.Find(id);
             return new OkObjectResult(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> SaveEntity(CategoryViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {                
+                return new BadRequestResult();
+            }
+
+            if (viewModel.Id == 0)
+            {
+                await _categoryService.Add(viewModel);
+            }
+            else
+            {
+                await _categoryService.Update(viewModel);
+            }
+            return new OkObjectResult(viewModel);
+
+
+        }
+        [HttpPost]        
+        public async Task<IActionResult> Remove(int? id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestResult();
+            }
+
+            if (await _productService.CheckProductAmountInCategory(id))
+            {
+                return new OkObjectResult(new GenericResult(){Success = false,Message = "Please remove all products belonging to this category"});
+            }
+            await _categoryService.Remove(id);
+            return new OkObjectResult(new GenericResult(){Success = true});
         }
     }
 }

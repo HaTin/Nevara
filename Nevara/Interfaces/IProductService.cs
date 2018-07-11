@@ -13,5 +13,10 @@ namespace Nevara.Interfaces
         Task Add(ProductViewModel productViewModel);
         Task Update(ProductViewModel productViewModel);
         Task Remove(int? id);
+        Task<bool> CheckProductAmountInCategory(int? id);
+        Task<bool> CheckProductAmountInMaterial(int? id);
+        Task<bool> CheckProductAmountInManufacturer(int? id);
+        Task<bool> CheckProductAmountInCollection(int? id);
+        Task<bool> CheckProductAmountInColor(int? id);
     }
 }

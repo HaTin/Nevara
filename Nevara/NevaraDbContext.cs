@@ -21,15 +21,14 @@ namespace Nevara
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
-            /*builder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
+            base.OnModelCreating(builder);           
             builder.Entity<Category>().HasQueryFilter(p => !p.IsDeleted);
             builder.Entity<Manufacturer>().HasQueryFilter(p => !p.IsDeleted);            
             builder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
             builder.Entity<Collection>().HasQueryFilter(p => !p.IsDeleted);
             builder.Entity<AppUser>().HasQueryFilter(p => !p.IsDeleted);
-            builder.Entity<Material>().HasQueryFilter(p => !p.IsDeleted);*/
-
+            builder.Entity<Material>().HasQueryFilter(p => !p.IsDeleted);
+            builder.Entity<Color>().HasQueryFilter(p => !p.IsDeleted);            
 
             #region seed data
             builder.Entity<Color>().HasData(
@@ -292,8 +291,6 @@ namespace Nevara
         public DbSet<Material> Materials { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Manufacturer> Manufacturers { get; set; }
-
-
     }
   
 }
