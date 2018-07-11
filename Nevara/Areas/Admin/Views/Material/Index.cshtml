@@ -1,0 +1,103 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Material";
+}
+@section Css{
+
+    <link href="~/admin-client/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="~/admin-client/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet" />
+}
+@section Scripts{
+    <script src="~/admin-client/assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="~/admin-client/assets/plugins/sweetalert/jquery.sweet-alert.custom.js"></script>
+    <script src="~/admin-client/assets/plugins/toast-master/js/jquery.toast.js"></script>
+    <script src="~/npm/mustache.min.js"></script>
+    <script src="~/npm/parsley.min.js"></script>
+    <script src="~/app/product/material.js"></script>    
+    <script>
+        $(function () {
+            const controller = new MaterialController();
+            controller.init();
+        });
+    </script>
+
+}
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor">Material</h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
+                <li class="breadcrumb-item active">Material</li>
+            </ol>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card">
+                <div class="table-responsive">
+                    <div class="form-group">
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th class="text-nowrap">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbl-content"></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">
+                                    <button type="button" class="btn btn-info btn-rounded" id="btn-add" data-toggle="modal">Add New Material</button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div id="modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Form</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <form id="form-add-edit" method="POST" role="form" novalidate="">
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <input type="hidden" id="hiddenId" value="0" />
+                                            <label class="col-md-2 col-form-label">Name</label>
+                                            <div class="controls col-md-10 p-r-20">
+                                                <input type="text" id="txtName" name="name" class="form-control" required data-parsley-error-message="Name is required">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="btn-save" class="btn btn-info waves-effect">Save</button>
+                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="table-template" type="x-tmpl-mustache">
+    <tr>
+        <td>{{Name}}</td>
+        <td class="text-nowrap">
+            <a href="#" class="edit" data-toggle="tooltip" data-id="{{Id}}" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+            <a href="#" class="remove" data-toggle="tooltip" data-id="{{Id}}" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+        </td>
+    </tr>
+</script>

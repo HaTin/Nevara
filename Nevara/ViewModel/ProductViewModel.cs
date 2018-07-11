@@ -15,6 +15,7 @@
         public decimal? PromotionPrice { get; set; }
         public int CategoryId { get; set; }
         public int ColorId { get; set; }
+        public string Description { get; set; }
         public int MaterialId { get; set; }
         public int CollectionId { get; set; }
         public int ManufacturerId { get; set; }

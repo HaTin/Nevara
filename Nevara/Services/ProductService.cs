@@ -22,15 +22,13 @@ namespace Nevara.Services
         }
         public async Task<PageResult<ProductViewModel>> GetProduct(int? categoryId,int? collectionId, string keyword, int page, int pageSize)
         {           
-            var query = _context.Products.Where(p => !p.IsDeleted).AsQueryable();            
+            var query = _context.Products.AsQueryable().IgnoreQueryFilters().Where(p=>!p.IsDeleted);            
             if (!string.IsNullOrEmpty(keyword))
             {
                
             query = query.Where(x =>
-                        Util.ConvertToUnsign(x.Name).Contains(Util.ConvertToUnsign(keyword), StringComparison.CurrentCultureIgnoreCase));
-                
+                 Util.ConvertToUnsign(x.Name).Contains(Util.ConvertToUnsign(keyword), StringComparison.CurrentCultureIgnoreCase));                
             }
-
             if (categoryId.HasValue)
             {
                 query = query.Where(x => x.CategoryId == categoryId);
@@ -91,11 +89,13 @@ namespace Nevara.Services
                     CollectionId = model.CollectionId,
                     ColorId = model.CollectionId,
                     HotFlag = model.HotFlag,
+                    Description = model.Description,
                     PromotionPrice = model.PromotionPrice,
                     ManufacturerId = model.ManufacturerId,
                     MaterialId = model.MaterialId,
                     NewFlag = model.NewFlag,
-                    OriginalPrice = model.OriginalPrice ,                                       
+                    OriginalPrice = model.OriginalPrice ,     
+                    Thumbnail = model.Thumbnail
                 };
                 return viewModel;
         }
@@ -104,8 +104,7 @@ namespace Nevara.Services
         public async Task Add(ProductViewModel pro)
         {
             var product = new Product()
-            {
-                Id = pro.Id,
+            {                
                 Name = pro.Name,
                 CategoryId = pro.CategoryId,
                 CollectionId = pro.CollectionId,
@@ -123,8 +122,8 @@ namespace Nevara.Services
                 ManufacturerId = pro.ManufacturerId,
                 Quantity = pro.Quantity,                
                 IsDeleted = false,
-                Description = "No Description",
-                Thumbnail = "/images/1.png",                
+                Description = pro.Description,
+                Thumbnail = pro.Thumbnail ?? "/images/1.png",                
             };
       
                 _context.Add(product);                     
@@ -149,7 +148,9 @@ namespace Nevara.Services
             prod.Price = pro.Price;
             prod.NewFlag = pro.NewFlag;
             prod.ManufacturerId = pro.ManufacturerId;
-            prod.Quantity = pro.Quantity;            
+            prod.Quantity = pro.Quantity;
+            prod.Description = pro.Description;
+            prod.Thumbnail = pro.Thumbnail;
            await _context.SaveChangesAsync();
         }
 
@@ -158,7 +159,41 @@ namespace Nevara.Services
             Product pro = await _context.Products.FindAsync(id);
             pro.IsDeleted = true;
             await _context.SaveChangesAsync();
+        }
 
+        public async Task<bool> CheckProductAmountInCategory(int? id)
+        {
+            if (await _context.Products.AnyAsync(p => p.CategoryId == id))
+                return true;
+            return false;
+        }
+
+        public async Task<bool> CheckProductAmountInMaterial(int? id)
+        {
+            if (await _context.Products.AnyAsync(p => p.MaterialId == id))
+                return true;
+            return false;
+        }
+
+        public async Task<bool> CheckProductAmountInManufacturer(int? id)
+        {
+            if (await _context.Products.AnyAsync(p => p.ManufacturerId == id))
+                return true;
+            return false;
+        }
+
+        public async Task<bool> CheckProductAmountInCollection(int? id)
+        {
+            if (await _context.Products.AnyAsync(p => p.CollectionId == id))
+                return true;
+            return false;
+        }
+
+        public async Task<bool> CheckProductAmountInColor(int? id)
+        {
+            if (await _context.Products.AnyAsync(p => p.ColorId == id))
+                return true;
+            return false;
         }
 
        

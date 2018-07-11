@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Nevara.Areas.Admin.Models;
 using Nevara.Interfaces;
+using Nevara.Models.Entities;
 using Nevara.ViewModel;
 
 namespace Nevara.Services
@@ -25,24 +26,40 @@ namespace Nevara.Services
             }).ToListAsync();
         }
 
-        public Task<ManufacturerViewModel> Find(int? id)
+        public  async Task<ManufacturerViewModel> Find(int? id)
         {
-            throw new NotImplementedException();
+
+            var model = await _context.Manufacturers.FindAsync(id);
+            var viewModel = new ManufacturerViewModel()
+            {
+                Id = model.Id,
+                ManufacturerName = model.ManufacturerName
+            };
+            return viewModel;
         }
 
-        public Task Add(ManufacturerViewModel viewModel)
+        public async Task Add(ManufacturerViewModel viewModel)
         {
-            throw new NotImplementedException();
+            var model = new Manufacturer()
+            {
+                ManufacturerName = viewModel.ManufacturerName
+            };
+            _context.Manufacturers.Add(model);
+            await _context.SaveChangesAsync();
         }
 
-        public Task Update(ManufacturerViewModel viewModel)
+        public async Task Update(ManufacturerViewModel viewModel)
         {
-            throw new NotImplementedException();
+            var model = await _context.Manufacturers.FindAsync(viewModel.Id);
+            model.ManufacturerName = viewModel.ManufacturerName;
+            await _context.SaveChangesAsync();
         }
 
-        public Task Remove(int? id)
+        public async Task Remove(int? id)
         {
-            throw new NotImplementedException();
+            var model = await _context.Manufacturers.FindAsync(id);
+            model.IsDeleted = true;
+            await _context.SaveChangesAsync();
         }
     }
 }

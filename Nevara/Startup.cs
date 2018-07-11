@@ -91,7 +91,9 @@ namespace Nevara
                 ValidationMessage = "Are you a robot?"
             });
             services.AddTransient<IManufacturerService, ManufacturerService>();
-
+            //session
+            services.AddSession();
+            services.AddDistributedMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,7 +113,7 @@ namespace Nevara
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMiniProfiler();
-            
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
