@@ -14,13 +14,14 @@ namespace Nevara.Services
 
     {
         private readonly NevaraDbContext _context;
+        
         public CategoryService(NevaraDbContext context)
         {
             _context = context;
         }
         public async Task<List<CategoryViewModel>> GetCategories()
         {
-            return await _context.Categories.Where(p=> !p.IsDeleted).Select(p => new CategoryViewModel()
+            return await _context.Categories.Select(p => new CategoryViewModel()
             {
                 Id = p.Id,
                 Name = p.Name
@@ -42,8 +43,7 @@ namespace Nevara.Services
         public async Task Add(CategoryViewModel categoryViewModel)
         {
             var category = new Category()
-            {
-                Id = categoryViewModel.Id,
+            {                
                 Name = categoryViewModel.Name
             };
             _context.Categories.Add(category);
@@ -58,10 +58,10 @@ namespace Nevara.Services
         }
 
         public async Task Remove(int? id)
-        {
+        {               
             var category = await _context.Categories.FindAsync(id);
             category.IsDeleted = true;
-            await _context.SaveChangesAsync();
-        }
+            await _context.SaveChangesAsync();            
+        }    
     }
 }

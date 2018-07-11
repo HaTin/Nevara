@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Nevara.Areas.Admin.Models;
 using Nevara.Interfaces;
+using Nevara.Models.Entities;
 using Nevara.ViewModel;
 
 namespace Nevara.Services
@@ -28,24 +29,42 @@ namespace Nevara.Services
             }).ToListAsync();
         }
 
-        public Task<CollectionViewModel> Find(int? id)
+        public async Task<ColorViewModel> Find(int? id)
         {
-            throw new NotImplementedException();
+            var model = await _context.Colors.FindAsync(id);
+            var viewModel = new ColorViewModel()
+            {
+                Id = model.Id,
+                ColorName = model.ColorName,
+                Code = model.Code
+            };
+            return viewModel;
         }
 
-        public Task Add(ColorViewModel viewModel)
+        public async Task Add(ColorViewModel viewModel)
         {
-            throw new NotImplementedException();
+            var model = new Color()
+            {    
+                ColorName = viewModel.ColorName,
+                Code = viewModel.Code
+            };
+            _context.Colors.Add(model);
+            await _context.SaveChangesAsync();
         }
 
-        public Task Update(ColorViewModel viewModel)
+        public async Task Update(ColorViewModel viewModel)
         {
-            throw new NotImplementedException();
+            var model = await _context.Colors.FindAsync(viewModel.Id);
+            model.ColorName = viewModel.ColorName;
+            model.Code = viewModel.Code;            
+            await _context.SaveChangesAsync();
         }
 
-        public Task Remove(int? id)
+        public async Task Remove(int? id)
         {
-            throw new NotImplementedException();
+            var model = await _context.Colors.FindAsync(id);
+            model.IsDeleted = true;
+            await _context.SaveChangesAsync();
         }
     }
 }
