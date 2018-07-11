@@ -13,7 +13,7 @@ using Nevara.Models.Entities;
 
 namespace Nevara
 {
-    public class NevaraDbContext : IdentityDbContext<AppUser,AppRole,Guid>
+    public class NevaraDbContext : IdentityDbContext<AppUser, AppRole, Guid>
     {
         public NevaraDbContext(DbContextOptions options) : base(options)
         {
@@ -33,19 +33,19 @@ namespace Nevara
 
             #region seed data
             builder.Entity<Color>().HasData(
-                new Color() {Id = 1, ColorName = "Red", Code = "#d80000", IsDeleted = false },
+                new Color() { Id = 1, ColorName = "Red", Code = "#d80000", IsDeleted = false },
                 new Color() { Id = 2, ColorName = "Blue", Code = "#0099cc", IsDeleted = false },
                 new Color() { Id = 3, ColorName = "Green", Code = "#29ab87", IsDeleted = false },
                 new Color() { Id = 4, ColorName = "White", Code = "#000000", IsDeleted = false }
             );
-            
+
             builder.Entity<Collection>().HasData(new Collection()
-                {             
-                    Id =1,
-                    CollectionName = "Autumn",
-                    Description = "This is autumn description",
-                    IsDeleted = false
-                },
+            {
+                Id = 1,
+                CollectionName = "Autumn",
+                Description = "This is autumn description",
+                IsDeleted = false
+            },
                 new Collection()
                 {
                     Id = 2,
@@ -68,43 +68,43 @@ namespace Nevara
                     IsDeleted = false
                 });
             builder.Entity<Material>().HasData(
-                new Material() {Id=1, MaterialName = "Wood", IsDeleted = false },
-                new Material() {Id =2, MaterialName = "Plastic", IsDeleted = false },
-                new Material() {Id =3, MaterialName = "Wood", IsDeleted = false }
+                new Material() { Id = 1, MaterialName = "Wood", IsDeleted = false },
+                new Material() { Id = 2, MaterialName = "Plastic", IsDeleted = false },
+                new Material() { Id = 3, MaterialName = "Wood", IsDeleted = false }
             );
             builder.Entity<Manufacturer>().HasData(
-            
-                new Manufacturer() {Id=1, ManufacturerName = "Yokohama", IsDeleted = false },
-                new Manufacturer() {Id=2, ManufacturerName = "Samsung", IsDeleted = false },
-                new Manufacturer() {Id=3, ManufacturerName = "Honda", IsDeleted = false }
-            
+
+                new Manufacturer() { Id = 1, ManufacturerName = "Yokohama", IsDeleted = false },
+                new Manufacturer() { Id = 2, ManufacturerName = "Samsung", IsDeleted = false },
+                new Manufacturer() { Id = 3, ManufacturerName = "Honda", IsDeleted = false }
+
             );
             builder.Entity<Category>().HasData(
                 new Category()
                 {
                     Id = 1,
-                    Name = "Beds",                    
+                    Name = "Beds",
                     IsDeleted = false,
-                    
+
                 },
                 new Category()
                 {
                     Id = 2,
-                    Name = "Tables",                    
+                    Name = "Tables",
                     IsDeleted = false,
                 },
                 new Category()
                 {
                     Id = 3,
-                    Name = "Chair",                   
+                    Name = "Chair",
                     IsDeleted = false,
                 },
                 new Category()
                 {
                     Id = 4,
-                    Name = "Kitchen Furniture",                    
+                    Name = "Kitchen Furniture",
                     IsDeleted = false,
-                 }
+                }
             );
             builder.Entity<Product>().HasData(
                 new Product()
@@ -271,12 +271,12 @@ namespace Nevara
                     IsDeleted = false,
                     CategoryId = 4
                 }
-                );
+                );                     
             #endregion            
             builder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims").HasKey(x => x.Id);
             builder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims").HasKey(x => x.Id);
             builder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
-            builder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRole").HasKey(x => new {x.RoleId, x.UserId});                             
+            builder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRole").HasKey(x => new { x.RoleId, x.UserId });
             builder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => new { x.UserId });
             this.FixOnModelCreating(builder);
         }
@@ -295,5 +295,5 @@ namespace Nevara
 
 
     }
-  
+
 }

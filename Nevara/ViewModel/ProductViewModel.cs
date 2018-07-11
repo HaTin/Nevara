@@ -14,6 +14,10 @@ namespace Nevara.ViewModel
         public int Id { get; set; }
         public string Name { get; set; }
         public string CategoryName { get; set; }
+        public string ManufacturerName { get; set; }
+        public string ColorName { get; set; }
+        public string MaterialName { get; set; }
+        public string CollectionName { get; set; }
         public double? Length { get; set; }
         public double? Height { get; set; }
         public string Thumbnail { get; set; }

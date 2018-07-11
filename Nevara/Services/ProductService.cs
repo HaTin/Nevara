@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Nevara.Helpers;
 using Nevara.ViewModel;
 using Nevara.Interfaces;
-using Nevara.ViewModel;
 using StackExchange.Profiling.Internal;
 
 namespace Nevara.Services
@@ -68,14 +67,16 @@ namespace Nevara.Services
                     Id = p.Id,
                     Name = p.Name,
                     Price = p.Price,
-                    Thumbnail = p.Thumbnail
+                    Thumbnail = p.Thumbnail                    
                 }).ToListAsync();
             return model;
         }
 
         public async Task<ProductViewModel> GetProducDetail(int? productID)
         {
-            var model = await _context.Products.FirstOrDefaultAsync(p => p.Id == productID);
+            var model = await _context.Products.Include(p=>p.Collection).Include(p=>p.Category).
+                Include(p => p.Material).Include(p => p.Manufacturer).Include(p=>p.Color).
+                FirstOrDefaultAsync(p => p.Id == productID);
             var viewMdodel = new ProductViewModel()
             {
                 Id = model.Id,
@@ -83,7 +84,15 @@ namespace Nevara.Services
                 Price = model.Price,
                 Description = model.Description,
                 Quantity = model.Quantity,
-                PromotionPrice = model.PromotionPrice,                
+                PromotionPrice = model.PromotionPrice,
+                CategoryName = model.Category.Name,
+                MaterialName = model.Material.MaterialName,
+                CollectionName = model.Collection.CollectionName,
+                ManufacturerName = model.Manufacturer.ManufacturerName,
+                ColorName = model.Color.ColorName,
+                Length = model.Length,
+                Depth = model.Depth,
+                Height = model.Height,
                 Images = await _context.Images.Where(p => p.ProductId == productID).Select(p => new Image()
                 {
                     ImagePath = p.ImagePath
@@ -182,16 +191,6 @@ namespace Nevara.Services
         }
 
        
-
-       
-
-       
-
-     
-
-
-     
-
        
     }
 }

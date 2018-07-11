@@ -91,7 +91,7 @@
                     <!-- Product Box Quantity Start -->
                     <div class="box-quantity mtb-20">
                         <div class="quantity-item">
-                            <label>Qty: </label>
+                            <label>Quantity:</label>
                             <div class="cart-plus-minus">
                                 <input class="cart-plus-minus-box" type="text" name="qtybutton" value="0">
                             </div>
@@ -101,52 +101,8 @@
                     <!-- Product Button Actions Start -->
                     <div class="product-button-actions">
                         <button class="add-to-cart">add to cart</button>
-                        <a href="wish-list.html" data-toggle="tooltip" title="Add to Wishlist" class="same-btn mr-15"><i class="pe-7s-like"></i></a>
-                        <button data-toggle="tooltip" title="Compare this Product" class="same-btn"><i class="pe-7s-repeat"></i></button>
                     </div>
                     <!-- Product Button Actions End -->
-                    <!-- Product Social Link Share Start -->
-                    <div class="social-shared">
-                        <ul>
-                            <li class="f-book">
-                                <a href="#">
-                                    <span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>
-                                    <span>like</span>
-                                    <span>1</span>
-                                </a>
-                            </li>
-                            <li class="twitter">
-                                <a href="#">
-                                    <span><i class="fa fa-twitter" aria-hidden="true"></i></span>
-                                    <span>tweet</span>
-                                </a>
-                            </li>
-                            <li class="pinterest">
-                                <a href="#">
-                                    <span><i class="fa fa-google" aria-hidden="true"></i></span>
-                                    <span>plus</span>
-                                </a>
-                            </li>
-                            <!-- Product Social Link Share Dropdown Start -->
-                            <li class="share-post">
-                                <a href="#">
-                                    <span><i class="fa fa-plus-square" aria-hidden="true"></i></span>
-                                    <span>share</span>
-                                </a>
-                                <ul class="sharable-dropdown">
-                                    <li><a href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i>facebook</a></li>
-                                    <li><a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i>twitter</a></li>
-                                    <li><a href="#"><i class="fa fa-print" aria-hidden="true"></i>print</a></li>
-                                    <li><a href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i>email</a></li>
-                                    <li><a href="#"><i class="fa fa-pinterest-square" aria-hidden="true"></i>pinterest</a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus-square" aria-hidden="true"></i>google+</a></li>
-                                    <li><a href="#"><i class="fa fa-plus-square" aria-hidden="true"></i>more(99)</a></li>
-                                </ul>
-                            </li>
-                            <!-- Product Social Link Share Dropdown End -->
-                        </ul>
-                    </div>
-                    <!-- Product Social Link Share End -->
                 </div>
             </div>
             <!-- Thumbnail Description End -->
@@ -174,48 +130,61 @@
                                 <tbody>
                                     <tr>
                                         <td class="product-name">Product name</td>
-                                        <td></td>
+                                        <td>@Model.Name</td>
                                     </tr>
                                     <tr>
                                         <td class="product-name">Manufature name</td>
-                                        <td></td>
+                                        <td>@Model.ManufacturerName</td>
                                     </tr>
                                     <tr>
                                         <td class="product-name">Length</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="product-name">Width</td>
-                                        <td>21</td>
+                                        <td>@Model.Length</td>
                                     </tr>
                                     <tr>
                                         <td class="product-name">Depth</td>
-                                        <td>21</td>
+                                        <td>@Model.Depth</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="product-name">Height</td>
+                                        <td>@Model.Height</td>
                                     </tr>
                                     <tr>
                                         <td class="product-name">Color</td>
-                                        <td>red</td>
+                                        <td>@Model.ColorName</td>
                                     </tr>
                                     <tr>
                                         <td class="product-name">Material</td>
-                                        <td></td>
+                                        <td>@Model.MaterialName</td>
                                     </tr>
                                     <tr>
                                         <td class="product-name">Collecion</td>
-                                        <td></td>
+                                        <td>@Model.CollectionName</td>
                                     </tr>
                                     <tr>
                                         <td class="product-name">Availability</td>
-                                        <td></td>
+                                        <td>
+                                            @if (Model.Quantity == 0 || Model.Quantity == null)
+                                            {
+                                                <span>Out of Stock</span>
+                                            }
+                                            @if (Model.Quantity > 0 && Model.Quantity < 15)
+                                            {
+                                                <p><span style="color: red;">@Model.Quantity</span> in Stock</p>
+                                            }
+                                            @if (Model.Quantity > 15)
+                                            {
+                                                <span>In Stock</span>
+                                            }
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="product-name">Description</td>
-                                        <td>@Model.Description</td>
+                                        <td style="text-align: left;">@Model.Description</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <p class="mb-10">@Model.Description</p>
+                        @* End of table *@
                     </div>
                 </div>
                 <!-- Product Thumbnail Tab Content End -->

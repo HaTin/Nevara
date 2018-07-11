@@ -26,9 +26,15 @@ namespace Nevara.Controllers
 
         public async Task<IActionResult> ProductDetails(int? id)
         {
-            var model = await _productService.GetProducDetail(id);
-            return View(model);
+            var proDetail = await _productService.GetProducDetail(id);
+            return View(proDetail);
         }
 
+        public async Task<IActionResult> Categories()
+        {
+            ViewBag.Categories = await _categoryService.GetCategories();
+            ViewBag.Products = await _productService.GetProductList();
+            return View();
+        }
     }
 }

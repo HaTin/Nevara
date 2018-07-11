@@ -10,8 +10,8 @@ using Nevara;
 namespace Nevara.Migrations
 {
     [DbContext(typeof(NevaraDbContext))]
-    [Migration("20180703101012_new")]
-    partial class @new
+    [Migration("20180703112340_New")]
+    partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -295,7 +295,7 @@ namespace Nevara.Migrations
                         .HasColumnType("varchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<int?>("ProductId");
+                    b.Property<int>("ProductId");
 
                     b.HasKey("Id");
 
@@ -534,8 +534,9 @@ namespace Nevara.Migrations
             modelBuilder.Entity("Nevara.Models.Entities.Image", b =>
                 {
                     b.HasOne("Nevara.Models.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Nevara.Models.Entities.Order", b =>

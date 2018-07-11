@@ -25,7 +25,7 @@
                     <nav>
                         <ul class="primary-menu-list text-center">
                             <li>
-                                <a asp-controller="Home">home@*<i class="pe-7s-angle-down"></i>*@</a>
+                                <a asp-controller="Home" asp-action="Index">home</a>
                                 <!-- Home Version Dropdown Start -->
                                 @*<ul class="ht-dropdown">
                                         <li><a href="index.html">Home Version 1</a></li>
@@ -36,7 +36,7 @@
                                 <!-- Home Version Dropdown End -->
                             </li>
                             <li>
-                                <a asp-area="Home">furniture<i class="pe-7s-angle-down"></i></a>
+                                <a asp-controller="Home" asp-action="Categories">furniture<i class="pe-7s-angle-down"></i></a>
                                 <!-- Mega Menu Start -->
                                 <ul class="ht-dropdown">
                                     <!-- Single Mega Sub Menu Start -->
@@ -49,15 +49,7 @@
                                     }
                                     <!-- Single Mega Sub Menu Start -->
                                     <!-- Single Mega Sub Menu Start -->
-                                    <li>
-                                        <h3>Chairs & Recliners</h3>
-                                        <ul>
-                                            <li><a href="categorie-page.html">commodo nunc</a></li>
-                                            <li><a href="categorie-page.html">dignissim porta</a></li>
-                                            <li><a href="categorie-page.html">necvelit dignissim</a></li>
-                                            <li><a href="categorie-page.html">venenatis lacinia</a></li>
-                                        </ul>
-                                    </li>
+                                    
                                     <!-- Single Mega Sub Menu Start -->
                                 </ul>
                                 <!-- Mega Menu End -->
