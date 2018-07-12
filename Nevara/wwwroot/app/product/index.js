@@ -91,7 +91,7 @@
                         url: "/admin/product/find",
                         data: { id: id },
                         dataType: "json",
-                        success: function (response) {
+                        success: function (response) {                      
                             self.resetForm();
                             $('#hiddenId').val(response.Id);
                             $('#txtName').val(response.Name);
