@@ -5,10 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Nevara.Areas.Admin.Models;
 using Nevara.Helpers;
-using Nevara.Interfaces;
 using Nevara.ViewModel;
+using Nevara.Interfaces;
 using StackExchange.Profiling.Internal;
 
 namespace Nevara.Services
@@ -57,6 +56,59 @@ namespace Nevara.Services
                 PageSize = pageSize
             };
             return paginationSet;
+        }
+
+        public async Task<List<ProductViewModel>> GetProductList()
+        {
+            var model = await _context.Products.Where(p => p.HomeFlag == true).Where(p => !p.IsDeleted).Take(10).Select(p => new ProductViewModel()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Thumbnail = p.Thumbnail                    
+                }).ToListAsync();
+            return model;
+        }
+
+        public async Task<ProductViewModel> GetProducDetail(int? productID)
+        {
+            var model = await _context.Products.Include(p=>p.Collection).Include(p=>p.Category).
+                Include(p => p.Material).Include(p => p.Manufacturer).Include(p=>p.Color).
+                FirstOrDefaultAsync(p => p.Id == productID);
+            var viewMdodel = new ProductViewModel()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Price = model.Price,
+                Description = model.Description,
+                Quantity = model.Quantity,
+                PromotionPrice = model.PromotionPrice,
+                CategoryName = model.Category.Name,
+                MaterialName = model.Material.MaterialName,
+                CollectionName = model.Collection.CollectionName,
+                ManufacturerName = model.Manufacturer.ManufacturerName,
+                ColorName = model.Color.ColorName,
+                Length = model.Length,
+                Depth = model.Depth,
+                Height = model.Height,
+                Images = await _context.Images.Where(p => p.ProductId == productID).Select(p => new Image()
+                {
+                    ImagePath = p.ImagePath
+                }).ToListAsync()
+            };
+            
+            return viewMdodel;
+        }
+
+        public async Task<List<ProductViewModel>> GetProductByCategories(int? cateId)
+        {
+            var result = await _context.Products.Where(p => p.CategoryId == cateId).Select(p => new ProductViewModel()
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price
+            }).ToListAsync();
+            return result;
         }
 
         public async Task<ProductViewModel> Find(int? id)
@@ -183,5 +235,8 @@ namespace Nevara.Services
                 return true;
             return false;
         }
+
+       
+       
     }
 }

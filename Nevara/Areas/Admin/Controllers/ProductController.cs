@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nevara.Areas.Admin.Models;
 using Nevara.Interfaces;
 using Nevara.Services;
 using Nevara.ViewModel;
