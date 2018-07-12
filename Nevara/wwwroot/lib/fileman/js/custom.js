@@ -20,9 +20,15 @@
   Contact: Lyubomir Arsov, liubo (at) web-lobby.com
 */
 function FileSelected(file) {
-
-    $(window.parent.document).find('#customRoxyImage').attr('src', file.fullPath);
-    $(window.parent.document).find('#txthiddenImage').val(file.fullPath);
+    var flag = $(window.parent.document).find('#hiddenFlag').val();
+    if (flag === '1') {
+        $(window.parent.document).find('#customRoxyImage').attr('src', file.fullPath);
+        $(window.parent.document).find('#txthiddenImage').val(file.fullPath);
+    } else if(flag === '2') {
+        $(window.parent.document).find('#imageList').append('<div class="col-md-3"><button type="button" class="close remove-image" aria-label="Close"><span aria-hidden="true">x</span></button><img data-path="' + file.fullPath+'"width="100" src="' +
+            file.fullPath + '"></div>');
+   
+    }
 }
 function GetSelectedValue(){
   /**

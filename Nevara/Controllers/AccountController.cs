@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Nevara.Models.Entities;
 using Microsoft.Extensions.Logging;
-using Nevara.Areas.Admin.Models;
 using Nevara.ViewModel;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
 using ExternalLoginViewModel = Nevara.ViewModel.ExternalLoginViewModel;

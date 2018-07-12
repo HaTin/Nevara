@@ -12,6 +12,7 @@ using Nevara.Interfaces;
 namespace Nevara.Services
 {
     public class ProductService : IProductService
+
     {
         private readonly NevaraDbContext _context;
         public ProductService(NevaraDbContext context)
@@ -239,9 +240,29 @@ namespace Nevara.Services
             return result;
         }
 
-    
+        public async Task AddImage(int productId, string[] images)
+        {
+            _context.Images.RemoveRange(_context.Images.Where(p =>p.ProductId == productId));
+            foreach (var image in images)
+            {
+                _context.Images.Add(new Image()
+                {
+                    ImagePath = image,
+                    ProductId = productId
+                });
+           
+            }
+            await _context.SaveChangesAsync();
+        }
 
-       
-       
+        public async Task<List<ProductImageViewModel>> GetImages(int productId)
+        {
+            return await _context.Images.Where(p => p.ProductId == productId).Select(p => new ProductImageViewModel()
+            {
+                Id = p.Id,
+                ImagePath = p.ImagePath
+            }).ToListAsync();
+        }
     }
 }
+

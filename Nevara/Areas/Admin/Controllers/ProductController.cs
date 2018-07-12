@@ -114,5 +114,19 @@ namespace Nevara.Areas.Admin.Controllers
             await _productService.Remove(id);
             return new OkObjectResult(id);
         }
+        [HttpPost]
+        public async  Task<IActionResult> SaveImages(int productId, string[] images)
+        {
+            await _productService.AddImage(productId, images);
+            return new OkObjectResult(productId);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetImages(int productId)
+        {
+            var images = await _productService.GetImages(productId);
+            return new OkObjectResult(images);
+        }
     }
+
 }
