@@ -100,6 +100,17 @@ namespace Nevara.Services
             return viewMdodel;
         }
 
+        public async Task<List<ProductViewModel>> GetProductByCategories(int? cateId)
+        {
+            var result = await _context.Products.Where(p => p.CategoryId == cateId).Select(p => new ProductViewModel()
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price
+            }).ToListAsync();
+            return result;
+        }
+
         public async Task<ProductViewModel> Find(int? id)
         {
           

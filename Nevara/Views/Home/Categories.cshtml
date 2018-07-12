@@ -146,7 +146,7 @@
                                                         <!-- Product Image Start -->
                                                         <div class="pro-img">
                                                             <a href="product-page.html">
-                                                                <img class="primary-img" src="@product.Images[0].ImagePath" alt="single-product">
+                                                                <img class="primary-img" src="@product.Thumbnail" alt="single-product">
                                                             </a>
                                                             <div class="quick-view">
                                                                 <a href="#" data-toggle="modal" data-target="#myModal"><i class="pe-7s-look"></i>quick view</a>
@@ -217,7 +217,7 @@
                                     }
                                     else
                                     {
-                                        <li><a href="#">@cate.Name</a></li>
+                                        <li><a asp-controller="Home" asp-action="Categories" asp-route-id="@cate.Id">@cate.Name</a></li>
                                     }
                                     ++counter;
                                 }

@@ -36,14 +36,14 @@
                                 <!-- Home Version Dropdown End -->
                             </li>
                             <li>
-                                <a asp-controller="Home" asp-action="Categories">furniture<i class="pe-7s-angle-down"></i></a>
+                                <a asp-controller="Home" asp-action="Categories" asp-route-id="1">furniture<i class="pe-7s-angle-down"></i></a>
                                 <!-- Mega Menu Start -->
                                 <ul class="ht-dropdown">
                                     <!-- Single Mega Sub Menu Start -->
                                     @foreach (var item in Model)
                                     {
                                         <li>
-                                            <a asp-controller="Home" asp-action="Products" asp-route-id="@item.Id">@item.Name</a>
+                                            <a asp-controller="Home" asp-action="Categories" asp-route-id="@item.Id">@item.Name</a>
                                         </li>
 
                                     }

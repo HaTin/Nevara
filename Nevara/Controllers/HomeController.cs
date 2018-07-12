@@ -30,10 +30,14 @@ namespace Nevara.Controllers
             return View(proDetail);
         }
 
-        public async Task<IActionResult> Categories()
+        public async Task<IActionResult> Categories(int? id)
         {
             ViewBag.Categories = await _categoryService.GetCategories();
-            ViewBag.Products = await _productService.GetProductList();
+            if (id == null)
+            {
+                id = 1;
+            }
+            ViewBag.Products = await _productService.GetProductByCategories(id);
             return View();
         }
     }

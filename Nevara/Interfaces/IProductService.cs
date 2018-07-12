@@ -20,5 +20,6 @@ namespace Nevara.Interfaces
         Task<bool> CheckProductAmountInColor(int? id);
         Task<List<ProductViewModel>> GetProductList();
         Task<ProductViewModel> GetProducDetail(int? productID);
+        Task<List<ProductViewModel>> GetProductByCategories(int? cateId);
     }
 }
