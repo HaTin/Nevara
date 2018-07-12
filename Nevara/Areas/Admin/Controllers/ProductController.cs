@@ -12,7 +12,7 @@ using Nevara.ViewModel;
 
 namespace Nevara.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
   
     public class ProductController : Controller

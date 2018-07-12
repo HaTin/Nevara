@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Nevara.Areas.Admin.Controllers
 {
- 
-    [Authorize]
+
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
+ 
     public class HomeController : Controller
     {
         public IActionResult Index()

@@ -5,43 +5,38 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Nevara.Extensions;
 using Nevara.Models.Entities;
 using Nevara.ViewModel;
 using ExternalLoginViewModel = Nevara.Areas.Admin.Models.ExternalLoginViewModel;
 
 namespace Nevara.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [Route("[area]/[controller]/[action]")]
     [Area("Admin")]
     public class AccountController : Controller
     {
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly UserManager<AppUser> _userManager;
-        private readonly ILogger _logger;
-        [TempData]
-        public string ErrorMessage { get; set; }
 
-        public AccountController(
-             UserManager<AppUser> userManager,
-             SignInManager<AppUser> signInManager,
-             ILogger<AccountController> logger
-             )
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _logger = logger;
+        public AccountController(SignInManager<AppUser> signInManager)
+        {           
+            _signInManager = signInManager;   
         }
-
-
-
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
+        public async Task <IActionResult> Login(string returnUrl = null)
         {
             if (_signInManager.IsSignedIn(User))
             {
-                return RedirectToLocal("/admin/home");
+                if (User.GetClaim("Roles").Contains("Customer"))
+                {
+                    await _signInManager.SignOutAsync();
+                }
+                else
+                {
+                    return RedirectToLocal("/admin/home");
+                }
             }
             ViewData["ReturnUrl"] = returnUrl;
             return View();
@@ -63,8 +58,6 @@ namespace Nevara.Areas.Admin.Controllers
 
                     return RedirectToLocal(returnUrl);
                 }
-
-                else
                 {
                     ModelState.AddModelError(string.Empty, "Incorrect UserName or Password");
                     return View(model);
@@ -90,13 +83,6 @@ namespace Nevara.Areas.Admin.Controllers
         {
             await _signInManager.SignOutAsync();
             return Redirect("/Admin/Account/Login");
-        }
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
         }
     }
 
