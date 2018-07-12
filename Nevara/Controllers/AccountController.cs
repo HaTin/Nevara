@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Nevara.Models.Entities;
 using Microsoft.Extensions.Logging;
-using Nevara.Areas.Admin.Models;
 using Nevara.ViewModel;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
 using ExternalLoginViewModel = Nevara.ViewModel.ExternalLoginViewModel;
@@ -212,6 +211,7 @@ namespace Nevara.Controllers
                     Email = email,
                     FullName = model.FullName,
                     BirthDate = DateTime.Parse(model.DOB),
+                    Address = model.Address,
                     PhoneNumber = model.PhoneNumber
                 };
                 var result = await _userManager.CreateAsync(user);
