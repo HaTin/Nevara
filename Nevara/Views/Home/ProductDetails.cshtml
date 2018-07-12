@@ -25,15 +25,17 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-5">
-                <img id="big-img" src="@Model.Images.FirstOrDefault().ImagePath" data-zoom-image="@Model.Images.FirstOrDefault().ImagePath" alt="product-image" />
-
+                @if (@Model.Images!=null && @Model.Images.Count > 0)
+                {
+                    <img id="big-img" src="@Model.Images.FirstOrDefault().ImagePath" data-zoom-image="@Model.Images.FirstOrDefault().ImagePath" alt="product-image"/>
+                }
                 <div id="small-img" class="mt-20">
 
                     <div class="thumb-menu owl-carousel">
                         @foreach (var img in Model.Images)
                         {
                             <a href="#" data-image="@img.ImagePath" data-zoom-image="@img.ImagePath">
-                                <img src="@img.ImagePath" alt="product-image" />
+                                <img src="@img.ImagePath" alt="product-image"/>
                             </a>
                         }
 
@@ -45,13 +47,7 @@
                 <div class="thubnail-desc fix">
                     <h2 class="product-header">@Model.Name</h2>
                     <!-- Product Rating Start -->
-                    <div class="rating-summary fix mtb-20">
-                        <div class="rating f-left mr-10">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
+                    <div class="rating-summary fix mtb-20">                    
                     </div>
                     <!-- Product Rating End -->
                     <!-- Product Price Start -->

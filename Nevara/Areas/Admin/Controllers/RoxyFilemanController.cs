@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace Nevara.Areas.Admin.Controllers
 {
-    // [Authorize] // Important: uncomment this in production to prevent huge security risk!
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("api/[controller]/[action]"), Produces("application/json")]
     public class RoxyFilemanController : Controller
