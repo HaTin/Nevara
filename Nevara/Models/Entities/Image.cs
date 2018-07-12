@@ -15,7 +15,7 @@ namespace Nevara.Models.Entities
         [StringLength(255)]
         [Column(TypeName = "varchar(255)")]
         public string ImagePath { get; set; }
-        public int? ProductId { get; set; }
+        public int ProductId { get; set; }
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
     }

@@ -1399,7 +1399,7 @@ ul.pull-left.home-4-search i {
 /* 11. Bradcrumb CSS
 /*----------------------------------------*/
 .main-breadcrumb {
-    background: rgba(0, 0, 0, 0) url("img/blog/5.png") no-repeat scroll center center / cover;
+    background: rgba(0, 0, 0, 0) url("/img/blog/5.png") no-repeat scroll center center / cover;
 }
 
 .breadcrumb-content h1 {
@@ -1744,7 +1744,7 @@ ul.pull-left.home-4-search i {
 
 /* quantity plus minus icone */
 .quantity-item {
-    width: 180px;
+    width: 200px;
     overflow: hidden;
 }
 
