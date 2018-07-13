@@ -307,7 +307,7 @@
         <!-- Quick View Content End -->
     </div>
     <!-- Wrapper End -->
-    <environment include="Development">
+
         <!-- jquery 3.12.4 -->
         <script src="~/js/vendor/jquery-1.12.4.min.js"></script>
         <!-- mobile menu js  -->
@@ -330,7 +330,7 @@
         <script src="~/js/plugins.js"></script>
         <!-- main js -->
         <script src="~/js/main.js"></script>
-    </environment>
+        @RenderSection("Scripts", false)
 </body>
 
 </html>

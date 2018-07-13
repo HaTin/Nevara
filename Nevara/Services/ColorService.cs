@@ -40,7 +40,6 @@ namespace Nevara.Services
             };
             return viewModel;
         }
-
         public async Task Add(ColorViewModel viewModel)
         {
             var model = new Color()

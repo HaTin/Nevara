@@ -1,4 +1,5 @@
-﻿@model List<Nevara.ViewModel.CategoryViewModel>
+﻿@using Nevara.Extensions
+@model List<Nevara.ViewModel.CategoryViewModel>
 <header>
     <div class="container-fluid header-top-area header-sticky">
         <div class="row">
@@ -144,7 +145,10 @@
                             </ul>
                         </li>
                         <!-- Search Box End -->
-                        <li><a href="wish-list.html"><i class="pe-7s-like"></i><span>2</span></a></li>
+                        <li>    @if (User.Identity.IsAuthenticated)
+                                {
+                                    <a href="/Account/Profile">@User.GetClaim("FullName")</a>
+                                }</li>
                         <li>
                             <i class="pe-7s-shopbag"></i><span>2</span>
                             <ul class="ht-dropdown main-cart-box">
@@ -187,28 +191,20 @@
                         <!-- Dropdown Currency Selection Start -->
                         <li>
                             <i class="pe-7s-config"></i>
-                            <ul class="ht-dropdown currrency">
-                                <li>
-                                    <h3>currency</h3>
-                                    <ul class="mb-15">
-                                        <li>€ euro</li>
-                                        <li>£ pound sterling</li>
-                                        <li>$ us dollar</li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <h3>language</h3>
-                                    <ul class="mb-15">
-                                        <li><img src="img/menu/2.png" alt="menu-icon">english</li>
-                                        <li><img src="img/menu/1.png" alt="menu-icon">french</li>
-                                    </ul>
-                                </li>
+                            <ul class="ht-dropdown currrency">                          
                                 <li>
                                     <h3>my account</h3>
                                     <ul>
-                                        <li><a href="register.html">register</a></li>
-                                        <li><a href="account.html">My Account</a></li>
-                                        <li><a href="log-in.html">log in</a></li>
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <li><a href="/Account/Profile">My Account</a></li>
+                                            <li><a asp-action="Logout" asp-controller="Account">Logout</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="/Account/Register">register</a></li>
+                                            <li><a href="/Account/Login">log in</a></li>
+                                        }
                                     </ul>
                                 </li>
                             </ul>
