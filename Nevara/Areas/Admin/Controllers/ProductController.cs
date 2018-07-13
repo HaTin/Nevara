@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Nevara.Areas.Admin.Models;
 using Nevara.Interfaces;
 using Nevara.Services;
 using Nevara.ViewModel;
@@ -13,8 +12,7 @@ using Nevara.ViewModel;
 namespace Nevara.Areas.Admin.Controllers
 {
     [Authorize]
-    [Area("Admin")]
-  
+    [Area("Admin")]  
     public class ProductController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -116,5 +114,19 @@ namespace Nevara.Areas.Admin.Controllers
             await _productService.Remove(id);
             return new OkObjectResult(id);
         }
+        [HttpPost]
+        public async  Task<IActionResult> SaveImages(int productId, string[] images)
+        {
+            await _productService.AddImage(productId, images);
+            return new OkObjectResult(productId);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetImages(int productId)
+        {
+            var images = await _productService.GetImages(productId);
+            return new OkObjectResult(images);
+        }
     }
+
 }

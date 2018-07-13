@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Nevara.Areas.Admin.Models;
 using Nevara.Interfaces;
+using Nevara.Models.Entities;
 using Nevara.ViewModel;
 
 namespace Nevara.Services
@@ -25,24 +26,39 @@ namespace Nevara.Services
             }).ToListAsync();
         }
 
-        public Task<MaterialViewModel> Find(int? id)
+        public async Task<MaterialViewModel> Find(int? id)
         {
-            throw new NotImplementedException();
+            var model = await _context.Materials.FindAsync(id);
+            var viewModel = new MaterialViewModel()
+            {
+                Id = model.Id,
+                MaterialName = model.MaterialName,
+            };
+            return viewModel;
         }
 
-        public Task Add(MaterialViewModel viewModel)
+        public async Task Add(MaterialViewModel viewModel)
         {
-            throw new NotImplementedException();
+            var model = new Material()
+            {
+                MaterialName = viewModel.MaterialName
+            };
+            _context.Materials.Add(model);
+            await _context.SaveChangesAsync();
         }
 
-        public Task Update(MaterialViewModel viewModel)
+        public async Task Update(MaterialViewModel viewModel)
         {
-            throw new NotImplementedException();
+            var model = await _context.Materials.FindAsync(viewModel.Id);
+            model.MaterialName = viewModel.MaterialName;
+            await _context.SaveChangesAsync();
         }
 
-        public Task Remove(int? id)
+        public async Task Remove(int? id)
         {
-            throw new NotImplementedException();
+            var model = await _context.Materials.FindAsync(id);
+            model.IsDeleted = true;
+            await _context.SaveChangesAsync();
         }
     }
 }

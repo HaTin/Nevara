@@ -2,8 +2,7 @@
     class ProductController {
         init() {            
             this.loadCategories();
-            this.loadCollections();
-          
+            this.loadCollections();          
             this.loadData();            
             this.getColors();
             this.getManufacturers();
@@ -35,6 +34,7 @@
                 });
             }
         }
+
         resetForm() {
             $('#hiddenId').val(0);
             $('#txtName').val('');
@@ -53,57 +53,29 @@
             $('#new-flag').prop('checked', false);
             $('#hot-flag').prop('checked', false);
             $('#txtQuantity').val('');
+            $('#txtDescription').val('');
+            $('#txthiddenImage').val('');
+            $('#customRoxyImage').attr('src', '');
         }
         registeredEvent() {
             var self = this; 
+            $('#btnCancel').on('click', function () {
+                $('#fileman').modal('hide');
+            });
+            $('#btnAddImage').on('click',
+                function () {
+                    $('#hiddenFlag').val('1');
+                    $('#fileman').modal('show');
+                });
             $('#btn-add').on('click',
                 function () {
                     self.resetForm();
                     $('.parsley-errors-list').html('');
                     $('#modal').modal('show');
-                });                  
-            /*$('#formProduct').validate({
-                
-                rules: {
-                    name: { required: true },
-                    price: {
-                        required: true,
-                        number: true
-                    },
-                    promotionPrice: {
-                        required: true,
-                        number: true
-                    },
-                    originalPrice: {
-                        required: true,
-                        number: true
-                    },
-                    depth: {
-                        required: true,
-                        number: true
-                    },
-                    height: {
-                        required: true,
-                        number: true
-                    },
-                    width: {
-                        required: true,
-                        number: true
-                    },
-                    quantity: {
-                        required: true,
-                        number: true
-                    },
-                    categorySelect: { valueNotEquals: "default" },
-                    collectionSelect: { valueNotEquals: "default" },
-                    materialSelect: { valueNotEquals: "default" },
-                    colorSelect: { valueNotEquals: "default" },
-                    manufacturerSelect: { valueNotEquals: "default" }
-                }
-            });*/
+                });         
             $('#formProduct').parsley({ 
             });
-
+        
             $('#btn-search').on('click',
                 function() {
                     common.configs.pageIndex = 1;
@@ -116,6 +88,7 @@
                         self.loadData(true);
                     }
                 });
+       
             $('body').on('click',
                 '.edit',
                 function (e) {
@@ -126,7 +99,7 @@
                         url: "/admin/product/find",
                         data: { id: id },
                         dataType: "json",
-                        success: function (response) {
+                        success: function (response) {                      
                             self.resetForm();
                             $('#hiddenId').val(response.Id);
                             $('#txtName').val(response.Name);
@@ -145,10 +118,12 @@
                             $('#new-flag').prop('checked', response.NewFlag);
                             $('#hot-flag').prop('checked', response.HotFlag);
                             $('#txtQuantity').val(response.Quantity);
+                            $('#txtDescription').val(response.Description);
+                            $('#txthiddenImage').val(response.Thumbnail);
+                            $('#customRoxyImage').attr('src', response.Thumbnail);
                         }
                     });
                     e.preventDefault();
-
                     $('#modal').modal('show');
                 });
             $('body').on('click', '.remove', function (e) {
@@ -169,18 +144,18 @@
                             url: "/Admin/Product/Remove",
                             data: { id: id },
                             dataType: "json",
-                            success: function (response) {
-                                self.loadData(true);                       
-                                $.toast({
-                                    bgColor: '#20c997',
-                                    heading: 'Delete Successful',
-                                    text: '',
-                                    position: 'top-right',
-                                    loaderBg: '#dc3545',
-                                    icon: 'success',
-                                    hideAfter: 3500,
-                                    stack: 6
-                                });
+                            success: function (response) {                                
+                                self.loadData(true);
+                                    $.toast({
+                                        bgColor: '#20c997',
+                                        heading: 'Delete Successful',
+                                        text: '',
+                                        position: 'top-right',
+                                        loaderBg: '#20c997',
+                                        icon: 'success',
+                                        hideAfter: 2500,
+                                        stack: 3
+                                    });                                
                             },
                             error: function (status) {
                                 console.log(status);                            
@@ -189,10 +164,7 @@
                         });
                     }); 
                  
-                });
-                 
-           
-
+                });                           
             $('#btn-save').on('click',
                 function (e) {                  
                     if ($('#formProduct').parsley().isValid()) {
@@ -214,13 +186,14 @@
                                 ColorId: $('#color-select').val(),
                                 Price: $('#txtPrice').val(),
                                 OriginalPrice: $('#txtOrginalPrice').val(),
+                                Description: $('#txtDescription').val(),
                                 PromotionPrice: $('#txtPromotionPrice').val(),
                                 HomeFlag: $('#home-flag').prop('checked') === true ? true : false,
                                 NewFlag: $('#new-flag').prop('checked') === true ? true : false,
-                                HotFlag: $('#hot-flag').prop('checked') === true ? true : false
-                            },
-                            success: function (response) {
-                                console.log(response);
+                                HotFlag: $('#hot-flag').prop('checked') === true ? true : false,
+                                Thumbnail: $('#txthiddenImage').val()
+                    },
+                            success: function (response) {                                
                                 $('#modal').modal('hide');
                                 self.loadData(true);                            
                                 $.toast({
@@ -228,9 +201,9 @@
                                         heading: 'Save Successful',
                                         text: '',
                                         position: 'top-right',
-                                        loaderBg: '#dc3545',
+                                    loaderBg: '#20c997',
                                         icon: 'success',
-                                        hideAfter: 3500,
+                                        hideAfter: 2500,
                                         stack: 6                                   
                                 });
 
@@ -268,8 +241,9 @@
                 },
                 url: "/admin/product/GetProduct",
                 dataType: 'json',
-                success: function(respone) {
-                    $.each(respone.Results,
+                success: function (response) {
+                    console.log(response);
+                    $.each(response.Results,
                         function(i, item) {
                             render += Mustache.render(template,
                                 {
@@ -289,7 +263,7 @@
                         render += '<tr><td colspan="6"><h3>No Results</h3></td></tr>';
                     }
                     $('#tbl-content').html(render);
-                    self.wrapPaging(respone.RowCount,
+                    self.wrapPaging(response.RowCount,
                         function() {
                             self.loadData();
                         },

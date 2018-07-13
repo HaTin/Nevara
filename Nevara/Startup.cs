@@ -56,10 +56,10 @@ namespace Nevara
 
                 // If the LoginPath isn't set, ASP.NET Core defaults 
                 // the path to /Account/Login.
-                options.LoginPath = "/Admin/Account/Login";
+               options.LoginPath = "/Admin/Account/Login";
                 // If the AccessDeniedPath isn't set, ASP.NET Core defaults 
                 // the path to /Account/AccessDenied.
-                // options.AccessDeniedPath = "/Admin/AccessDenied";
+               options.AccessDeniedPath = "/Admin/Account/Login";
             });
             services.AddMiniProfiler().AddEntityFramework();
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
@@ -91,7 +91,9 @@ namespace Nevara
                 ValidationMessage = "Are you a robot?"
             });
             services.AddTransient<IManufacturerService, ManufacturerService>();
-
+            //session
+            services.AddSession();
+            services.AddDistributedMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,7 +113,7 @@ namespace Nevara
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMiniProfiler();
-            
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Nevara.Data.Interfaces;
+
 using Nevara.Models.Interfaces;
 
 namespace Nevara.Models.Entities
@@ -56,5 +58,6 @@ namespace Nevara.Models.Entities
         public Collection Collection { get; set; }
         [ForeignKey("ManufacturerId")]
         public Manufacturer Manufacturer { get; set; }
+        public  ICollection<Image> Images { get; set; }
     }
 }

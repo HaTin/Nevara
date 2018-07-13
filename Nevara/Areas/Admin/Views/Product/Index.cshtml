@@ -12,19 +12,19 @@
     <script src="~/admin-client/assets/plugins/sweetalert/sweetalert.min.js"></script>
     <script src="~/admin-client/assets/plugins/sweetalert/jquery.sweet-alert.custom.js"></script>
     <script src="~/admin-client/assets/plugins/toast-master/js/jquery.toast.js"></script>
-    <script src="~/npm/jquery.twbsPagination.min.js"></script>    
-    
+    <script src="~/npm/jquery.twbsPagination.min.js"></script>
     <script src="~/npm/mustache.min.js"></script>
     <script src="~/npm/parsley.min.js"></script>
+    <script src="~/app/product/image.js"></script>
     <script src="~/app/product/index.js"></script>
-    <script src="/admin-client/js/validation.js"></script> 
+
+    <script src="/admin-client/js/validation.js"></script>
     <script>
         $(function () {
             const product = new ProductController();
+            const image = new ImageController();            
             product.init();
-            /*$("input,select,textarea").not("[type=submit]").jqBootstrapValidation({
-                autoAdd: { helpBlocks: true },                
-            });*/
+            image.init();
         });
     </script>
 
@@ -64,37 +64,189 @@
                         </div>
                     </div>
                 </div>
+                <input type="hidden" id="hiddenFlag"/>
                 <div class="table-responsive">
                     <div class="form-group">
                     </div>
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Image</th>
-                                <th>In Stock</th>
-                                <th class="text-nowrap">Action</th>
-                            </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Image</th>
+                            <th>In Stock</th>
+                            <th class="text-nowrap">Action</th>
+                        </tr>
                         </thead>
                         <tbody id="tbl-content"></tbody>
                         <tfoot>
-                            <tr>
-                                <td colspan="2">
-                                    <button type="button" class="btn btn-info btn-rounded" id="btn-add" data-toggle="modal">Add New Product</button>
-                                </td>
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" class="btn btn-info btn-rounded" id="btn-add" data-toggle="modal">Add New Product</button>
+                            </td>
 
-                                <td colspan="7">
-                                    <div class="text-right">
-                                        <ul id="paginationUL"></ul>
-                                    </div>
-                                </td>
-                            </tr>
+                            <td colspan="7">
+                                <div class="text-right">
+                                    <ul id="paginationUL"></ul>
+                                </div>
+                            </td>
+                        </tr>
                         </tfoot>
                     </table>
-                    @await Html.PartialAsync("_AddEditModal.cshtml")
-                </div>
+               
+                    <div id="modal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Add New Product</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <form id="formProduct" method="POST" role="form" novalidate="">
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <input type="hidden" id="hiddenId" value="0" />
+                                            <label class="col-md-3 col-form-label">Name</label>
+                                            <div class="controls col-md-9 p-r-20">
+                                                <input type="text" id="txtName" name="name" class="form-control" required data-parsley-error-message="Name is required">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label">Category</label>
+                                            <div class="controls col-md-9  p-r-20">
+                                                <select id="category-select-2" name="categorySelect" class="form-control" required data-parsley-error-message="Please select category"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="controls col-md-3 col-form-label">Collection</label>
+                                            <div class="col-md-9  p-r-20">
+                                                <select id="collection-select-2" required name="collectionSelect" class="form-control" data-parsley-error-message="Please select collection"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label">Material</label>
+                                            <div class="controls col-md-9  p-r-20">
+                                                <select id="material-select" name="materialSelect" class="form-control" required data-parsley-error-message="Please select material"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label">Manufacturer</label>
+                                            <div class="controls col-md-9  p-r-20">
+                                                <select id="manufacturer-select" name="manufacturerSelect" class="form-control" required data-parsley-error-message="Please select manufacturer"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label">Color</label>
+                                            <div class="controls col-md-9  p-r-20">
+                                                <select id="color-select" name="colorSelect" class="form-control" required data-parsley-error-message="Please select color"></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label p-r-0">Length</label>
+                                            <div class="controls col-md-9">
+                                                <input type="text" name="lenght" id="txtLength" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label p-r-0">Height</label>
+                                            <div class="controls col-sm-9">
+                                                <input type="text" name="height" id="txtHeight" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label p-r-0">Depth</label>
+                                            <div class="controls col-md-9">
+                                                <input type="text" name="depth" id="txtDepth" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label">Quantity</label>
+                                            <div class="col-md-9  p-r-20">
+                                                <input type="text" name="quantity" id="txtQuantity" class="form-control" data-parsley-type="integer" required data-parsley-error-message="Input valid quantity">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label no-padding">Original Price</label>
+                                            <div class="controls col-md-9 p-r-20">
+                                                <input type="text" name="originalPrice" id="txtOrginalPrice" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label no-padding">Sell Price</label>
+                                            <div class="controls col-md-9 p-r-20">
+                                                <input type="text" name="price" id="txtPrice" class="form-control" required data-parsley-type="number" data-parsley-error-message="Please input valid number">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label no-padding">Promotion Price</label>
+                                            <div class="controls col-md-9 p-r-20">
+                                                <input type="text" name="promotionPrice" id="txtPromotionPrice" class="form-control" data-parsley-type="number" data-parsley-error-message="Please input valid number">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-3 col-form-label no-padding">Description</label>
+                                            <div class="controls col-md-9 p-r-20">
+                                                <textarea class="form-control" id="txtDescription" name="description" rows="3" required data-parsley-error-message="Description is required"></textarea>
+                                            </div>
+                                        </div>
+                                        <input type="checkbox" id="home-flag" class="chk-col-light-blue" />
+                                        <label for="home-flag">Home Flag</label>
+                                        <input name="group1" type="radio" id="new-flag" class="radio-col-light-blue" />
+                                        <label for="new-flag">New Flag</label>
+                                        <input  name="group1"type="radio" id="hot-flag" class="radio-col-light-blue" />
+                                        <label for="hot-flag">Hot Flag</label>
+                                        <div class="form-group row" id="product-image">
+                                             
+                                            <button type="button" id="btnAddImage" class="btn waves-effect waves-light btn-info">Add Image</button>
+                                        </div>
+                                        <div class="form-group row">
+                                            <img id="customRoxyImage" src=""/>
+                                            <input id="txthiddenImage" type="hidden" val=""/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="btn-save" class="btn btn-info waves-effect">Save</button>
+                                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+
+                    </div>
+                 
+                    <div id="modal-image-manage" class="modal fade in" role="dialog" tabindex="-2"  aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" >Product Images</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" id="hidId"/>
+                                    <div class="form-group">     
+                                        <div class="col-md-10">
+                                            <div id="imageList" class="col-md-12 row"></div>                                            
+                                        </div>                   
+
+                                        <button type="button" id="btn-add-image" class="btn waves-effect waves-light btn-info">Add Image</button>
+                                        <button type="button" id="btn-save-image" class="btn waves-effect waves-light btn-danger">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+             
+                
+                    </div>
+                    <div id="fileman" class="modal fade in" role="dialog" tabindex="-1" aria-labelledby-="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <button type="button" class="close" id="btnCancel">×</button>
+                                <iframe src="~/lib/fileman/index.html?integration=custom" style="width:100%;height:450px"></iframe>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -108,8 +260,10 @@
         <td>{{{Thumbnail}}}</td>
         <td>{{Quantity}}</td>
         <td class="text-nowrap">
+            <a href="#" class="btn-images" data-toggle="tooltip" data-id="{{Id}}" data-original-title="Image"> <i class="fa fa-close fa-photo"></i> </a>
             <a href="#" class="edit" data-toggle="tooltip" data-id="{{Id}}" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-            <a href="#" class="remove" data-toggle="tooltip" data-id="{{Id}}" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                <a href="#" class="remove" data-toggle="tooltip" data-id="{{Id}}" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+
         </td>
     </tr>
 </script>

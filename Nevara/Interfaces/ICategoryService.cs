@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Nevara.Areas.Admin.Models;
 using Nevara.Models.Entities;
 using Nevara.ViewModel;
 
