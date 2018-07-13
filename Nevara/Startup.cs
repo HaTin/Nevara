@@ -86,8 +86,8 @@ namespace Nevara
                 });
             services.AddRecaptcha(new RecaptchaOptions()
             {
-                SiteKey = "6LeNpmEUAAAAAJUz0tsxPRGOyEwDWiXxpDZZvCxb",
-                SecretKey = "6LeNpmEUAAAAALHsrYoYiMbUVrL1NpBzI10A47vf",
+                SiteKey = Configuration["Recaptcha:SiteKey"],
+                SecretKey = Configuration["Recaptcha:SecretKey"],
                 ValidationMessage = "Are you a robot?"
             });
             services.AddTransient<IManufacturerService, ManufacturerService>();

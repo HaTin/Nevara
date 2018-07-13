@@ -10,6 +10,8 @@ namespace Nevara.ViewModel
         [Required]
         public string FullName { get; set; }
 
+        public string Address { get; set; }
+
         [Required]
         public string DOB { get; set; }
 
