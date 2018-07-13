@@ -15,8 +15,8 @@
                     self.resetForm();
                     $('.parsley-errors-list').html('');
                     $('#modal').modal('show');
-                });                  
-           
+                });
+         
             $('#form-add-edit').parsley({ 
             });  
             $('body').on('click',

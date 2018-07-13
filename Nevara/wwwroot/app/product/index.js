@@ -59,6 +59,14 @@
         }
         registeredEvent() {
             var self = this; 
+            $('#btnCancel').on('click', function () {
+                $('#fileman').modal('hide');
+            });
+            $('#btnAddImage').on('click',
+                function () {
+                    $('#hiddenFlag').val('1');
+                    $('#fileman').modal('show');
+                });
             $('#btn-add').on('click',
                 function () {
                     self.resetForm();

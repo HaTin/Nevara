@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Nevara.Data.Interfaces;
+
 using Nevara.Models.Enum;
 using Nevara.Models.Interfaces;
 
