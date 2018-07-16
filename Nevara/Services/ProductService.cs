@@ -15,27 +15,34 @@ namespace Nevara.Services
 
     {
         private readonly NevaraDbContext _context;
+
         public ProductService(NevaraDbContext context)
         {
             _context = context;
         }
-        public async Task<PageResult<ProductViewModel>> GetProduct(int? categoryId, int? collectionId, string keyword, int page, int pageSize)
+
+        public async Task<PageResult<ProductViewModel>> GetProduct(int? categoryId, int? collectionId, string keyword,
+            int page, int pageSize)
         {
             var query = _context.Products.AsQueryable().IgnoreQueryFilters().Where(p => !p.IsDeleted);
             if (!string.IsNullOrEmpty(keyword))
             {
 
                 query = query.Where(x =>
-                     Util.ConvertToUnsign(x.Name).Contains(Util.ConvertToUnsign(keyword), StringComparison.CurrentCultureIgnoreCase));
+                    Util.ConvertToUnsign(x.Name).Contains(Util.ConvertToUnsign(keyword),
+                        StringComparison.CurrentCultureIgnoreCase));
             }
+
             if (categoryId.HasValue)
             {
                 query = query.Where(x => x.CategoryId == categoryId);
             }
+
             if (collectionId.HasValue)
             {
                 query = query.Where(x => x.CollectionId == collectionId);
             }
+
             int totalRow = await query.CountAsync();
             query = query.OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize);
             var data = await query.Select(p => new ProductViewModel()
@@ -46,8 +53,7 @@ namespace Nevara.Services
                 Price = p.Price,
                 Thumbnail = p.Thumbnail,
                 Quantity = p.Quantity,
-            }).
-                ToListAsync();
+            }).ToListAsync();
             var paginationSet = new PageResult<ProductViewModel>()
             {
                 Results = data,
@@ -74,7 +80,7 @@ namespace Nevara.Services
                 Price = model.Price,
                 HomeFlag = model.HomeFlag,
                 CollectionId = model.CollectionId,
-                ColorId = model.CollectionId,
+                ColorId = model.ColorId,
                 HotFlag = model.HotFlag,
                 Description = model.Description,
                 PromotionPrice = model.PromotionPrice,
@@ -182,24 +188,28 @@ namespace Nevara.Services
                 return true;
             return false;
         }
-    
-    public async Task<List<ProductViewModel>> GetProductList()
+
+        public async Task<List<ProductViewModel>> GetProductList()
         {
-            var model = await _context.Products.Where(p => p.HomeFlag == true).Where(p => !p.IsDeleted).Take(10).Select(p => new ProductViewModel()
+            var model = await _context.Products.Where(p => p.HomeFlag == true).Where(p => !p.IsDeleted).Take(10).Select(
+                p => new ProductViewModel()
                 {
                     Id = p.Id,
                     Name = p.Name,
                     Price = p.Price,
-                    Thumbnail = p.Thumbnail                    
+                    PromotionPrice = p.PromotionPrice,
+                    Thumbnail = p.Thumbnail,
+                    HotFlag = p.HotFlag,
+                    NewFlag = p.NewFlag                                        
                 }).ToListAsync();
             return model;
         }
 
         public async Task<ProductViewModel> GetProducDetail(int? productId)
         {
-            var model = await _context.Products.Include(p=>p.Collection).Include(p=>p.Category).
-                Include(p => p.Material).Include(p => p.Manufacturer).Include(p=>p.Color).
-                FirstOrDefaultAsync(p => p.Id == productId);
+            var model = await _context.Products.Include(p => p.Collection).Include(p => p.Category)
+                .Include(p => p.Material).Include(p => p.Manufacturer).Include(p => p.Color)
+                .FirstOrDefaultAsync(p => p.Id == productId);
             var viewMdodel = new ProductViewModel()
             {
                 Id = model.Id,
@@ -215,13 +225,13 @@ namespace Nevara.Services
                 ColorName = model.Color.ColorName,
                 Length = model.Length,
                 Depth = model.Depth,
-                Height = model.Height,                
+                Height = model.Height,
                 Images = await _context.Images.Where(p => p.ProductId == productId).Select(p => new Image()
                 {
                     ImagePath = p.ImagePath
                 }).ToListAsync()
             };
-            
+
             return viewMdodel;
         }
 
@@ -242,7 +252,7 @@ namespace Nevara.Services
 
         public async Task AddImage(int productId, string[] images)
         {
-            _context.Images.RemoveRange(_context.Images.Where(p =>p.ProductId == productId));
+            _context.Images.RemoveRange(_context.Images.Where(p => p.ProductId == productId));
             foreach (var image in images)
             {
                 _context.Images.Add(new Image()
@@ -250,8 +260,9 @@ namespace Nevara.Services
                     ImagePath = image,
                     ProductId = productId
                 });
-           
+
             }
+
             await _context.SaveChangesAsync();
         }
 
@@ -263,6 +274,14 @@ namespace Nevara.Services
                 ImagePath = p.ImagePath
             }).ToListAsync();
         }
+
+        public async Task<int> GetAvailableQuantity(int productId)
+        {
+            var quantity = await _context.Products.Where(p => p.Id == productId).Select(p => p.Quantity).SingleAsync();
+           return quantity.Value;
+        }
+
+    
     }
 }
 

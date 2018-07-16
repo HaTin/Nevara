@@ -1,0 +1,47 @@
+﻿@model List<ShoppingCartViewModel>
+   <i class="pe-7s-shopbag"></i>
+    @if (Model.Count > 0)
+    {
+    <span>@Model.Count</span>
+    }
+
+    <ul class="ht-dropdown main-cart-box">
+        <li>
+            @if (Model.Count > 0)
+            {
+                <!-- Cart Box Start -->
+                @foreach (var item in Model)
+                {
+                    <div class="single-cart-box">
+                        <div class="cart-img">
+                            <a href="/cart/"><img src="@item.Product.Thumbnail" alt="cart-image"></a>
+                        </div>
+                        <div class="cart-content">
+                            <h6><a href="#">@item.Product.Name</a></h6>
+                            <span>@item.Quantity × @item.Price.ToString("N0")</span>
+                        </div>         
+                    </div>
+                }
+                <!-- Cart Box End -->
+                <!-- Cart Box Start -->
+                <!-- Cart Box End -->
+                <!-- Cart Footer Inner Start -->
+                <div class="cart-footer fix">
+                    <h5>total :<span class="f-right">@Model.Sum(x => x.Quantity * x.Product.Price).ToString("N0")VND</span></h5>
+                    <div class="cart-actions">
+                        <a class="checkout" href="/cart">View Cart</a>
+                    </div>
+                    <br />
+                    <div class="cart-actions">
+                        <a class="checkout" href="/Checkout">Checkout</a>
+                    </div>
+                </div>
+                <!-- Cart Footer Inner End -->
+            }
+            else
+            {
+                <p>Your cart is empty</p>
+
+            }
+        </li>
+    </ul>

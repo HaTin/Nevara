@@ -52,7 +52,7 @@ namespace Nevara
             {
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.ExpireTimeSpan = TimeSpan.FromHours(2);
 
                 // If the LoginPath isn't set, ASP.NET Core defaults 
                 // the path to /Account/Login.
