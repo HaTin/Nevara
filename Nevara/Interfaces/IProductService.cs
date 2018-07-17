@@ -23,6 +23,7 @@ namespace Nevara.Interfaces
         Task<List<ProductViewModel>> GetProductByCategories(int? cateId);
         Task AddImage(int productId, string[] images);
         Task<List<ProductImageViewModel>> GetImages(int productId);
-        Task<int> GetAvailableQuantity(int productId);      
+        Task<int> GetAvailableQuantity(int productId);
+        Task RefreshQuantity(int productId, int quantity);
     }
 }

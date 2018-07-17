@@ -24,11 +24,12 @@ namespace Nevara.Models.Entities
         [Required]        
         public string CustomerAddress { get; set; }
         public string CustomerMessage { get; set; }
+        public string CustomerEmail { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
         public BillStatus BillStatus { get; set; }
         public DateTime CreatedDate { get; set; }
-        public Guid UserId { get; set; }
-        [ForeignKey("CustomerId")]
+        public Guid? UserId { get; set; }
+        [ForeignKey("UserId")]
         public AppUser User { set; get; }
         public bool IsDeleted { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }

@@ -73,6 +73,7 @@ namespace Nevara
             services.AddTransient<ICollectionService, CollectionService>();
             services.AddTransient<IMaterialService, MaterialService>();
             services.AddTransient<IColorService, ColorService>();
+            services.AddTransient<IOrderSerivce, OrderService>();
             services.AddAuthentication()
                 .AddFacebook(facebookOpts =>
                 {

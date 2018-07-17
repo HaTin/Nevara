@@ -55,9 +55,9 @@ namespace Nevara.Controllers
                 UserName = model.Email,
                 Email = model.Email,
                 FullName = model.FullName,
-                PhoneNumber = model.PhoneNumber,      
-                Avatar = string.Empty
-                
+                PhoneNumber = model.PhoneNumber,   
+                Address = model.Address,
+                Avatar = string.Empty                
             };
             var result = await _userManager.CreateAsync(user, model.Password);
            

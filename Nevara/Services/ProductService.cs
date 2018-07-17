@@ -281,7 +281,12 @@ namespace Nevara.Services
            return quantity.Value;
         }
 
-    
+        public async Task RefreshQuantity(int productId, int quantity)
+        {
+          var product =  await _context.Products.FindAsync(productId);
+            product.Quantity -= quantity;
+            await _context.SaveChangesAsync();
+        }
     }
 }
 
