@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nevara;
 
 namespace Nevara.Migrations
 {
     [DbContext(typeof(NevaraDbContext))]
-    partial class NevaraDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180716191500_update3")]
+    partial class update3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -362,6 +364,8 @@ namespace Nevara.Migrations
 
                     b.Property<string>("CustomerEmail");
 
+                    b.Property<Guid?>("CustomerId");
+
                     b.Property<string>("CustomerMessage");
 
                     b.Property<string>("CustomerMobile")
@@ -380,7 +384,7 @@ namespace Nevara.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
                 });
@@ -543,7 +547,7 @@ namespace Nevara.Migrations
                 {
                     b.HasOne("Nevara.Models.Entities.AppUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("Nevara.Models.Entities.OrderDetail", b =>

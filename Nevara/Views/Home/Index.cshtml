@@ -66,15 +66,29 @@
                                     <a asp-controller="Home" asp-action="ProductDetails" asp-route-id="@product.Id">
                                         <img class="primary-img" src="@product.Thumbnail" alt="single-product">
                                     </a>
-                                    <div class="quick-view">
-                                        <a href="#" data-toggle="modal" data-target="#myModal"><i class="pe-7s-look"></i>quick view</a>
-                                    </div>
+                                    @if (product.HotFlag == true)
+                                    {
+                                        <span class="sticker-sale">hot</span>
+                                    }
+                                    @if (product.NewFlag == true)
+                                    {
+                                        <span class="sticker-new">new</span>
+                                    }
                                 </div>
                                 <!-- Product Image End -->
                                 <!-- Product Content Start -->
                                 <div class="pro-content text-center">
                                     <h4><a href="product-page.html">@product.Name</a></h4>
-                                    <p class="price"><span>$@product.Price</span></p>
+                                    @if (product.PromotionPrice == null)
+                                    {
+                                        <p class="price"><span>@product.Price.ToString("N0") VND</span></p>
+
+                                    }
+                                    else
+                                    {
+                                        <p class="tax">Old Price: <span style="text-decoration: line-through;">@product.Price.ToString("N0") VND</span></p>
+                                        <p class="price"><span>@product.PromotionPrice.Value.ToString("N0") VND</span></p>
+                                    }
                                     <div class="action-links2">
                                         <a data-toggle="tooltip" title="Add to Cart" href="cart.html">add to cart</a>
                                     </div>

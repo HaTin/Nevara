@@ -43,8 +43,8 @@
   background-image: url('../images/transparent.png');
 }
 .asColorPicker-trigger span {
-  width: 100%;
-  height: 100%;
+  width: 30px;
+  height: 30px;
   display: inline-block;
 }
 .asColorPicker-input,
@@ -193,7 +193,7 @@
   max-width: auto;
 }
 .asColorPicker-trigger {
-  border: 1px solid #bbbbbb;
+
 }
 .asColorPicker-saturation {
   -webkit-box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);

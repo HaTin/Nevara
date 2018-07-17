@@ -20,11 +20,13 @@ namespace Nevara.Areas.Admin.Helpers
             var role = await UserManager.GetRolesAsync(user);
             ((ClaimsIdentity)principal.Identity).AddClaims(new[]
             {              
-                
+                new Claim("UserId",user.Id.ToString()), 
                 new Claim("Email",user.Email),
                 new Claim("FullName",user.FullName),
                 new Claim("Avatar",user.Avatar??string.Empty),
-                new Claim("Roles",string.Join(";",role)) 
+                new Claim("Roles",string.Join(";",role)),
+                new Claim("Address",user.Address),
+                new Claim("Phone",user.PhoneNumber),                
             });
             return principal;
         }

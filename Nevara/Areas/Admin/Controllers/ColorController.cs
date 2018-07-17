@@ -28,7 +28,7 @@ namespace Nevara.Areas.Admin.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> GetCollection()
+        public async Task<IActionResult> GetColor()
         {
             var model = await _colorService.GetColors();
             return new OkObjectResult(model);
@@ -69,7 +69,7 @@ namespace Nevara.Areas.Admin.Controllers
 
             if (await _productService.CheckProductAmountInColor(id))
             {
-                return new OkObjectResult(new GenericResult() { Success = false, Message = "Please remove all products belonging to this collection" });
+                return new OkObjectResult(new GenericResult() { Success = false, Message = "Please remove all products belonging to this color" });
             }
             await _colorService.Remove(id);
             return new OkObjectResult(new GenericResult() { Success = true });

@@ -7,6 +7,9 @@
         resetForm() {
             $('#hiddenId').val(0);
             $('#txtName').val('');         
+            $('#txtCode').val('');               
+            $('#txtCode').asColorPicker('set', 'black');
+            $('#txtCode').asColorPicker('clear');
         }
         registeredEvent() {
             var self = this; 
@@ -16,7 +19,8 @@
                     $('.parsley-errors-list').html('');
                     $('#modal').modal('show');
                 });
-         
+            $(".colorpicker").asColorPicker({                
+            });
             $('#form-add-edit').parsley({ 
             });  
             $('body').on('click',
@@ -32,7 +36,8 @@
                         success: function (response) {
                             self.resetForm();
                             $('#hiddenId').val(response.Id);
-                            $('#txtName').val(response.MaterialName);                            
+                            $('#txtName').val(response.ColorName);
+                            $('#txtCode').asColorPicker('val', response.Code);
                         }
                     });
                     e.preventDefault();
@@ -98,7 +103,8 @@
                             url: "/admin/color/SaveEntity",
                             data: {
                                 Id: $('#hiddenId').val(),
-                                MaterialName: $('#txtName').val()                               
+                                ColorName: $('#txtName').val(),                               
+                                Code: $('#txtCode').val()                               
                             },
                             success: function (response) {
                                 console.log(response);
@@ -138,7 +144,7 @@
             var render = "";
             $.ajax({
                 type: "GET",          
-                url: "/admin/material/Getmaterial",
+                url: "/admin/color/GetColor",
                 dataType: 'json',
                 success: function(respone) {
                     console.log(respone);
@@ -147,7 +153,7 @@
                             render += Mustache.render(template,
                                 {
                                     Id: item.Id,
-                                    Name: item.MaterialName                                  
+                                    Name: item.ColorName                                
                                 });                            
                         });
                     if (render === '') {

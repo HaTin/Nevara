@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nevara;
 
 namespace Nevara.Migrations
 {
     [DbContext(typeof(NevaraDbContext))]
-    partial class NevaraDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180716161358_update")]
+    partial class update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -362,6 +364,8 @@ namespace Nevara.Migrations
 
                     b.Property<string>("CustomerEmail");
 
+                    b.Property<Guid>("CustomerId");
+
                     b.Property<string>("CustomerMessage");
 
                     b.Property<string>("CustomerMobile")
@@ -376,11 +380,11 @@ namespace Nevara.Migrations
 
                     b.Property<int>("PaymentMethod");
 
-                    b.Property<Guid?>("UserId");
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
                 });
@@ -395,15 +399,11 @@ namespace Nevara.Migrations
 
                     b.Property<decimal>("Price");
 
-                    b.Property<int>("ProductId");
-
                     b.Property<int>("Quantity");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -446,7 +446,9 @@ namespace Nevara.Migrations
 
                     b.Property<decimal>("OriginalPrice");
 
-                    b.Property<decimal>("Price");
+                    b.Property<decimal>("Price")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(0m);
 
                     b.Property<decimal?>("PromotionPrice");
 
@@ -543,7 +545,8 @@ namespace Nevara.Migrations
                 {
                     b.HasOne("Nevara.Models.Entities.AppUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Nevara.Models.Entities.OrderDetail", b =>
@@ -551,11 +554,6 @@ namespace Nevara.Migrations
                     b.HasOne("Nevara.Models.Entities.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Nevara.Models.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

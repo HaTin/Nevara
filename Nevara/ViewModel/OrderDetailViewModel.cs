@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Nevara.Models.Entities;
+using Nevara.Models.Enum;
 
-namespace Nevara.Models.Entities
+namespace Nevara.ViewModel
 {
-    [Table("OrderDetails")]
-    public class OrderDetail
-    {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public class OrderDetailViewModel
+    {      
         public int Id { get; set; }
         public int OrderId { get; set; }
         public int Quantity { get; set; }        
         public int ProductId { get; set; }        
         public decimal Price { set; get; }
-        [ForeignKey("OrderId")]
         public Order Order { get; set; }
-        [ForeignKey("ProductId")]
-        public virtual Product Product { set; get; }
+        
     }
 }

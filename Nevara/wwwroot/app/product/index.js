@@ -56,6 +56,7 @@
             $('#txtDescription').val('');
             $('#txthiddenImage').val('');
             $('#customRoxyImage').attr('src', '');
+            $('.color-display').css('background', '#e9ecef');
         }
         registeredEvent() {
             var self = this; 
@@ -75,7 +76,12 @@
                 });         
             $('#formProduct').parsley({ 
             });
-        
+            $('#color-select').on('change',
+                function() {
+                    var element = $(this).find('option:selected');
+                    var code = element.attr('code');
+                    $('.color-display').css('background',code);
+                });
             $('#btn-search').on('click',
                 function() {
                     common.configs.pageIndex = 1;
@@ -106,7 +112,9 @@
                             $('#collection-select-2').val(response.CollectionId);
                             $('#category-select-2').val(response.CategoryId);
                             $('#color-select').val(response.ColorId);
-                            $('#manufacturer-select').val(response.ManufacturerId);
+                            var option = $('#color-select').find('option:selected');
+                            $('.color-display').css('background', option.attr('code'));
+;                            $('#manufacturer-select').val(response.ManufacturerId);
                             $('#material-select').val(response.MaterialId);
                             $('#txtLength').val(response.Length);
                             $('#txtHeight').val(response.Height);
@@ -365,7 +373,7 @@
         }
 
         getColors() {
-            var render = "<option value=''>Select Color</option>";
+            var render = "<option code='#e9ecef' value=''>Select Color</option>";
             $.ajax({
                 type: "GET",
                 url: "/admin/product/GetColors",
@@ -374,7 +382,7 @@
                     console.log(respone);
                     $.each(respone,
                         function(i, item) {
-                            render += `<option value=${item.Id}>${item.ColorName}</option>`;
+                            render += `<option code=${item.Code} value=${item.Id}>${item.ColorName}<span></span></option>`;
                         });
                     $('#color-select').html(render);
                 },
