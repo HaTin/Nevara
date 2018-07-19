@@ -1,18 +1,19 @@
-﻿using System;
+﻿
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Nevara.Models.Entities;
 using Microsoft.Extensions.Logging;
+using Nevara.Models.Entities;
 using Nevara.ViewModel;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
 using ExternalLoginViewModel = Nevara.ViewModel.ExternalLoginViewModel;
 
 namespace Nevara.Controllers
 {
-    
+
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -55,12 +56,12 @@ namespace Nevara.Controllers
                 UserName = model.Email,
                 Email = model.Email,
                 FullName = model.FullName,
-                PhoneNumber = model.PhoneNumber,   
+                PhoneNumber = model.PhoneNumber,
                 Address = model.Address,
-                Avatar = string.Empty                
+                Avatar = string.Empty
             };
             var result = await _userManager.CreateAsync(user, model.Password);
-           
+
             if (result.Succeeded)
             {
                 await _userManager.SetPhoneNumberAsync(user, user.PhoneNumber);
@@ -186,11 +187,12 @@ namespace Nevara.Controllers
                 ViewData["ReturnUrl"] = returnUrl;
                 ViewData["LoginProvider"] = info.LoginProvider;
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                var name = info.Principal.FindFirstValue(ClaimTypes.Name);                
-                return View("ExternalLogin", new ExternalLoginViewModel(){ 
+                var name = info.Principal.FindFirstValue(ClaimTypes.Name);
+                return View("ExternalLogin", new ExternalLoginViewModel()
+                {
                     Email = email,
                     FullName = name,
-                    });
+                });
             }
         }
 
@@ -237,17 +239,17 @@ namespace Nevara.Controllers
 
         #endregion
 
-        
+
         public async Task<IActionResult> Profile()
         {
-            var currentUser = await _userManager.GetUserAsync(User);      
+            var currentUser = await _userManager.GetUserAsync(User);
             var viewModel = new AppUserViewModel()
             {
                 Id = currentUser.Id.ToString(),
                 FullName = currentUser.FullName,
                 Address = currentUser.Address,
                 Email = currentUser.Email,
-                Phone = currentUser.PhoneNumber                
+                Phone = currentUser.PhoneNumber
             };
             return View(viewModel);
         }
@@ -257,19 +259,22 @@ namespace Nevara.Controllers
         public async Task<IActionResult> Profile(AppUserViewModel loginVm)
         {
             if (ModelState.IsValid)
-            {            
-            var user = await _userManager.FindByIdAsync(loginVm.Id);
-            user.FullName = loginVm.FullName;
-            user.Email = loginVm.Email;
-            user.Address = loginVm.Address;  
-            user.PhoneNumber = loginVm.Phone;
-            await _userManager.UpdateAsync(user);
-            await _signInManager.RefreshSignInAsync(user);     
-          }
-            return Redirect("/account/profile");
-            //return View(loginVm);
+            {
+                var user = await _userManager.FindByIdAsync(loginVm.Id);
+                user.FullName = loginVm.FullName;
+                user.Email = loginVm.Email;
+                user.Address = loginVm.Address;
+                user.PhoneNumber = loginVm.Phone;
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    await _signInManager.RefreshSignInAsync(user);
+                    return Redirect("/account/profile");
+                }
+                AddErrors(result);
+            }
+            return View();
         }
-
     }
 
 }
