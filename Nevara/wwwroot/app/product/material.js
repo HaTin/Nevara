@@ -41,16 +41,13 @@
             $('body').on('click', '.remove', function (e) {
                 e.preventDefault();
                 var id = $(this).data('id');
-                    swal({
-                        text: 'Are you sure ?',
-                        type: "warning",
-                        title : '',
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Yes, delete it!"                        
-                },
-                    function(isConfirm) {
-                        if (!isConfirm) return;                   
+                      swal({
+                    text: 'Are you sure ?',                    
+                    icon : "warning",
+                    buttons : true,
+                    dangerMode: true
+                }).then((isConfirm) => {
+                    if (isConfirm) {
                         $.ajax({
                             type: "POST",
                             url: "/Admin/material/Remove",
@@ -58,7 +55,7 @@
                             dataType: "json",
                             success: function(response) {                                                              
                                 if (response.Success === false) {                                   
-                                    $.toast({
+                                    $.toast({                                        
                                         bgColor: '#dc3545',
                                         heading: response.Message,
                                         text: '',
@@ -86,7 +83,8 @@
                                 console.log(status);                                                            
                             }
                         });
-                    }); 
+                    }
+                });
                  
                 });                           
             $('#btn-save').on('click',

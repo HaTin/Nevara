@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Nevara.Dtos;
 using Nevara.Interfaces;
 using Nevara.Services;
 using Nevara.ViewModel;
@@ -21,10 +22,11 @@ namespace Nevara.Areas.Admin.Controllers
         private readonly IMaterialService _materialService;
         private readonly IColorService _colorService;
         private readonly IManufacturerService _manufacturerService;
+        private readonly IOrderSerivce _orderSerivce;
         public ProductController(ICategoryService categoryService,
             ICollectionService collectionService, IProductService productService,
             IMaterialService materialService,IColorService colorService,
-            IManufacturerService manufacturerService)
+            IManufacturerService manufacturerService,IOrderSerivce orderSerivce)
         {
             _categoryService = categoryService;
             _collectionService = collectionService;
@@ -32,6 +34,7 @@ namespace Nevara.Areas.Admin.Controllers
             _materialService = materialService;
             _colorService = colorService;
             _manufacturerService = manufacturerService;
+            _orderSerivce = orderSerivce;
         }
 
         public IActionResult Index()
@@ -110,6 +113,10 @@ namespace Nevara.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 return new BadRequestObjectResult(ModelState);
+            }
+            if (await _orderSerivce.CheckProductInOrder(id))
+            {
+                return new OkObjectResult(new GenericResult() { Success = false, Message = "Please remove all orders belonging to this product" });
             }
             await _productService.Remove(id);
             return new OkObjectResult(id);

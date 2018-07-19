@@ -137,23 +137,32 @@
             $('body').on('click', '.remove', function (e) {
                 e.preventDefault();
                 var id = $(this).data('id');
-                    swal({
-                        text: 'Are you sure ?',
-                        type: "warning",
-                        title : '',
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Yes, delete it!"                        
-                },
-                    function(isConfirm) {
-                        if (!isConfirm) return;
+                       swal({
+                    text: 'Are you sure ?',                    
+                    icon : "warning",
+                    buttons : true,
+                    dangerMode: true
+                }).then((isConfirm) => {
+                    if (isConfirm) {
                         $.ajax({
                             type: "POST",
                             url: "/Admin/Product/Remove",
                             data: { id: id },
                             dataType: "json",
-                            success: function (response) {                                
-                                self.loadData(true);
+                            success: function(response) {                                                              
+                                if (response.Success === false) {                                   
+                                    $.toast({                                        
+                                        bgColor: '#dc3545',
+                                        heading: response.Message,
+                                        text: '',
+                                        position: 'top-right',
+                                        loaderBg: '#dc3545',
+                                        icon: 'warning',
+                                        hideAfter: 1500,
+                                        stack: 1
+                                    });                                  
+                                } else {
+                                    self.loadData(true);
                                     $.toast({
                                         bgColor: '#20c997',
                                         heading: 'Delete Successful',
@@ -161,16 +170,17 @@
                                         position: 'top-right',
                                         loaderBg: '#20c997',
                                         icon: 'success',
-                                        hideAfter: 2500,
-                                        stack: 3
-                                    });                                
+                                        hideAfter: 1500,
+                                        stack: 2
+                                    });
+                                }
                             },
                             error: function (status) {
-                                console.log(status);                            
-                                
+                                console.log(status);                                                            
                             }
                         });
-                    }); 
+                    }
+                });
                  
                 });                           
             $('#btn-save').on('click',

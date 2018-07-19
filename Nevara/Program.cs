@@ -24,9 +24,8 @@ namespace Nevara
                     var dbSeed = services.GetService<DbSeed>();
                     dbSeed.Seed().Wait();
                 }
-                catch (Exception e)
-                {
-                    
+                catch (Exception )
+                {                    
                 }
             }
             host.Run();

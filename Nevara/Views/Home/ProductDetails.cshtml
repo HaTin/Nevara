@@ -95,21 +95,26 @@
                     </div>
                     <!-- Product Price Description End -->
                     <!-- Product Box Quantity Start -->
-                    <div class="box-quantity mtb-20">
-                        <div class="quantity-item">
-                            <label>Quantity:</label>
-                            <div class="cart-plus-minus">
-                                <input class="cart-plus-minus-box" type="text" id="txtQuantity" name="qtybutton" value="1" disabled>
+                    @if (Model.Quantity > 0)
+                    {
+                        <div class="box-quantity mtb-20">
+                            <div class="quantity-item">
+                                <label>Quantity:</label>
+                                <div class="cart-plus-minus">
+                                    <input class="cart-plus-minus-box" type="text" id="txtQuantity" name="qtybutton" value="1" disabled>
+                                </div>
                             </div>
                         </div>
+                    
+                        <!-- Product Box Quantity End -->
+                        <!-- Product Button Actions Start -->
+                        <div class="product-button-actions">
+                            <button id="btnAddToCart" data-id="@Model.Id" class="add-to-cart">Add to cart</button>
+                        </div>
+                    }
+                        <!-- Product Button Actions End -->
                     </div>
-                    <!-- Product Box Quantity End -->
-                    <!-- Product Button Actions Start -->
-                    <div class="product-button-actions">
-                        <button id="btnAddToCart" data-id="@Model.Id" class="add-to-cart">Add to cart</button>
-                    </div>
-                    <!-- Product Button Actions End -->
-                </div>
+                    
             </div>
             <!-- Thumbnail Description End -->
         </div>
