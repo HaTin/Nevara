@@ -9,9 +9,10 @@ namespace Nevara.Interfaces
 {
     public interface IOrderSerivce
     {
-        Task Create(OrderViewModel orderViewModel);
+        Task<bool> Create(OrderViewModel orderViewModel);
         Task Update(OrderViewModel orderViewModel);
         Task<OrderDetail> CreateOrderDetail(OrderDetailViewModel orderDetail);
-        Task Remove(int orderId);   
+        Task Remove(int orderId);
+        Task<bool> CheckProductInOrder(int? id);
     }
 }

@@ -1,6 +1,5 @@
 ﻿@using Nevara.Extensions
-@using Nevara.Models.Entities
-@model AppUser
+@model AppUserViewModel
 
 @{
     ViewData["Title"] = "Profile";
@@ -8,6 +7,9 @@
 }
 
 <!-- Page Breadcrumb Start -->
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
 <div class="main-breadcrumb mb-100">
     <div class="container">
         <div class="row">
@@ -63,7 +65,7 @@
                         <li class="active"><a data-toggle="tab" href="#dashboard">Dashboard</a></li>
                         <li><a data-toggle="tab" href="#orders">Orders</a></li>
                         <li><a data-toggle="tab" href="#downloads">Change password</a></li>
-                   
+
                         <li><a data-toggle="tab" href="#account-details">Account details</a></li>
                         <li><a href="log-in.html">logout</a></li>
                     </ul>
@@ -135,34 +137,36 @@
                                         <button type="submit" class="return-customer-btn f-right">Save</button>
                                     </div>
                                 </form>
-                            </div> 
+                            </div>
                         </div>
                         <div id="account-details" class="tab-pane fade">
                             <h3>Account details </h3>
                             <div class="register-form login-form clearfix">
-                                <form action="#">
+                                <form asp-action="profile" asp-controller="account">
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                    <input type="hidden" asp-for="Id" />
                                     <div class="form-group row">
-                                        <label for="f-name" class="col-lg-3 col-md-4 col-form-label">Full Name</label>
+                                        <label asp-for="FullName" class="col-lg-3 col-md-4 col-form-label">Full Name</label>
                                         <div class="col-lg-6 col-md-8">
-                                            <input value="@Model.FullName" type="text" class="form-control" id="f-name">
+                                            <input asp-for="FullName" type="text" class="form-control" id="f-name">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="email" class="col-lg-3 col-md-4 col-form-label">Email address</label>
+                                        <label asp-for="Email" class="col-lg-3 col-md-4 col-form-label">Email address</label>
                                         <div class="col-lg-6 col-md-8">
-                                            <input value="@Model.Email" type="text" class="form-control" id="email">
+                                            <input asp-for="Email" type="text" class="form-control" id="email">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="birth" class="col-lg-3 col-md-4 col-form-label">Birthdate</label>
+                                        <label asp-for="Address" class="col-lg-3 col-md-4 col-form-label">Address</label>
                                         <div class="col-lg-6 col-md-8">
-                                            <input value="@Html.DisplayFor(modelItem => Model.BirthDate)" type="text" class="form-control" id="birth" placeholder="MM/DD/YYYY">
+                                            <input asp-for="Address" type="text" class="form-control" id="birth" placeholder="Address">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="birth" class="col-lg-3 col-md-4 col-form-label">Address</label>
+                                        <label asp-for="Phone" class="col-lg-3 col-md-4 col-form-label">Phone</label>
                                         <div class="col-lg-6 col-md-8">
-                                            <input value="@Model.Address" type="text" class="form-control" id="birth" placeholder="Address">
+                                            <input asp-for="Phone" type="text" class="form-control" id="birth" placeholder="Phone">
                                         </div>
                                     </div>
                                     <div class="register-box mt-40">

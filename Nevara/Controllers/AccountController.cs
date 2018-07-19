@@ -186,7 +186,11 @@ namespace Nevara.Controllers
                 ViewData["ReturnUrl"] = returnUrl;
                 ViewData["LoginProvider"] = info.LoginProvider;
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                return View("ExternalLogin", new ExternalLoginViewModel());
+                var name = info.Principal.FindFirstValue(ClaimTypes.Name);                
+                return View("ExternalLogin", new ExternalLoginViewModel(){ 
+                    Email = email,
+                    FullName = name,
+                    });
             }
         }
 
@@ -210,7 +214,6 @@ namespace Nevara.Controllers
                     UserName = email,
                     Email = email,
                     FullName = model.FullName,
-                    BirthDate = DateTime.Parse(model.DOB),
                     Address = model.Address,
                     PhoneNumber = model.PhoneNumber
                 };
@@ -234,20 +237,37 @@ namespace Nevara.Controllers
 
         #endregion
 
+        
         public async Task<IActionResult> Profile()
         {
-            var currentUser = await _userManager.GetUserAsync(User);            
-            return View(currentUser);
+            var currentUser = await _userManager.GetUserAsync(User);      
+            var viewModel = new AppUserViewModel()
+            {
+                Id = currentUser.Id.ToString(),
+                FullName = currentUser.FullName,
+                Address = currentUser.Address,
+                Email = currentUser.Email,
+                Phone = currentUser.PhoneNumber                
+            };
+            return View(viewModel);
         }
 
-        public async Task UpdateProfile(LoginViewModel loginVm)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Profile(AppUserViewModel loginVm)
         {
+            if (ModelState.IsValid)
+            {            
             var user = await _userManager.FindByIdAsync(loginVm.Id);
             user.FullName = loginVm.FullName;
             user.Email = loginVm.Email;
-            user.Address = loginVm.Address;
-            user.BirthDate = loginVm.BirthDate;
+            user.Address = loginVm.Address;  
+            user.PhoneNumber = loginVm.Phone;
             await _userManager.UpdateAsync(user);
+            await _signInManager.RefreshSignInAsync(user);     
+          }
+            return Redirect("/account/profile");
+            //return View(loginVm);
         }
 
     }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Nevara.Interfaces;
 using Nevara.Models.Entities;
 using Nevara.ViewModel;
@@ -9,6 +11,7 @@ using Nevara.ViewModel;
 namespace Nevara.Services
 {
     public class OrderService : IOrderSerivce
+
     {
         private readonly NevaraDbContext _context;
 
@@ -17,8 +20,9 @@ namespace Nevara.Services
             _context = context;
         }
 
-        public async Task Create(OrderViewModel viewModel)
+        public async Task<bool> Create(OrderViewModel viewModel)
         {
+            bool check = true;
             var order = new Order()
             {
                 CustomerName = viewModel.CustomerName,
@@ -29,7 +33,7 @@ namespace Nevara.Services
                 CustomerMessage = viewModel.CustomerMessage ?? string.Empty,
                 CustomerMobile = viewModel.CustomerMobile,
                 PaymentMethod = viewModel.PaymentMethod,
-                UserId = viewModel.UserId                         
+                UserId = viewModel.UserId
             };
             var orderDetails = viewModel.DetailViewModels.Select(p => new OrderDetail()
             {
@@ -39,23 +43,48 @@ namespace Nevara.Services
                 ProductId = p.ProductId
             }).ToList();
             order.OrderDetails = orderDetails;
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
+            using (IDbContextTransaction transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    _context.Orders.Add(order);
+                    await _context.SaveChangesAsync();
+                    foreach (var item in viewModel.DetailViewModels)
+                    {
+                        var product = await _context.Products.FindAsync(item.ProductId);
+                        product.Quantity -= item.Quantity; 
+                    }
+                    await _context.SaveChangesAsync();
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    check = false;
+                }
+                return check;
+            }
         }
+            public Task Update(OrderViewModel orderViewModel)
+            {
+                throw new NotImplementedException();
+            }
 
-        public Task Update(OrderViewModel orderViewModel)
-        {
-            throw new NotImplementedException();
-        }
+            public Task<OrderDetail> CreateOrderDetail(OrderDetailViewModel orderDetail)
+            {
+                throw new NotImplementedException();
+            }
 
-        public Task<OrderDetail> CreateOrderDetail(OrderDetailViewModel orderDetail)
-        {
-            throw new NotImplementedException();
-        }
+            public Task Remove(int orderId)
+            {
+                throw new NotImplementedException();
+            }
 
-        public Task Remove(int orderId)
-        {
-            throw new NotImplementedException();
+            public async Task<bool> CheckProductInOrder(int? id)
+            {
+                if (await _context.OrderDetails.AnyAsync(p => p.ProductId == id))
+                    return true;
+                return false;
+            }
         }
     }
-}

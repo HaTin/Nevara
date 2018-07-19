@@ -16,8 +16,9 @@ namespace Nevara.Areas.Admin.Helpers
         }
         public override async Task<ClaimsPrincipal> CreateAsync(AppUser user)
         {
-            var principal = await base.CreateAsync(user);
+            var principal = await base.CreateAsync(user);            
             var role = await UserManager.GetRolesAsync(user);
+            
             ((ClaimsIdentity)principal.Identity).AddClaims(new[]
             {              
                 new Claim("UserId",user.Id.ToString()), 
@@ -27,8 +28,10 @@ namespace Nevara.Areas.Admin.Helpers
                 new Claim("Roles",string.Join(";",role)),
                 new Claim("Address",user.Address),
                 new Claim("Phone",user.PhoneNumber),                
-            });
+            });            
             return principal;
+            
         }
+
     }
 }

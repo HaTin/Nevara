@@ -12,8 +12,6 @@ namespace Nevara.Models.Entities
         [Required]
         [StringLength(255)]
         public string FullName { get; set; }
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime? BirthDate { get; set; }    
         public string Avatar { get; set; }
     
         [StringLength(255)]

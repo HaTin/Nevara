@@ -80,19 +80,12 @@ namespace Nevara.Controllers
                     if (User.Identity.IsAuthenticated == true)
                     {
                         orderViewModel.UserId = Guid.Parse(User.GetClaim("UserId"));
-                    }
-                    try
-                    {
-                        await _orderSerivce.Create(orderViewModel);
-                        foreach (var item in session)
-                        {
-                            await _productService.RefreshQuantity(item.Product.Id, item.Quantity);
-                        }
+                    }                            
+                        bool check = await _orderSerivce.Create(orderViewModel);             
+                    if(check){
                         ViewData["Success"] = true;
                         HttpContext.Session.Remove("cart");                 
-                    }
-                    catch (Exception)
-                    {
+                       }else{
                         ViewData["Success"] = false;             
                     }
                     

@@ -12,6 +12,6 @@ namespace Nevara.Extensions
         {
             var claim = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == claimType);
             return (claim != null) ? claim.Value : String.Empty;
-        }
+        }     
     }
 }
