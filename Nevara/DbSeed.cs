@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Nevara.Models.Entities;
+using Nevara.ApplicationCore.Models.Entities;
+
 
 namespace Nevara
 {

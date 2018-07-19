@@ -6,10 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Nevara.ApplicationCore;
+using Nevara.ApplicationCore.Interfaces;
+using Nevara.ApplicationCore.Models.Entities;
+using Nevara.ApplicationCore.Services;
 using Nevara.Areas.Admin.Helpers;
-using Nevara.Interfaces;
-using Nevara.Models.Entities;
-using Nevara.Services;
 using Newtonsoft.Json.Serialization;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
 

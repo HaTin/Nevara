@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Nevara.Extensions;
-using Nevara.ViewModel;
+using Nevara.ApplicationCore.Extensions;
+using Nevara.ApplicationCore.ViewModel;
+
 
 namespace Nevara.Components
 {

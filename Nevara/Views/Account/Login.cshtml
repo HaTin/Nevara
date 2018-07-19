@@ -1,9 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using Nevara.Areas.Admin.Models
-@using Nevara.Models.Entities
-@using Nevara.ViewModel
-@model Nevara.ViewModel.LoginViewModel
+@using Nevara.ApplicationCore.Models.Entities
 @inject SignInManager<AppUser> SignInManager
+@model LoginViewModel
 @{
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";

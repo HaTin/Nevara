@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Nevara.Dtos;
-using Nevara.Interfaces;
-using Nevara.ViewModel;
+using Nevara.ApplicationCore.Dtos;
+using Nevara.ApplicationCore.Interfaces;
+using Nevara.ApplicationCore.ViewModel;
 
 namespace Nevara.Areas.Admin.Controllers
 {

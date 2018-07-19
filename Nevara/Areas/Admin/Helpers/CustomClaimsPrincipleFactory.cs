@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using Nevara.Models.Entities;
+using Nevara.ApplicationCore.Models.Entities;
 
 namespace Nevara.Areas.Admin.Helpers
 {

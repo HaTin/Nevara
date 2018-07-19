@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Nevara.Extensions;
-using Nevara.Models.Entities;
-using Nevara.ViewModel;
-using ExternalLoginViewModel = Nevara.Areas.Admin.Models.ExternalLoginViewModel;
+using Nevara.ApplicationCore.Extensions;
+using Nevara.ApplicationCore.Models.Entities;
+using Nevara.ApplicationCore.ViewModel;
+
 
 namespace Nevara.Areas.Admin.Controllers
 {

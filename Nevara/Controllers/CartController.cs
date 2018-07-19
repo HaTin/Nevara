@@ -4,12 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Nevara.Dtos;
-using Nevara.Extensions;
-using Nevara.Interfaces;
-using Nevara.Models.Entities;
-using Nevara.Models.Enum;
-using Nevara.ViewModel;
+using Nevara.ApplicationCore.Dtos;
+using Nevara.ApplicationCore.Extensions;
+using Nevara.ApplicationCore.Interfaces;
+using Nevara.ApplicationCore.Models.Enum;
+using Nevara.ApplicationCore.ViewModel;
+
 
 namespace Nevara.Controllers
 {
