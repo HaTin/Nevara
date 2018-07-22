@@ -17,12 +17,12 @@ namespace Nevara.ApplicationCore.Interfaces
         Task<bool> CheckProductAmountInManufacturer(int? id);
         Task<bool> CheckProductAmountInCollection(int? id);
         Task<bool> CheckProductAmountInColor(int? id);
-        Task<List<ProductViewModel>> GetProductList();
+        Task<List<ProductViewModel>> GetHomeProducts();
         Task<ProductViewModel> GetProducDetail(int? productId);
         Task<List<ProductViewModel>> GetProductByCategories(int? cateId);
         Task AddImage(int productId, string[] images);
         Task<List<ProductImageViewModel>> GetImages(int productId);
         Task<int> GetAvailableQuantity(int productId);
-        Task RefreshQuantity(int productId, int quantity);
+        Task<List<ProductViewModel>> getProductByCollections(int? collectionId);
     }
 }

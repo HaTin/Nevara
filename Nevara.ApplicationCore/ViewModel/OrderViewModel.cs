@@ -14,6 +14,7 @@ namespace Nevara.ApplicationCore.ViewModel
         public string CustomerEmail { get; set; }
         public Guid? UserId { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
+        public DateTime CreatedDate { get; set; }
         public BillStatus BillStatus { get; set; }
         public IList<OrderDetailViewModel> DetailViewModels { get; set; }
     }

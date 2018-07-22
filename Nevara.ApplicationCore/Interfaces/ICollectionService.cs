@@ -11,5 +11,6 @@ namespace Nevara.ApplicationCore.Interfaces
         Task Add(CollectionViewModel viewModel);
         Task Update(CollectionViewModel viewModel);
         Task Remove(int? id);
+        
     }
 }

@@ -86,14 +86,13 @@
                         <div class="main-selection">
                             <ul class="selection-list text-right">
                                 <!-- Searcch Box Start -->
-                                <li class="hidden-control">
-                                    <i class="pe-7s-search"></i>
-                                    <ul class="search-form ht-dropdown">
+                                <li class="hidden-control">                                
+                                    <ul class="pull-left home-4-search">
                                         <li>
-                                            <form action="#">
-                                                <input type="text" class="search" name="search" placeholder="Search for products...">
+                                            <form asp-action="Search" asp-controller="Home">
+                                                <input type="text" name="keyword" placeholder="Search for products">    
                                             </form>
-                                            <i class="pe-7s-search"></i>
+                                           <i class="pe-7s-search"></i>
                                         </li>
                                     </ul>
                                 </li>
@@ -140,12 +139,7 @@
                                 <li>
                                     <a asp-area="Home">Home</a>
                                     <!-- Mobile Menu Dropdown Start -->
-                                    @*<ul>
-                                    <li><a href="index.html">Home Version 1</a></li>
-                                    <li><a href="home-2.html">Home Version 2</a></li>
-                                    <li><a href="home-3.html">Home Version 3</a></li>
-                                    <li><a href="home-4.html">Home Version 4</a></li>
-                                </ul>*@
+                            
                                     <!-- Mobile Menu Dropdown End -->
                                 </li>
                                 <li>
@@ -532,7 +526,7 @@
                 $('.main-cart-box').css('visibility', 'visible');
                 $('.main-cart-box').css('opacity', '1');
             }, function () {
-                $('.main-cart-box').css('visibility', 'hiddent');
+                $('.main-cart-box').css('visibility', 'hidden');
                 $('.main-cart-box').css('opacity', '0');
             });
         });

@@ -530,7 +530,6 @@ a.button.extra-small i { padding: 11px; width: 38px; font-size: 13px; }
         Input
 *************************/
 input {
-    background: #eceff8;
     border: 2px solid #eceff8;
     height: auto;
     box-shadow: none;
@@ -555,10 +554,6 @@ option {
     padding-left: 10px;
     font-size: 14px;
     margin: 2px 0;
-}
-input:focus {
-    background: transparent;
-    border: none;
 }
 textarea {
     resize: vertical;
@@ -1084,4 +1079,7 @@ input[type="text"]#email-two::-webkit-input-placeholder {
 }
 .socile-icon-tooltip [data-tooltip]:hover::before, .socile-icon-tooltip [data-tooltip]:hover::after, .socile-icon-tooltip [data-tooltip]:focus::before, .socile-icon-tooltip [data-tooltip]:focus::after, .socile-icon-tooltip .tooltip:hover::before, .socile-icon-tooltip .tooltip:hover::after, .socile-icon-tooltip .tooltip:focus::before, .socile-icon-tooltip .tooltip:focus::after, .socile-icon-tooltip .tooltip-top:hover::before, .socile-icon-tooltip .tooltip-top:hover::after, .socile-icon-tooltip .tooltip-top:focus::before, .socile-icon-tooltip .tooltip-top:focus::after {
     transform: translateY(-25px);
+}
+ul.pull-left.home-4-search{
+    border: 1px solid black;
 }

@@ -1,0 +1,230 @@
+﻿@model SearchResultViewModel
+@{ ViewData["Title"] = "Search"; }
+@section Scripts{
+
+    <script src="~/app/detail/detail.js"></script>
+    <script>
+        $(function () {
+            const productDetail = new DetailController();
+            productDetail.init();
+        });
+    </script>
+}
+<div class="main-breadcrumb mb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="breadcrumb-content text-center ptb-70">
+                    <h1>FURNITURE</h1>
+                    <ul class="breadcrumb-list breadcrumb">
+                        <li><a href="#">home</a></li>
+                        <li><a href="#">search</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Breadcrumb End -->
+<!-- Categories Product Start -->
+<div class="all-categories pb-100">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar Content Start -->
+            <div class="col-md-9 col-md-push-3">
+                <!-- Sidebar Right Top Content Start -->
+                <!-- Sidebar Right Top Content Start -->
+                <!-- Best Seller Product Start -->
+                <div class="best-seller">
+                    <div class="row mt-20">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="tab-content categorie-list ">
+                                <div id="list-view" class="tab-pane fade">
+
+                                    <!-- Row End -->
+                                    <div class="row mt-40 mb-70">
+                                        <div class="col-sm-6">
+                                            <ul class="blog-pagination">
+                                                <li class="active"><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                            </ul>
+                                            <!-- End of .blog-pagination -->
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="pro-list-details text-right">
+                                                <p class="mr-15 mt-10">Showing 1 to 8 of 8 (1 Pages)</p>
+                                            </div>
+                                            <!-- Pro List Details End -->
+                                        </div>
+                                    </div>
+                                    <!-- Row End -->
+                                </div>
+                                <!-- #list-view End -->
+                                @if (Model.Data.Results.Count > 0)
+                                {
+                                <h3>SEARCH RESULTS FOR   "@Model.Keyword"</h3>
+                                    <div id="grid-view" class="tab-pane fade in active mt-40">
+                                        <div class="row">
+                                            @{
+                                                foreach (var product in Model.Data.Results)
+                                                {
+                                                    <div class="col-md-4 col-sm-6">
+                                                        <!-- Single Product Start -->
+                                                        <div class="single-product">
+                                                            <!-- Product Image Start -->
+                                                            <div class="pro-img">
+                                                                <a asp-controller="Home" asp-action="ProductDetails" asp-route-id="@product.Id">
+                                                                    <img class="primary-img" src="@product.Thumbnail" alt="single-product">
+                                                                </a>
+                                                                @if (product.HotFlag == true)
+                                                                {
+                                                                    <span class="sticker-sale">hot</span>
+                                                                }
+                                                                @if (product.NewFlag == true)
+                                                                {
+                                                                    <span class="sticker-new">new</span>
+                                                                }
+                                                            </div>
+                                                            <!-- Product Image End -->
+                                                            <!-- Product Content Start -->
+                                                            <div class="pro-content text-center">
+                                                                <h4><a asp-controller="Home" asp-action="ProductDetails" asp-route-id="@product.Id">@product.Name</a></h4>
+                                                                @if (product.PromotionPrice == null)
+                                                                {
+                                                                    <p class="price"><span>@product.Price.ToString("N0") VND</span></p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p class="tax">Old Price: <span style="text-decoration: line-through;">@product.Price.ToString("N0") VND</span></p>
+                                                                    <p class="price"><span>@product.PromotionPrice.Value.ToString("N0") VND</span></p>
+                                                                }
+                                                                @if (product.Quantity > 0)
+                                                                {
+                                                                    <div class="action-links2">
+                                                                        <a data-id="@product.Id" class="add-to-cart" data-toggle="tooltip" title="Add to Cart" href="cart.html">add to cart</a>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="action-links2">
+                                                                        <a data-id="@product.Id">Out of stocks</a>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                            <!-- Product Content End -->
+                                                        </div>
+                                                        <!-- Single Product End -->
+                                                    </div>
+                                                }
+                                            }
+
+                                        </div>
+                                        <!-- Row End -->
+
+                                        <div class="row mt-40 mb-70">
+                                            <div class="col-sm-6">
+                                                <ul class="blog-pagination">
+                                                    @for (var i = 1; i <= Model.Data.PageCount; i++)
+                                                    {
+                                                        if (i == Model.Data.CurrentPage)
+                                                        {
+                                                            <li class="active"><a asp-controller="Home" asp-action="Search" asp-route-keyword="@Model.Keyword" asp-route-page="@i">@i</a></li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li><a asp-controller="Home" asp-action="Search" asp-route-keyword="@Model.Keyword" asp-route-page="@i">@i</a></li>
+                                                        }
+
+                                                    }
+                                                    @if (Model.Data.PageCount > 1 && Model.Data.PageCount != Model.Data.CurrentPage)
+                                                    {
+                                                        <li><a asp-controller="Home" asp-action="Search" asp-route-keyword="@Model.Keyword" asp-route-page="@(Model.Data.CurrentPage+1)"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                                    }
+                                                </ul>
+                                                <!-- End of .blog-pagination -->
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="pro-list-details text-right">
+                                                    <p class="mr-15 mt-10">
+                                                        Showing @((Model.Data.CurrentPage - 1) * Model.Data.PageSize + 1) to
+                                                        @if (Model.Data.CurrentPage == Model.Data.PageCount)
+                                                        {
+                                                            @Model.Data.RowCount
+                                                        }
+                                                        else
+                                                        {
+                                                            @((Model.Data.CurrentPage - 1) * Model.Data.PageSize + Model.Data.PageSize)
+                                                        }
+                                                        of @Model.Data.RowCount (@Model.Data.PageCount Pages)
+                                                    </p>
+                                                </div>
+                                                <!-- Pro List Details End -->
+                                            </div>
+                                        </div>
+                                        <!-- Row End -->
+                                    </div>
+                                }
+                                else
+                                {
+                                    <h3>No results for value "@Model.Keyword"</h3>
+
+                                }
+                                <!-- #Grid-view End -->
+                            </div>
+                            <!-- .Tab Content End -->
+                        </div>
+                    </div>
+                    <!-- Row End -->
+                </div>
+                <!-- Best Seller Product End -->
+            </div>
+            <!-- Sidebar Content End -->
+            <!-- Sidebar Start -->
+            <div class="col-md-3 col-md-pull-9">
+                <aside class="categorie-sidebar mb-100">
+                    <!-- Categories Module Start -->
+                    <div class="categorie-module mb-80">
+                        <h3>categories</h3>
+                        <ul class="categorie-list">
+                            @{
+
+                                foreach (var cate in ViewBag.Categories)
+                                {
+
+                                    <li><a asp-controller="Home" asp-action="Categories" asp-route-id="@cate.Id">@cate.Name</a></li>
+
+                                }
+                            }
+
+                            @*<li class="active">
+                                    <a href="#">Furniture (19)</a>
+                                    <ul class="sub-categorie pl-30">
+                                        <li><a href="#">Sofas & Loveseats (19)</a></li>
+                                        <li><a href="#">Chairs & Recliners (19)</a></li>
+                                    </ul>
+                                </li>*@
+
+                        </ul>
+                    </div>
+                    <!-- Categories Module End -->
+                    <!-- Filter Option Start -->
+                    <!-- Filter Option End -->
+                    <!-- Categories Color Start -->
+                    <!-- Categories Color End -->
+                    <!-- Manufactures List Start -->
+                    <!-- Manufactures List End -->
+                    <!-- Most Viewed Product Start -->
+                    <!-- Most Viewed Product End -->
+                </aside>
+            </div>
+            <!-- Sidebar End -->
+        </div>
+        <!-- Row End -->
+    </div>
+    <!-- Container End -->
+</div>
+<!-- Categories Product End -->

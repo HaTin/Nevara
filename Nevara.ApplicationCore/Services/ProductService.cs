@@ -27,7 +27,6 @@ namespace Nevara.ApplicationCore.Services
             var query = _context.Products.AsQueryable().IgnoreQueryFilters().Where(p => !p.IsDeleted);
             if (!string.IsNullOrEmpty(keyword))
             {
-
                 query = query.Where(x =>
                     Util.ConvertToUnsign(x.Name).Contains(Util.ConvertToUnsign(keyword),
                         StringComparison.CurrentCultureIgnoreCase));
@@ -53,6 +52,7 @@ namespace Nevara.ApplicationCore.Services
                 Price = p.Price,
                 Thumbnail = p.Thumbnail,
                 Quantity = p.Quantity,
+                PromotionPrice = p.PromotionPrice
             }).ToListAsync();
             var paginationSet = new PageResult<ProductViewModel>()
             {
@@ -149,50 +149,40 @@ namespace Nevara.ApplicationCore.Services
 
         public async Task Remove(int? id)
         {
-            Product pro = await _context.Products.FindAsync(id);
+            var pro = await _context.Products.FindAsync(id);
             pro.IsDeleted = true;
             await _context.SaveChangesAsync();
         }
 
         public async Task<bool> CheckProductAmountInCategory(int? id)
         {
-            if (await _context.Products.AnyAsync(p => p.CategoryId == id))
-                return true;
-            return false;
+            return await _context.Products.AnyAsync(p => p.CategoryId == id);
         }
 
         public async Task<bool> CheckProductAmountInMaterial(int? id)
         {
-            if (await _context.Products.AnyAsync(p => p.MaterialId == id))
-                return true;
-            return false;
+            return await _context.Products.AnyAsync(p => p.MaterialId == id);
         }
 
         public async Task<bool> CheckProductAmountInManufacturer(int? id)
         {
-            if (await _context.Products.AnyAsync(p => p.ManufacturerId == id))
-                return true;
-            return false;
+            return await _context.Products.AnyAsync(p => p.ManufacturerId == id);
         }
 
         public async Task<bool> CheckProductAmountInCollection(int? id)
         {
-            if (await _context.Products.AnyAsync(p => p.CollectionId == id))
-                return true;
-            return false;
+            return await _context.Products.AnyAsync(p => p.CollectionId == id);
         }
 
         public async Task<bool> CheckProductAmountInColor(int? id)
         {
-            if (await _context.Products.AnyAsync(p => p.ColorId == id))
-                return true;
-            return false;
+            return await _context.Products.AnyAsync(p => p.ColorId == id);
         }
 
-        public async Task<List<ProductViewModel>> GetProductList()
+        public async Task<List<ProductViewModel>> GetHomeProducts()
         {
-            var model = await _context.Products.Where(p => p.HomeFlag == true).Where(p => !p.IsDeleted).Take(10).Select(
-                p => new ProductViewModel()
+            var model = await _context.Products.Where(p => p.HomeFlag == true).Where(p => !p.IsDeleted).Select(
+                p => new ProductViewModel
                 {
                     Id = p.Id,
                     Name = p.Name,
@@ -200,7 +190,8 @@ namespace Nevara.ApplicationCore.Services
                     PromotionPrice = p.PromotionPrice,
                     Thumbnail = p.Thumbnail,
                     HotFlag = p.HotFlag,
-                    NewFlag = p.NewFlag                                        
+                    NewFlag = p.NewFlag,
+                    Quantity = p.Quantity                    
                 }).ToListAsync();
             return model;
         }
@@ -210,7 +201,7 @@ namespace Nevara.ApplicationCore.Services
             var model = await _context.Products.Include(p => p.Collection).Include(p => p.Category)
                 .Include(p => p.Material).Include(p => p.Manufacturer).Include(p => p.Color)
                 .FirstOrDefaultAsync(p => p.Id == productId);
-            var viewMdodel = new ProductViewModel()
+            var viewMdodel = new ProductViewModel
             {
                 Id = model.Id,
                 Name = model.Name,
@@ -245,7 +236,8 @@ namespace Nevara.ApplicationCore.Services
                 Thumbnail = p.Thumbnail,
                 HotFlag = p.HotFlag,
                 NewFlag = p.NewFlag,
-                PromotionPrice = p.PromotionPrice
+                PromotionPrice = p.PromotionPrice,
+                Quantity = p.Quantity
             }).ToListAsync();
             return result;
         }
@@ -281,11 +273,20 @@ namespace Nevara.ApplicationCore.Services
            return quantity.Value;
         }
 
-        public async Task RefreshQuantity(int productId, int quantity)
+        public async Task<List<ProductViewModel>> getProductByCollections(int? collectionId)
         {
-          var product =  await _context.Products.FindAsync(productId);
-            product.Quantity -= quantity;
-            await _context.SaveChangesAsync();
+            var result = await _context.Products.Where(p => p.CollectionId == collectionId).Select(p => new ProductViewModel()
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price,               
+                Thumbnail = p.Thumbnail,
+                HotFlag = p.HotFlag,
+                NewFlag = p.NewFlag,
+                PromotionPrice = p.PromotionPrice,
+                Quantity = p.Quantity
+            }).ToListAsync();
+            return result;
         }
     }
 }

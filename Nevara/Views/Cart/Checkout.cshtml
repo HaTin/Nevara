@@ -1,6 +1,6 @@
 ﻿@using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging
 @using Nevara.ApplicationCore.Extensions
-@model Nevara.ApplicationCore.ViewModel.CheckoutViewModel
+@model CheckoutViewModel
 @{
     ViewData["Title"] = "Checkout";
 }
@@ -130,7 +130,7 @@
                                                     @item.Product.Name<strong class="product-quantity"> × @item.Quantity</strong>
                                                 </td>
                                                 <td class="product-total">
-                                                    <span class="amount">@item.Price.ToString("N0")VND</span>
+                                                    <span class="amount">@item.GetTotal.ToString("N0") VND</span>
                                                 </td>
                                             </tr>
                                         }

@@ -1,4 +1,4 @@
-﻿using Nevara.ApplicationCore.Models.Entities;
+﻿using System;
 
 namespace Nevara.ApplicationCore.ViewModel
 {
@@ -9,7 +9,7 @@ namespace Nevara.ApplicationCore.ViewModel
         public int Quantity { get; set; }        
         public int ProductId { get; set; }        
         public decimal Price { set; get; }
-        public Order Order { get; set; }
-        
+        public OrderViewModel OrderViewModel { get; set; }
+        public ProductViewModel ProductViewModel { get; set; }     
     }
 }

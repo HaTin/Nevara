@@ -23,7 +23,7 @@ namespace Nevara.ApplicationCore
             builder.Entity<AppUser>().HasQueryFilter(p => !p.IsDeleted);
             builder.Entity<Material>().HasQueryFilter(p => !p.IsDeleted);
             builder.Entity<Color>().HasQueryFilter(p => !p.IsDeleted);            
-
+            builder.Entity<Order>().HasQueryFilter(p => !p.IsDeleted);            
             #region seed data
             builder.Entity<Color>().HasData(
                 new Color() { Id = 1, ColorName = "Red", Code = "#d80000", IsDeleted = false },

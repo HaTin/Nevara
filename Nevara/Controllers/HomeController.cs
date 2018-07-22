@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Nevara.ApplicationCore.Interfaces;
+using Nevara.ApplicationCore.ViewModel;
 
 namespace Nevara.Controllers
 {
@@ -20,8 +21,8 @@ namespace Nevara.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var proList = await _productService.GetProductList();
-            return View(proList);
+            var homeProducts = await _productService.GetHomeProducts();
+            return View(homeProducts);
         }
 
         public async Task<IActionResult> ProductDetails(int? id)
@@ -32,13 +33,26 @@ namespace Nevara.Controllers
 
         public async Task<IActionResult> Categories(int? id)
         {
+            var productVm = await _productService.GetProductByCategories(id);
+            ViewBag.Categories = await _categoryService.GetCategories();                   
+            return View(productVm);
+        }
+        public async Task<IActionResult> Collections(int? id)
+        {
+            var productVm = await _productService.getProductByCollections(id);
             ViewBag.Categories = await _categoryService.GetCategories();
-            if (id == null)
-            {
-                id = 1;
-            }
-            ViewBag.Products = await _productService.GetProductByCategories(id);
-            return View();
+            return View(productVm);
+        }
+        public async Task<IActionResult> Search(string keyword ,int page = 1)
+        {
+            ViewBag.Categories = await _categoryService.GetCategories();
+            var searchViewModel = new SearchResultViewModel
+            {                
+                Data = await _productService.GetProduct(null, null, keyword, page, 3),
+                Keyword = keyword
+                
+            };
+            return View(searchViewModel);
         }
     }
 }

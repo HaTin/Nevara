@@ -19,7 +19,7 @@ namespace Nevara.ApplicationCore.Services
         }
         public async Task<List<CategoryViewModel>> GetCategories()
         {
-            return await _context.Categories.Select(p => new CategoryViewModel()
+            return await _context.Categories.Select(p => new CategoryViewModel
             {
                 Id = p.Id,
                 Name = p.Name
