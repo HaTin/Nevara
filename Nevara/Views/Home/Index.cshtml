@@ -1,7 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Home";
 }
-@model IEnumerable<Nevara.ApplicationCore.ViewModel.ProductViewModel>
+@section Scripts{
+
+    <script src="~/app/detail/detail.js"></script>
+    <script>
+        $(function () {
+            const productDetail = new DetailController();
+            productDetail.init();
+        });
+    </script>
+}
+@model List<ProductViewModel>
 <!-- Slider Area Start -->
 <div class="slider-area pb-100">
     <!-- Main Slider Area Start -->
@@ -78,7 +88,7 @@
                                 <!-- Product Image End -->
                                 <!-- Product Content Start -->
                                 <div class="pro-content text-center">
-                                    <h4><a href="product-page.html">@product.Name</a></h4>
+                                    <h4><a asp-controller="Home" asp-action="ProductDetails" asp-route-id="@product.Id">@product.Name</a></h4>
                                     @if (product.PromotionPrice == null)
                                     {
                                         <p class="price"><span>@product.Price.ToString("N0") VND</span></p>
@@ -89,9 +99,18 @@
                                         <p class="tax">Old Price: <span style="text-decoration: line-through;">@product.Price.ToString("N0") VND</span></p>
                                         <p class="price"><span>@product.PromotionPrice.Value.ToString("N0") VND</span></p>
                                     }
-                                    <div class="action-links2">
-                                        <a data-toggle="tooltip" title="Add to Cart" href="cart.html">add to cart</a>
-                                    </div>
+                                    @if (product.Quantity > 0)
+                                    {
+                                        <div class="action-links2">
+                                            <a data-id="@product.Id" class="add-to-cart" data-toggle="tooltip" title="Add to Cart" href="cart.html">add to cart</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="action-links2">
+                                            <a data-id="@product.Id">Out of stocks</a>
+                                        </div>
+                                    }
                                 </div>
                                 <!-- Product Content End -->
                             </div>

@@ -11,6 +11,7 @@ using Nevara.ApplicationCore.Interfaces;
 using Nevara.ApplicationCore.Models.Entities;
 using Nevara.ApplicationCore.Services;
 using Nevara.Areas.Admin.Helpers;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
 
@@ -67,7 +68,11 @@ namespace Nevara
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipleFactory>();
             services.AddTransient<DbSeed>();
-            services.AddMvc().AddJsonOptions(opt => opt.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            services.AddMvc().AddJsonOptions(opt =>
+            {
+                opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                opt.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            });                
             // Services           
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<ICategoryService, CategoryService>();

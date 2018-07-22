@@ -8,19 +8,21 @@ class DetailController {
         $('body').on('click', '.dec', function(e) {
             if ($('#txtQuantity').val() === '0')
             $('#txtQuantity').val('1');
-        });
-        $('#btnAddToCart').on('click',
+        }); 
+        $('body').on('click','.add-to-cart',
             function(e) {
+            console.log(e);
                 e.preventDefault();
                 var id = parseInt($(this).data('id'));
                 var quantity = parseInt($('#txtQuantity').val());
+                console.log(quantity);
                 $.ajax({
                     url: '/Cart/AddToCart',
                     type: 'post',
                     dataType: 'json',
                     data: {
                         productId: id,
-                        quantity: quantity
+                        quantity: quantity != null ? 1 : quantity
                     },
                     success: function () {
                         self.loadHeaderCart();
@@ -38,7 +40,6 @@ class DetailController {
                 $('.main-cart-box').css('opacity', '1');
                 setTimeout(function () {                    	                
                 $('.main-cart-box').css('opacity', 0);
-                    console.log('a');
                 }, 2000);
             }
         });      
