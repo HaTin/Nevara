@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Nevara.ApplicationCore.ViewModel
 {
@@ -15,5 +16,7 @@ namespace Nevara.ApplicationCore.ViewModel
         [Required]
         [RegularExpression(@"^\d{9,12}$",ErrorMessage ="Please input valid phone number")]
         public string Phone { get; set; }
+
+        //private List<OrderViewModel> OrderViewModels { get; set; }
     }
 }

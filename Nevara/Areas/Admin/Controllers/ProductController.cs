@@ -90,9 +90,8 @@ namespace Nevara.Areas.Admin.Controllers
         public async Task<IActionResult> SaveEntity(ProductViewModel viewModel)
         {
             if (!ModelState.IsValid)
-            {
-                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
-                return new BadRequestObjectResult(allErrors);
+            {                
+                return new BadRequestObjectResult("error");
             }
         
                 if (viewModel.Id == 0)

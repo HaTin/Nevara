@@ -1400,7 +1400,9 @@ ul.pull-left.home-4-search i {
 .main-breadcrumb {
     background: rgba(0, 0, 0, 0) url("/img/blog/5.png") no-repeat scroll center center / cover;
 }
-
+.main-selection{
+    width: 421px;
+}
 .breadcrumb-content h1 {
     font-size: 24px;
     font-weight: 700;

@@ -22,7 +22,7 @@ class DetailController {
                     dataType: 'json',
                     data: {
                         productId: id,
-                        quantity: quantity != null ? 1 : quantity
+                        quantity: isNaN(quantity) ? 1 : quantity
                     },
                     success: function () {
                         self.loadHeaderCart();
