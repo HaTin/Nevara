@@ -44,11 +44,10 @@
                     <div class="thumb-menu owl-carousel">
                         @foreach (var img in Model.Images)
                         {
-                            <a href="#" data-image="@img.ImagePath" data-zoom-image="@img.ImagePath">
-                                <img src="@img.ImagePath" alt="product-image" />
+                            <a href="#" data-image="@img.ImagePath">
+                                <img src="@img.ImagePath" alt="product-image"/>
                             </a>
                         }
-
                     </div>
                 </div>
             </div>
