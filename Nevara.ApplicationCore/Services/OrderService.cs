@@ -163,5 +163,17 @@ namespace Nevara.ApplicationCore.Services
         {
             return await _context.OrderDetails.AnyAsync(p => p.ProductId == id);
         }
+
+        public async Task<List<OrderViewModel>> GetOrderForCustomer(string userId)
+        {        
+            var data = await _context.Orders.Where(p => p.UserId == new Guid(userId)).Select(p => new OrderViewModel
+            {
+                Id = p.Id,                
+                BillStatus = p.BillStatus,
+                PaymentMethod = p.PaymentMethod,
+                CreatedDate = p.CreatedDate               
+            }).ToListAsync();
+            return data;
         }
+    }
     }

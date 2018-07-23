@@ -27,7 +27,7 @@ namespace Nevara.Areas.Admin.Helpers
                 new Claim("Avatar",user.Avatar??string.Empty),
                 new Claim("Roles",string.Join(";",role)),
                 new Claim("Address",user.Address),
-                new Claim("Phone",user.PhoneNumber),                
+                new Claim("Phone",user.PhoneNumber)           
             });            
             return principal;
             

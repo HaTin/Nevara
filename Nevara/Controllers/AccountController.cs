@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Nevara.ApplicationCore.Extensions;
+using Nevara.ApplicationCore.Interfaces;
 using Nevara.ApplicationCore.Models.Entities;
 using Nevara.ApplicationCore.ViewModel;
 
@@ -15,24 +17,25 @@ using PaulMiami.AspNetCore.Mvc.Recaptcha;
 namespace Nevara.Controllers
 {
 
+    
     public class AccountController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly ILogger _logger;
+       
+        private readonly IOrderSerivce _orderSerivce;
 
         [TempData]
         public string ErrorMessage { get; set; }
 
-        public AccountController(
-            UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager,
-            ILogger<AccountController> logger)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IOrderSerivce orderSerivce)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
+ 
+            _orderSerivce = orderSerivce;
         }
+
         [HttpGet]
         public IActionResult Register(string returnUrl = null)
         {
@@ -44,7 +47,7 @@ namespace Nevara.Controllers
         [ValidateAntiForgeryToken]
         [ValidateRecaptcha]
         [Route("register.html")]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = "account/login")
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (!ModelState.IsValid)
@@ -66,9 +69,8 @@ namespace Nevara.Controllers
             if (result.Succeeded)
             {
                 await _userManager.SetPhoneNumberAsync(user, user.PhoneNumber);
-                await _userManager.AddToRoleAsync(user, "Customer");
-                return RedirectToLocal(returnUrl);
-                // add a
+                await _userManager.AddToRoleAsync(user, "Customer");                
+                return RedirectToLocal(returnUrl);          
             }
             AddErrors(result);
             // a
@@ -83,13 +85,14 @@ namespace Nevara.Controllers
             {
                 return RedirectToLocal("/home");
             }
-            ViewData["ReturnUrl"] = returnUrl;
+            ViewData["ReturnURL"] = returnUrl;
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -175,15 +178,14 @@ namespace Nevara.Controllers
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
-                _logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
+               // _logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
                 return RedirectToLocal(returnUrl);
             }
             if (result.IsLockedOut)
             {
                 return RedirectToAction(nameof(Logout));
             }
-            else
-            {
+      
                 // If the user does not have an account, then ask the user to create an account.
                 ViewData["ReturnUrl"] = returnUrl;
                 ViewData["LoginProvider"] = info.LoginProvider;
@@ -194,7 +196,7 @@ namespace Nevara.Controllers
                     Email = email,
                     FullName = name,
                 });
-            }
+            
         }
 
         [HttpPost]
@@ -227,7 +229,7 @@ namespace Nevara.Controllers
                     if (result.Succeeded)
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+                        //_logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -241,6 +243,8 @@ namespace Nevara.Controllers
         #endregion
 
 
+        [Authorize]
+        [HttpGet]
         public async Task<IActionResult> Profile()
         {
             var currentUser = await _userManager.GetUserAsync(User);
@@ -257,6 +261,7 @@ namespace Nevara.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Profile(AppUserViewModel loginVm)
         {
             if (ModelState.IsValid)
@@ -276,6 +281,20 @@ namespace Nevara.Controllers
             }
             return View();
         }
-    }
 
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Order()
+        {
+            var data = await _orderSerivce.GetOrderForCustomer(User.GetClaim("UserId"));
+            return View(data);
+        }
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> OrderDetail(int id)
+        {
+            var data = await _orderSerivce.getOrder(id);
+            return View(data);
+    }
+        }
 }
