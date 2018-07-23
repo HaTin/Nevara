@@ -108,14 +108,12 @@ namespace Nevara
         {
             // add file for logging          
             if (env.IsDevelopment())
-            {
-                app.UseBrowserLink();
-                app.UseDeveloperExceptionPage();
-                //app.UseExceptionHandler("/Home/Error");
+            {                
+                app.UseExceptionHandler("/Home/Error");
             }
             else
             {
-                app.UseExceptionHandler("/404/Index");
+                app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseStaticFiles();
