@@ -31,7 +31,6 @@ namespace Nevara.ApplicationCore.Services
                     Util.ConvertToUnsign(x.Name).Contains(Util.ConvertToUnsign(keyword),
                         StringComparison.CurrentCultureIgnoreCase));
             }
-
             if (categoryId.HasValue)
             {
                 query = query.Where(x => x.CategoryId == categoryId);
@@ -44,7 +43,7 @@ namespace Nevara.ApplicationCore.Services
 
             int totalRow = await query.CountAsync();
             query = query.OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize);
-            var data = await query.Select(p => new ProductViewModel()
+            var data = await query.Select(p => new ProductViewModel
             {
                 Id = p.Id,
                 Name = p.Name,
@@ -52,6 +51,8 @@ namespace Nevara.ApplicationCore.Services
                 Price = p.Price,
                 Thumbnail = p.Thumbnail,
                 Quantity = p.Quantity,
+                NewFlag = p.NewFlag,
+                HotFlag = p.HotFlag,
                 PromotionPrice = p.PromotionPrice
             }).ToListAsync();
             var paginationSet = new PageResult<ProductViewModel>()

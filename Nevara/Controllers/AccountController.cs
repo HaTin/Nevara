@@ -32,7 +32,6 @@ namespace Nevara.Controllers
         {
             _userManager = userManager;
             _signInManager = signInManager;
- 
             _orderSerivce = orderSerivce;
         }
 

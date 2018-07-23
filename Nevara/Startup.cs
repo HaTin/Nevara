@@ -120,7 +120,7 @@ namespace Nevara
 
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseMiniProfiler();
+            //app.UseMiniProfiler();
             app.UseSession();
             app.UseMvc(routes =>
             {
