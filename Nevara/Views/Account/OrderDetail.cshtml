@@ -1,0 +1,130 @@
+@using Nevara.ApplicationCore.Extensions
+@model OrderViewModel
+@{
+    ViewData["Title"] = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+	.invoice-title h2, .invoice-title h3 {
+		display: inline-block;
+	}
+
+	.table > tbody > tr > .no-line {
+		border-top: none;
+	}
+
+	.table > thead > tr > .no-line {
+		border-bottom: none;
+	}
+
+	.table > tbody > tr > .thick-line {
+		border-top: 2px solid;
+	}
+</style>
+<!-- Page Breadcrumb Start -->
+<div class="main-breadcrumb mb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="breadcrumb-content text-center ptb-70">
+                    <ul class="breadcrumb-list breadcrumb">
+                        <li><a href="#">home</a></li>
+                        <li><a href="#">order</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Row End -->
+    </div>
+    <!-- Container End -->
+</div>
+<!-- Page Breadcrumb End -->
+<!-- My Account Page Start Here -->
+<div class="my-account white-bg pb-100">
+    <div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+    		<div class="invoice-title">
+    			<h2>Invoice</h2><h3 class="pull-right">Order # @Model.Id</h3>
+    		</div>
+    		<hr>
+    		<div class="row">
+    			<div class="col-xs-6">
+    				<address>
+    				<strong>Customer Information:</strong><br>
+    					Name :@Model.CustomerName<br>
+    					Address :@Model.CustomerAddress<br>
+    					Phone : @Model.CustomerMobile<br>
+    					Email : @Model.CustomerEmail
+    				</address>
+    			</div>
+			    <div class="col-xs-6 text-right">
+				    <address>
+					    <strong>Order Status</strong><br>
+					    @Model.BillStatus.GetDescription()
+				    </address>
+			    </div>
+    		</div>
+    		<div class="row">
+    			<div class="col-xs-6">
+    				<address>
+    					<strong>Payment Method:</strong><br>
+    					@Model.PaymentMethod.GetDescription()
+    				</address>
+    			</div>
+    			<div class="col-xs-6 text-right">
+    				<address>
+    					<strong>Order Date:</strong><br>
+    					@Html.DisplayFor(p=>Model.CreatedDate)<br><br>
+    				</address>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-md-12">
+    		<div class="panel panel-default">
+    			<div class="panel-heading">
+    				<h3 class="panel-title"><strong>Order summary</strong></h3>
+    			</div>
+    			<div class="panel-body">
+    				<div class="table-responsive">
+    					<table class="table table-condensed">
+    						<thead>
+                                <tr>
+	                                <td><strong>Item</strong></td>
+	                                <td class="text-center"><strong>Price</strong></td>
+	                                <td class="text-center"><strong>Quantity</strong></td>
+	                                <td class="text-right"><strong>Totals</strong></td>
+                                </tr>
+    						</thead>
+    						<tbody>
+    							@foreach (var item in Model.DetailViewModels)
+							    {
+								    <tr>
+									    <td>@item.ProductViewModel.Name</td>	
+									    <td class="text-center">@item.Price.ToString("N0") VND</td>
+									    <td class="text-center">@item.Quantity</td>
+									    @{
+										    var total = item.Price * item.Quantity;
+									    }
+									    <td class="text-right">@total.ToString("N0") VND</td>
+								    </tr>
+							    }   						
+    							<tr>
+    								<td class="thick-line"></td>    								
+    								<td class="thick-line"></td>    								
+    								<td class="thick-line text-center"></td>
+								    <td class="thick-line text-right" ><strong>Total Amount  : </strong>@Model.DetailViewModels.Sum(p => p.Price * p.Quantity).ToString("N0") VND</td>
+    							</tr>
+    						</tbody>
+    					</table>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</div>
+</div>
+

@@ -58,10 +58,10 @@ namespace Nevara
 
                 // If the LoginPath isn't set, ASP.NET Core defaults 
                 // the path to /Account/Login.
-               options.LoginPath = "/Admin/Account/Login";
+               options.LoginPath = "/Account/Login";
                 // If the AccessDeniedPath isn't set, ASP.NET Core defaults 
                 // the path to /Account/AccessDenied.
-               options.AccessDeniedPath = "/Admin/Account/Login";
+               options.AccessDeniedPath = "/Home/Error";
             });
             services.AddMiniProfiler().AddEntityFramework();
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
@@ -111,10 +111,11 @@ namespace Nevara
             {
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
+                //app.UseExceptionHandler("/Home/Error");
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/404/Index");
             }
 
             app.UseStaticFiles();

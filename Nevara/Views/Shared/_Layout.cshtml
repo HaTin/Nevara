@@ -115,6 +115,10 @@
                                             <ul>
                                                 @if (User.Identity.IsAuthenticated)
                                                 {
+                                                    if (@User.GetClaim("Roles").Equals("Admin"))
+                                                    {
+                                                        <li><a href="/admin/">Dashboard</a></li>    
+                                                    }
                                                     <li><a href="/Account/Profile">My Account</a></li>
                                                     <li><a asp-action="Logout" asp-controller="Account">Logout</a></li>
                                                 }

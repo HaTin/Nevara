@@ -25,20 +25,13 @@ namespace Nevara.Areas.Admin.Controllers
         }
         [HttpGet]
         [AllowAnonymous]
-        public async Task <IActionResult> Login(string returnUrl = null)
+        public async Task <IActionResult> Login(string ReturnUrl = null)
         {
             if (_signInManager.IsSignedIn(User))
-            {
-                if (User.GetClaim("Roles").Contains("Customer"))
-                {
-                    await _signInManager.SignOutAsync();
-                }
-                else
-                {
-                    return RedirectToLocal("/admin/home");
-                }
+            {               
+                    return RedirectToLocal("/admin/home");                
             }
-            ViewData["ReturnUrl"] = returnUrl;
+            ViewData["ReturnUrl"] = ReturnUrl;
             return View();
         }
 

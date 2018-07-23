@@ -12,8 +12,8 @@ using Nevara.ApplicationCore.ViewModel;
 
 namespace Nevara.Areas.Admin.Controllers
 {
-    [Authorize]
-    [Area("Admin")]  
+    [Authorize(Roles = "Admin")]
+    [Area("Admin")]
     public class ProductController : Controller
     {
         private readonly ICategoryService _categoryService;

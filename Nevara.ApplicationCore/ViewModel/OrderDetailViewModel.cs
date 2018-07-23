@@ -10,6 +10,6 @@ namespace Nevara.ApplicationCore.ViewModel
         public int ProductId { get; set; }        
         public decimal Price { set; get; }
         public OrderViewModel OrderViewModel { get; set; }
-        public ProductViewModel ProductViewModel { get; set; }     
+        public ProductViewModel ProductViewModel { get; set; }   
     }
 }

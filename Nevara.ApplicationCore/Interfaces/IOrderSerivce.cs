@@ -16,5 +16,6 @@ namespace Nevara.ApplicationCore.Interfaces
         Task<List<OrderDetailViewModel>> getOrderDetails(int orderId);
         Task<OrderViewModel> getOrder(int orderId);
         Task<bool> CheckProductInOrder(int? id);
+        Task<List<OrderViewModel>> GetOrderForCustomer(string customerId);
     }
 }
