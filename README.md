@@ -9,4 +9,4 @@ Online furniture store built on .NET core
 - Update the connection string in appsettings.json
 - Build whole solution.
 - In Visual Studio, press "Control + F5".
-- Admin section can be accessed via pre-created account : admin@gmail.com/123456
+- Admin section can be accessed via pre-created account : admin/123456
