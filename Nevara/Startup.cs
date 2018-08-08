@@ -63,11 +63,11 @@ namespace Nevara
                 // the path to /Account/AccessDenied.
                options.AccessDeniedPath = "/Home/Error";
             });
-            services.AddMiniProfiler().AddEntityFramework();
+            //services.AddMiniProfiler().AddEntityFramework();
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddScoped<RoleManager<AppRole>, RoleManager<AppRole>>();
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipleFactory>();
-            services.AddTransient<DbSeed>();
+            //services.AddTransient<DbSeed>();
             services.AddMvc().AddJsonOptions(opt =>
             {
                 opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Nevara.ApplicationCore.Dtos;
 using Nevara.ApplicationCore.Interfaces;
+using Nevara.ApplicationCore.Services;
 using Nevara.ApplicationCore.ViewModel;
 
 
@@ -43,7 +44,7 @@ namespace Nevara.Areas.Admin.Controllers
         }
         [HttpGet]
         public async Task<IActionResult> GetProduct(int? categoryId,int? collectionId, string keyword, int page, int pageSize)
-        {
+        {            
             var model = await _productService.GetProduct(categoryId,collectionId, keyword, page, pageSize);
             return new OkObjectResult(model);
         }
